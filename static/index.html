@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Bhaṣya — Gītā Reader's Assistant</title>
+  <meta name="description" content="AI-powered Bhagavad Gita knowledge system: RDF · SPARQL · Graph Search · CSP · Expert System · Uncertainty">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪷</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+
+<!-- Aceternity-style aurora background -->
+<div class="aurora" aria-hidden="true">
+  <div class="aurora-blob a1"></div>
+  <div class="aurora-blob a2"></div>
+  <div class="aurora-blob a3"></div>
+</div>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <span class="om-glyph">ॐ</span>
+    <div class="brand-name">DIGITAL BHAṢYA</div>
+  </div>
+  <nav class="sidebar-nav" id="sidebar-nav">
+    <div class="nav-item active"  data-page="home">       <span class="nav-icon"><i data-lucide="house"></i></span> Home</div>
+    <div class="nav-item"         data-page="verses">     <span class="nav-icon"><i data-lucide="book-open"></i></span> Verse Browser</div>
+    <div class="nav-item"         data-page="graph">      <span class="nav-icon"><i data-lucide="network"></i></span> Knowledge Graph</div>
+    <div class="nav-item"         data-page="ask">        <span class="nav-icon"><i data-lucide="message-circle"></i></span> Ask the Gītā</div>
+    <div class="nav-item"         data-page="search">     <span class="nav-icon"><i data-lucide="search"></i></span> Graph Search</div>
+    <div class="nav-item"         data-page="planner">    <span class="nav-icon"><i data-lucide="calendar"></i></span> Study Planner</div>
+    <div class="nav-item"         data-page="uncertainty"><span class="nav-icon"><i data-lucide="gauge"></i></span> Uncertainty</div>
+    <div class="nav-item"         data-page="expert">     <span class="nav-icon"><i data-lucide="cpu"></i></span> Expert System</div>
+  </nav>
+  <div class="sidebar-footer">
+    Knowledge Representation · Graph Search<br>
+    Inference · CSP · Uncertainty<br>
+    <span style="color:var(--gold-dim);">Bhagavad Gītā AI System</span>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+  <div class="page-content" id="page-content">
+    <!-- Pages rendered by JS -->
+  </div>
+</main>
+
+<!-- ── NODE INSPECT PANEL ── -->
+<div class="node-panel" id="node-panel">
+  <span class="panel-close" id="panel-close" title="Close">✕</span>
+  <div id="panel-content"></div>
+</div>
+
+<!-- ── Scripts: utils first, then pages, then init ── -->
+<script src="utils.js"></script>
+<script src="pages/home.js"></script>
+<script src="pages/verses.js"></script>
+<script src="pages/graph.js"></script>
+<script src="pages/search.js"></script>
+<script src="pages/ask.js"></script>
+<script src="pages/planner.js"></script>
+<script src="pages/uncertainty.js"></script>
+<script src="pages/expert.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+    Router.init();
+  });
+</script>
+</body>
+</html>

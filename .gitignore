@@ -11,3 +11,5 @@ env/
 venv/
 *.pkl
 .streamlit/secrets.toml
+.claude/
+.gemini/
