@@ -1,0 +1,874 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Digital Bhaṣya — Bhagavad Gītā Knowledge Ontology
+# OWL 2 / RDF Turtle Format
+# 16 Classes · 9 Object Properties · 10 Data Properties
+# 30 Verse Instances · 23 Concept Instances · 3 Chapters · 2 Speakers
+# ═══════════════════════════════════════════════════════════════════════════════
+
+@prefix gita:  <http://example.org/gita#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# ONTOLOGY DECLARATION
+# ───────────────────────────────────────────────────────────────────────────────
+
+<http://example.org/gita>
+    a owl:Ontology ;
+    rdfs:label "Digital Bhashya — Bhagavad Gita Knowledge Ontology"^^xsd:string ;
+    rdfs:comment "An OWL 2 ontology for the Intelligent Gita Reader's Assistant. Encodes 30 verses across Chapters 2, 3, 6 with 23 philosophical concepts and their inter-relationships."^^xsd:string .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# TOP-LEVEL CLASSES  (16 total — satisfies ≥15 requirement)
+# ───────────────────────────────────────────────────────────────────────────────
+
+# Root classes
+gita:ScripturalEntity      a owl:Class ;
+    rdfs:label "Scriptural Entity"^^xsd:string ;
+    rdfs:comment "Any scriptural unit: a Chapter or a Verse"^^xsd:string .
+
+gita:PhilosophicalConcept  a owl:Class ;
+    rdfs:label "Philosophical Concept"^^xsd:string ;
+    rdfs:comment "A philosophical idea, practice, attainment, or quality in the Gita"^^xsd:string .
+
+gita:Person                a owl:Class ;
+    rdfs:label "Person"^^xsd:string ;
+    rdfs:comment "A speaker in the Gita dialogue"^^xsd:string .
+
+gita:CommentaryTradition   a owl:Class ;
+    rdfs:label "Commentary Tradition"^^xsd:string ;
+    rdfs:comment "A school of Vedantic interpretation (Advaita, Vishishtadvaita, Dvaita)"^^xsd:string .
+
+# ScripturalEntity subclasses (2 = classes 4–5)
+gita:Chapter  rdfs:subClassOf gita:ScripturalEntity ;
+    a owl:Class ;
+    rdfs:label "Chapter (Adhyaya)"^^xsd:string .
+
+gita:Verse    rdfs:subClassOf gita:ScripturalEntity ;
+    a owl:Class ;
+    rdfs:label "Verse (Shloka)"^^xsd:string .
+
+# PhilosophicalConcept subclasses (6 = classes 6–11)
+gita:YogaPath       rdfs:subClassOf gita:PhilosophicalConcept ;
+    a owl:Class ;
+    rdfs:label "Yoga Path"^^xsd:string ;
+    rdfs:comment "One of the four principal paths to liberation"^^xsd:string .
+
+gita:Practice       rdfs:subClassOf gita:PhilosophicalConcept ;
+    a owl:Class ;
+    rdfs:label "Spiritual Practice (Sadhana)"^^xsd:string ;
+    rdfs:comment "A discipline or practice that leads toward liberation"^^xsd:string .
+
+gita:Attainment     rdfs:subClassOf gita:PhilosophicalConcept ;
+    a owl:Class ;
+    rdfs:label "Spiritual Attainment"^^xsd:string ;
+    rdfs:comment "A state of realisation reached through practice"^^xsd:string .
+
+gita:DownfallCause  rdfs:subClassOf gita:PhilosophicalConcept ;
+    a owl:Class ;
+    rdfs:label "Cause of Downfall (Adhogati)"^^xsd:string ;
+    rdfs:comment "A mental state that leads away from liberation"^^xsd:string .
+
+gita:Guna           rdfs:subClassOf gita:PhilosophicalConcept ;
+    a owl:Class ;
+    rdfs:label "Guna (Quality of Nature)"^^xsd:string ;
+    rdfs:comment "One of the three qualities of Prakriti: Sattva, Rajas, Tamas"^^xsd:string .
+
+gita:EthicalConcept rdfs:subClassOf gita:PhilosophicalConcept ;
+    a owl:Class ;
+    rdfs:label "Ethical Concept"^^xsd:string ;
+    rdfs:comment "A moral or dharmic principle"^^xsd:string .
+
+# YogaPath subclasses (4 = classes 12–15)
+gita:KarmaYogaPath  rdfs:subClassOf gita:YogaPath ;
+    a owl:Class ;
+    rdfs:label "Karma Yoga Path"^^xsd:string .
+
+gita:JnanaYogaPath  rdfs:subClassOf gita:YogaPath ;
+    a owl:Class ;
+    rdfs:label "Jnana Yoga Path"^^xsd:string .
+
+gita:DhyanaYogaPath rdfs:subClassOf gita:YogaPath ;
+    a owl:Class ;
+    rdfs:label "Dhyana Yoga Path"^^xsd:string .
+
+gita:BhaktiYogaPath rdfs:subClassOf gita:YogaPath ;
+    a owl:Class ;
+    rdfs:label "Bhakti Yoga Path"^^xsd:string .  # class 16
+
+# ───────────────────────────────────────────────────────────────────────────────
+# DISJOINTNESS AXIOMS
+# ───────────────────────────────────────────────────────────────────────────────
+
+[] a owl:AllDisjointClasses ;
+   owl:members ( gita:YogaPath gita:DownfallCause gita:Guna gita:Attainment ) .
+
+[] a owl:AllDisjointClasses ;
+   owl:members ( gita:Chapter gita:Verse ) .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# OBJECT PROPERTIES  (9 total)
+# ───────────────────────────────────────────────────────────────────────────────
+
+# 1. Verse → Chapter
+gita:belongsToChapter  a owl:ObjectProperty ;
+    rdfs:label "belongs to chapter"^^xsd:string ;
+    rdfs:domain gita:Verse ;
+    rdfs:range  gita:Chapter .
+
+# 2. Verse → Person
+gita:spokenBy          a owl:ObjectProperty ;
+    rdfs:label "spoken by"^^xsd:string ;
+    rdfs:domain gita:Verse ;
+    rdfs:range  gita:Person .
+
+# 3. Verse → PhilosophicalConcept
+gita:teaches           a owl:ObjectProperty ;
+    rdfs:label "teaches"^^xsd:string ;
+    rdfs:domain gita:Verse ;
+    rdfs:range  gita:PhilosophicalConcept .
+
+# 4. Verse → Verse (dialogue structure)
+gita:respondsTo        a owl:ObjectProperty ;
+    rdfs:label "responds to"^^xsd:string ;
+    rdfs:domain gita:Verse ;
+    rdfs:range  gita:Verse .
+
+# 5. PhilosophicalConcept → PhilosophicalConcept  *** TRANSITIVE ***
+gita:leadsTo           a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:label "leads to"^^xsd:string ;
+    rdfs:comment "Transitive: if A leadsTo B and B leadsTo C, then A leadsTo C"^^xsd:string ;
+    rdfs:domain gita:PhilosophicalConcept ;
+    rdfs:range  gita:PhilosophicalConcept .
+
+# 6. Practice → Practice (prerequisite)
+gita:requires          a owl:ObjectProperty ;
+    rdfs:label "requires"^^xsd:string ;
+    rdfs:domain gita:Practice ;
+    rdfs:range  gita:Practice .
+
+# 7. PhilosophicalConcept ↔ PhilosophicalConcept  *** SYMMETRIC ***
+gita:contrastsWith     a owl:ObjectProperty, owl:SymmetricProperty ;
+    rdfs:label "contrasts with"^^xsd:string ;
+    rdfs:comment "Symmetric: if A contrastsWith B then B contrastsWith A"^^xsd:string ;
+    rdfs:domain gita:PhilosophicalConcept ;
+    rdfs:range  gita:PhilosophicalConcept .
+
+# 8. PhilosophicalConcept → PhilosophicalConcept (hierarchy)
+gita:subConceptOf      a owl:ObjectProperty ;
+    rdfs:label "sub-concept of"^^xsd:string ;
+    rdfs:domain gita:PhilosophicalConcept ;
+    rdfs:range  gita:PhilosophicalConcept .
+
+# 9. *** PROPERTY CHAIN AXIOM ***
+# spirituallyProgressesTo = teaches ∘ leadsTo
+# If verse V teaches concept C and C leadsTo concept D,
+# then V spirituallyProgressesTo D  (inferred, not asserted)
+gita:spirituallyProgressesTo  a owl:ObjectProperty ;
+    rdfs:label "spiritually progresses to"^^xsd:string ;
+    rdfs:comment "Derived via property chain: teaches ∘ leadsTo. Enables CQ6."^^xsd:string ;
+    owl:propertyChainAxiom ( gita:teaches gita:leadsTo ) ;
+    rdfs:domain gita:Verse ;
+    rdfs:range  gita:PhilosophicalConcept .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# DATA PROPERTIES  (10 total)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:verseNumber    a owl:DatatypeProperty ;
+    rdfs:domain gita:Verse   ; rdfs:range xsd:integer .
+
+gita:chapterNumber  a owl:DatatypeProperty ;
+    rdfs:domain gita:Chapter ; rdfs:range xsd:integer .
+
+gita:textSanskrit   a owl:DatatypeProperty ;
+    rdfs:domain gita:Verse   ; rdfs:range xsd:string .
+
+gita:translationEn  a owl:DatatypeProperty ;
+    rdfs:domain gita:Verse   ; rdfs:range xsd:string .
+
+gita:contextNote    a owl:DatatypeProperty ;
+    rdfs:domain gita:Verse   ; rdfs:range xsd:string .
+
+gita:conceptName    a owl:DatatypeProperty ;
+    rdfs:domain gita:PhilosophicalConcept ; rdfs:range xsd:string .
+
+gita:definitionEn   a owl:DatatypeProperty ;
+    rdfs:domain gita:PhilosophicalConcept ; rdfs:range xsd:string .
+
+gita:category       a owl:DatatypeProperty ;
+    rdfs:domain gita:PhilosophicalConcept ; rdfs:range xsd:string .
+
+gita:certaintyScore a owl:DatatypeProperty ;
+    rdfs:domain gita:Verse   ; rdfs:range xsd:decimal .
+
+gita:heuristicDist  a owl:DatatypeProperty ;
+    rdfs:comment "A* heuristic category distance to Moksha (0=Attainment, 1=Practice, 2=YogaPath, 3=Guna/Ethical, 4=DownfallCause)"^^xsd:string ;
+    rdfs:domain gita:PhilosophicalConcept ; rdfs:range xsd:integer .
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INSTANCES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ───────────────────────────────────────────────────────────────────────────────
+# CHAPTERS (3)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:Chapter_2  a gita:Chapter ;
+    rdfs:label "Chapter 2 — Sankhya Yoga"^^xsd:string ;
+    gita:chapterNumber 2 .
+
+gita:Chapter_3  a gita:Chapter ;
+    rdfs:label "Chapter 3 — Karma Yoga"^^xsd:string ;
+    gita:chapterNumber 3 .
+
+gita:Chapter_6  a gita:Chapter ;
+    rdfs:label "Chapter 6 — Dhyana Yoga"^^xsd:string ;
+    gita:chapterNumber 6 .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# SPEAKERS (2)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:Krishna  a gita:Person ;
+    rdfs:label "Krishna"^^xsd:string ;
+    gita:category "Teacher"^^xsd:string .
+
+gita:Arjuna   a gita:Person ;
+    rdfs:label "Arjuna"^^xsd:string ;
+    gita:category "Questioner"^^xsd:string .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# COMMENTARY TRADITIONS (3)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:Shankara  a gita:CommentaryTradition ;
+    rdfs:label "Adi Shankaracharya — Advaita Vedanta"^^xsd:string .
+
+gita:Ramanuja  a gita:CommentaryTradition ;
+    rdfs:label "Ramanujacharya — Vishishtadvaita Vedanta"^^xsd:string .
+
+gita:Madhva    a gita:CommentaryTradition ;
+    rdfs:label "Madhvacharya — Dvaita Vedanta"^^xsd:string .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# CONCEPT INSTANCES — YogaPaths (4)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:KarmaYoga_inst  a gita:KarmaYogaPath ;
+    gita:conceptName  "Karma Yoga"^^xsd:string ;
+    gita:definitionEn "The path of selfless action; performing one's duty without attachment to results"^^xsd:string ;
+    gita:category     "YogaPath"^^xsd:string ;
+    gita:heuristicDist 2 ;
+    gita:leadsTo      gita:ChittaShuddhi ;
+    gita:contrastsWith gita:Sannyasa_inst .
+
+gita:JnanaYoga_inst  a gita:JnanaYogaPath ;
+    gita:conceptName  "Jnana Yoga"^^xsd:string ;
+    gita:definitionEn "The path of knowledge and discrimination; realising the eternal Self through inquiry"^^xsd:string ;
+    gita:category     "YogaPath"^^xsd:string ;
+    gita:heuristicDist 2 ;
+    gita:leadsTo      gita:AtmaJnana .
+
+gita:DhyanaYoga_inst  a gita:DhyanaYogaPath ;
+    gita:conceptName  "Dhyana Yoga"^^xsd:string ;
+    gita:definitionEn "The path of meditation; stilling the mind to perceive the Self"^^xsd:string ;
+    gita:category     "YogaPath"^^xsd:string ;
+    gita:heuristicDist 2 ;
+    gita:leadsTo      gita:Sthitaprajna ;
+    gita:leadsTo      gita:Samadhi .
+
+gita:BhaktiYoga_inst  a gita:BhaktiYogaPath ;
+    gita:conceptName  "Bhakti Yoga"^^xsd:string ;
+    gita:definitionEn "The path of devotion; surrendering all actions as an offering to the Divine"^^xsd:string ;
+    gita:category     "YogaPath"^^xsd:string ;
+    gita:heuristicDist 2 ;
+    gita:leadsTo      gita:Moksha .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# CONCEPT INSTANCES — Practices (5)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:NishkamaKarma  a gita:Practice ;
+    gita:conceptName  "Nishkama Karma"^^xsd:string ;
+    gita:definitionEn "Action without attachment to its fruits; acting from duty alone"^^xsd:string ;
+    gita:category     "Practice"^^xsd:string ;
+    gita:heuristicDist 1 ;
+    gita:leadsTo      gita:ChittaShuddhi ;
+    gita:subConceptOf gita:KarmaYoga_inst .
+
+gita:Vairagya  a gita:Practice ;
+    gita:conceptName  "Vairagya"^^xsd:string ;
+    gita:definitionEn "Dispassion; non-attachment to sense objects and their pleasures"^^xsd:string ;
+    gita:category     "Practice"^^xsd:string ;
+    gita:heuristicDist 1 ;
+    gita:leadsTo      gita:ChittaShuddhi ;
+    gita:requires     gita:NishkamaKarma .
+
+gita:Abhyasa  a gita:Practice ;
+    gita:conceptName  "Abhyasa"^^xsd:string ;
+    gita:definitionEn "Repeated practice; consistent disciplined effort in meditation or sadhana"^^xsd:string ;
+    gita:category     "Practice"^^xsd:string ;
+    gita:heuristicDist 1 ;
+    gita:leadsTo      gita:Samadhi ;
+    gita:subConceptOf gita:DhyanaYoga_inst .
+
+gita:Samata  a gita:Practice ;
+    gita:conceptName  "Samata"^^xsd:string ;
+    gita:definitionEn "Equanimity; equal-mindedness in success and failure, pleasure and pain"^^xsd:string ;
+    gita:category     "Practice"^^xsd:string ;
+    gita:heuristicDist 1 ;
+    gita:leadsTo      gita:Sthitaprajna .
+
+gita:Buddhi  a gita:Practice ;
+    gita:conceptName  "Buddhi (Discriminative Intelligence)"^^xsd:string ;
+    gita:definitionEn "The faculty of discrimination that distinguishes the Self from the not-Self"^^xsd:string ;
+    gita:category     "Practice"^^xsd:string ;
+    gita:heuristicDist 1 ;
+    gita:leadsTo      gita:AtmaJnana .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# CONCEPT INSTANCES — Attainments (5)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:ChittaShuddhi  a gita:Attainment ;
+    gita:conceptName  "Chitta Shuddhi"^^xsd:string ;
+    gita:definitionEn "Purification of the mind-stuff through sustained selfless action and dispassion"^^xsd:string ;
+    gita:category     "Attainment"^^xsd:string ;
+    gita:heuristicDist 0 ;
+    gita:leadsTo      gita:AtmaJnana .
+
+gita:Sthitaprajna  a gita:Attainment ;
+    gita:conceptName  "Sthitaprajna"^^xsd:string ;
+    gita:definitionEn "Steady wisdom; one of unshaken equanimity in all conditions, described in Chapter 2"^^xsd:string ;
+    gita:category     "Attainment"^^xsd:string ;
+    gita:heuristicDist 0 ;
+    gita:leadsTo      gita:AtmaJnana .
+
+gita:Samadhi  a gita:Attainment ;
+    gita:conceptName  "Samadhi"^^xsd:string ;
+    gita:definitionEn "The state of perfect meditative absorption; complete cessation of mental fluctuations"^^xsd:string ;
+    gita:category     "Attainment"^^xsd:string ;
+    gita:heuristicDist 0 ;
+    gita:leadsTo      gita:AtmaJnana .
+
+gita:AtmaJnana  a gita:Attainment ;
+    gita:conceptName  "Atma Jnana"^^xsd:string ;
+    gita:definitionEn "Direct knowledge of the eternal Self (Atman); the realisation of one's true nature"^^xsd:string ;
+    gita:category     "Attainment"^^xsd:string ;
+    gita:heuristicDist 0 ;
+    gita:leadsTo      gita:Moksha .
+
+gita:Moksha  a gita:Attainment ;
+    gita:conceptName  "Moksha"^^xsd:string ;
+    gita:definitionEn "Liberation; freedom from the cycle of birth, death and rebirth (samsara)"^^xsd:string ;
+    gita:category     "Attainment"^^xsd:string ;
+    gita:heuristicDist 0 .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# CONCEPT INSTANCES — Downfall Causes (4)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:Kama  a gita:DownfallCause ;
+    gita:conceptName  "Kama"^^xsd:string ;
+    gita:definitionEn "Desire; craving for sense objects; the root cause of the downfall chain"^^xsd:string ;
+    gita:category     "DownfallCause"^^xsd:string ;
+    gita:heuristicDist 4 ;
+    gita:leadsTo      gita:Krodha ;
+    gita:contrastsWith gita:NishkamaKarma .
+
+gita:Krodha  a gita:DownfallCause ;
+    gita:conceptName  "Krodha"^^xsd:string ;
+    gita:definitionEn "Anger; arises when desire is obstructed; the second stage of downfall"^^xsd:string ;
+    gita:category     "DownfallCause"^^xsd:string ;
+    gita:heuristicDist 4 ;
+    gita:leadsTo      gita:Moha .
+
+gita:Moha  a gita:DownfallCause ;
+    gita:conceptName  "Moha"^^xsd:string ;
+    gita:definitionEn "Delusion; confusion of reality; loss of discriminative faculty"^^xsd:string ;
+    gita:category     "DownfallCause"^^xsd:string ;
+    gita:heuristicDist 4 ;
+    gita:leadsTo      gita:BuddhiNasha .
+
+gita:BuddhiNasha  a gita:DownfallCause ;
+    gita:conceptName  "Buddhi Nasha"^^xsd:string ;
+    gita:definitionEn "Ruin of discriminative intelligence; total collapse of wisdom; the final downfall"^^xsd:string ;
+    gita:category     "DownfallCause"^^xsd:string ;
+    gita:heuristicDist 4 .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# CONCEPT INSTANCES — Gunas (3)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:Sattva  a gita:Guna ;
+    gita:conceptName  "Sattva"^^xsd:string ;
+    gita:definitionEn "The quality of purity, clarity and harmony; dominant in wise and disciplined persons"^^xsd:string ;
+    gita:category     "Guna"^^xsd:string ;
+    gita:heuristicDist 3 ;
+    gita:leadsTo      gita:ChittaShuddhi ;
+    gita:contrastsWith gita:Tamas .
+
+gita:Rajas  a gita:Guna ;
+    gita:conceptName  "Rajas"^^xsd:string ;
+    gita:definitionEn "The quality of passion, activity and restlessness; leads to attachment and desire"^^xsd:string ;
+    gita:category     "Guna"^^xsd:string ;
+    gita:heuristicDist 3 ;
+    gita:leadsTo      gita:Kama .
+
+gita:Tamas  a gita:Guna ;
+    gita:conceptName  "Tamas"^^xsd:string ;
+    gita:definitionEn "The quality of inertia, darkness and delusion; leads to laziness and ignorance"^^xsd:string ;
+    gita:category     "Guna"^^xsd:string ;
+    gita:heuristicDist 3 ;
+    gita:leadsTo      gita:Moha ;
+    gita:contrastsWith gita:Sattva .
+
+# ───────────────────────────────────────────────────────────────────────────────
+# CONCEPT INSTANCES — Ethical Concepts (2)
+# ───────────────────────────────────────────────────────────────────────────────
+
+gita:Svadharma  a gita:EthicalConcept ;
+    gita:conceptName  "Svadharma"^^xsd:string ;
+    gita:definitionEn "One's own duty; the specific obligations arising from one's nature, stage of life and social role"^^xsd:string ;
+    gita:category     "EthicalConcept"^^xsd:string ;
+    gita:heuristicDist 2 ;
+    gita:leadsTo      gita:ChittaShuddhi ;
+    gita:contrastsWith gita:Paradharma .
+
+gita:Paradharma  a gita:EthicalConcept ;
+    gita:conceptName  "Paradharma"^^xsd:string ;
+    gita:definitionEn "Another's duty; performing duties belonging to a different nature or role"^^xsd:string ;
+    gita:category     "EthicalConcept"^^xsd:string ;
+    gita:heuristicDist 4 ;
+    gita:contrastsWith gita:Svadharma .
+
+gita:Sannyasa_inst  a gita:EthicalConcept ;
+    gita:conceptName  "Sannyasa"^^xsd:string ;
+    gita:definitionEn "Renunciation of action; the path of complete withdrawal from worldly duties"^^xsd:string ;
+    gita:category     "EthicalConcept"^^xsd:string ;
+    gita:heuristicDist 2 ;
+    gita:contrastsWith gita:KarmaYoga_inst .
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VERSE INSTANCES — Chapter 2: Sankhya Yoga (10 verses)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Verse 2.47 — Foundational Nishkama Karma verse
+gita:Verse_2_47  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      47 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥"^^xsd:string ;
+    gita:translationEn    "You have the right to perform your prescribed duties, but you are not entitled to the fruits of your actions. Never consider yourself the cause of the results of your activities, and never be attached to not doing your duty."^^xsd:string ;
+    gita:contextNote      "The most cited verse in the Gita. Lays the philosophical foundation for Nishkama Karma — acting from duty without attachment to outcomes. Referenced in CQ1 and CQ6."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:NishkamaKarma ;
+    gita:teaches          gita:KarmaYoga_inst ;
+    gita:teaches          gita:Vairagya .
+
+# Verse 2.48 — Yoga as equanimity in action
+gita:Verse_2_48  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      48 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय। सिद्ध्यसिद्ध्योः समो भूत्वा समत्वं योग उच्यते॥"^^xsd:string ;
+    gita:translationEn    "Perform your duty established in Yoga, O Arjuna, abandoning all attachment to success or failure. Such equanimity is called Yoga."^^xsd:string ;
+    gita:contextNote      "Defines Yoga as Samata (equanimity) in action — the psychological state that enables Nishkama Karma."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Samata ;
+    gita:teaches          gita:NishkamaKarma ;
+    gita:teaches          gita:KarmaYoga_inst .
+
+# Verse 2.50 — Yoga as skill in action
+gita:Verse_2_50  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      50 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "बुद्धियुक्तो जहातीह उभे सुकृतदुष्कृते। तस्माद्योगाय युज्यस्व योगः कर्मसु कौशलम्॥"^^xsd:string ;
+    gita:translationEn    "A man engaged in devotional service rids himself of both good and bad reactions even in this life. Therefore strive for yoga, which is the art of all work."^^xsd:string ;
+    gita:contextNote      "Introduces Buddhi-yoga: using discriminative intelligence to transcend both merit and demerit. Yoga as skillful action."^^xsd:string ;
+    gita:certaintyScore   "0.95"^^xsd:decimal ;
+    gita:teaches          gita:Buddhi ;
+    gita:teaches          gita:KarmaYoga_inst .
+
+# Verse 2.55 — Description of the Sthitaprajna (part 1)
+gita:Verse_2_55  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      55 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "प्रजहाति यदा कामान् सर्वान् पार्थ मनोगतान्। आत्मन्येवात्मना तुष्टः स्थितप्रज्ञस्तदोच्यते॥"^^xsd:string ;
+    gita:translationEn    "O Partha, when a man gives up all varieties of desire for sense gratification, which arise from mental concoction, and when his mind, thus purified, finds satisfaction in the self alone, then he is said to be in pure transcendental consciousness."^^xsd:string ;
+    gita:contextNote      "First of Krishna's description of the Sthitaprajna — the person of steady wisdom. Answers CQ2: what makes someone truly wise."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Sthitaprajna ;
+    gita:teaches          gita:Vairagya .
+
+# Verse 2.56 — Sthitaprajna in misery and happiness
+gita:Verse_2_56  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      56 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "दुःखेष्वनुद्विग्नमनाः सुखेषु विगतस्पृहः। वीतरागभयक्रोधः स्थितधीर्मुनिरुच्यते॥"^^xsd:string ;
+    gita:translationEn    "One who is not disturbed in mind even amidst the threefold miseries, who is not elated when there is happiness, and who is free from attachment, fear and anger, is called a sage of steady mind."^^xsd:string ;
+    gita:contextNote      "Continues the Sthitaprajna description — freedom from Krodha and Moha is central to steady wisdom. Links to downfall chain."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Sthitaprajna ;
+    gita:teaches          gita:Samata .
+
+# Verse 2.62 — Step 1 of downfall chain
+gita:Verse_2_62  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      62 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "ध्यायतो विषयान् पुंसः सङ्गस्तेषूपजायते। सङ्गात् सञ्जायते कामः कामात् क्रोधोऽभिजायते॥"^^xsd:string ;
+    gita:translationEn    "While contemplating on the objects of the senses, a person develops attachment for them, and from such attachment lust develops, and from lust anger arises."^^xsd:string ;
+    gita:contextNote      "Step 1 of the downfall chain: contemplation of sense objects breeds attachment (Sanga) which generates Kama (desire). DFS/CQ3 starts here."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Kama ;
+    gita:teaches          gita:Rajas .
+
+# Verse 2.63 — Steps 2–4 of downfall chain
+gita:Verse_2_63  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      63 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "क्रोधाद् भवति सम्मोहः सम्मोहात् स्मृतिविभ्रमः। स्मृतिभ्रंशाद् बुद्धिनाशो बुद्धिनाशात् प्रणश्यति॥"^^xsd:string ;
+    gita:translationEn    "From anger comes delusion; from delusion comes loss of memory; from loss of memory comes the ruin of discrimination; and from ruin of discrimination he perishes."^^xsd:string ;
+    gita:contextNote      "Completes the downfall chain: Krodha → Moha → BuddhiNasha. Must follow Verse_2_62 in study plan (prerequisite constraint)."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Krodha ;
+    gita:teaches          gita:Moha ;
+    gita:respondsTo       gita:Verse_2_62 .
+
+# Verse 2.64 — The solution: sense regulation
+gita:Verse_2_64  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      64 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "रागद्वेषवियुक्तैस्तु विषयानिन्द्रियैश्चरन्। आत्मवश्यैर्विधेयात्मा प्रसादमधिगच्छति॥"^^xsd:string ;
+    gita:translationEn    "But a person free from all attachment and aversion and able to control his senses through regulative principles of freedom can obtain the complete mercy of the Lord."^^xsd:string ;
+    gita:contextNote      "The antidote to the downfall chain: Vairagya (freedom from attachment/aversion) + sense control = inner peace (Prasada). Contrasts with 2.62–2.63."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Vairagya ;
+    gita:teaches          gita:Samata ;
+    gita:respondsTo       gita:Verse_2_63 .
+
+# Verse 2.68 — Restrained senses = steady intelligence
+gita:Verse_2_68  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      68 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "तस्माद् यस्य महाबाहो निगृहीतानि सर्वशः। इन्द्रियाणीन्द्रियार्थेभ्यस्तस्य प्रज्ञा प्रतिष्ठिता॥"^^xsd:string ;
+    gita:translationEn    "Therefore, O mighty-armed, one whose senses are restrained from their objects is certainly of steady intelligence."^^xsd:string ;
+    gita:contextNote      "Concludes the Sthitaprajna description. Sense restraint (Indriya Nigraha) is prerequisite to steady wisdom."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Sthitaprajna ;
+    gita:teaches          gita:Vairagya .
+
+# Verse 2.71 — The person of peace
+gita:Verse_2_71  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_2 ;
+    gita:verseNumber      71 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "विहाय कामान् यः सर्वान् पुमांश्चरति निःस्पृहः। निर्ममो निरहङ्कारः स शान्तिमधिगच्छति॥"^^xsd:string ;
+    gita:translationEn    "A person who has given up all desires for sense gratification, who lives free from desires, who has given up all sense of proprietorship and is devoid of false ego — he alone can attain real peace."^^xsd:string ;
+    gita:contextNote      "Summarises Chapter 2's teaching. The state of Moksha-readiness: no Kama, no ego, inner peace (Shanti)."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:NishkamaKarma ;
+    gita:teaches          gita:Moksha .
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VERSE INSTANCES — Chapter 3: Karma Yoga (10 verses)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Verse 3.1 — Arjuna's question (question verse, not in the 30 but referenced)
+gita:Verse_3_1  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      1 ;
+    gita:spokenBy         gita:Arjuna ;
+    gita:textSanskrit     "अर्जुन उवाच। ज्यायसी चेत् कर्मणस्ते मता बुद्धिर्जनार्दन।"^^xsd:string ;
+    gita:translationEn    "Arjuna said: O Janardana, if you think that intelligence is better than fruitive work, then why do you want to engage me in this ghastly warfare?"^^xsd:string ;
+    gita:contextNote      "Arjuna's confusion about Karma vs Jnana — the question that triggers Krishna's resolution in 3.3"^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal .
+
+# Verse 3.3 — Krishna resolves Karma vs Jnana
+gita:Verse_3_3  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      3 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "लोकेऽस्मिन् द्विविधा निष्ठा पुरा प्रोक्ता मयानघ। ज्ञानयोगेन साङ्ख्यानां कर्मयोगेन योगिनाम्॥"^^xsd:string ;
+    gita:translationEn    "O sinless Arjuna, I have already explained that there are two classes of men who realise the Self: the analytical philosophers who follow the path of knowledge, and the devotees who follow the path of action."^^xsd:string ;
+    gita:contextNote      "Krishna resolves Arjuna's confusion between Karma Yoga and Jnana Yoga. Triggers non-monotonic revision: the assumption 'only Karma Yoga is recommended' is retracted for contemplative readers."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:KarmaYoga_inst ;
+    gita:teaches          gita:JnanaYoga_inst ;
+    gita:teaches          gita:Sannyasa_inst ;
+    gita:respondsTo       gita:Verse_3_1 .
+
+# Verse 3.4 — Renunciation alone is not liberation
+gita:Verse_3_4  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      4 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "न कर्मणामनारम्भान् नैष्कर्म्यं पुरुषोऽश्नुते। न च संन्यसनादेव सिद्धिं समधिगच्छति॥"^^xsd:string ;
+    gita:translationEn    "Not by merely abstaining from work can one achieve freedom from reaction, nor by renunciation alone can one attain perfection."^^xsd:string ;
+    gita:contextNote      "Refutes pure Sannyasa as a path to liberation without prior inner purification. Karma Yoga is necessary first."^^xsd:string ;
+    gita:certaintyScore   "0.95"^^xsd:decimal ;
+    gita:teaches          gita:KarmaYoga_inst ;
+    gita:teaches          gita:Sannyasa_inst .
+
+# Verse 3.5 — All beings act by Prakriti
+gita:Verse_3_5  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      5 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "न हि कश्चित् क्षणमपि जातु तिष्ठत्यकर्मकृत्। कार्यते ह्यवशः कर्म सर्वः प्रकृतिजैर्गुणैः॥"^^xsd:string ;
+    gita:translationEn    "Everyone is forced to act helplessly according to the qualities he has acquired from the modes of material nature; therefore no one can refrain from doing something, not even for a moment."^^xsd:string ;
+    gita:contextNote      "Establishes the Guna framework: all action is driven by Prakriti's three Gunas. The wise one acts knowing this."^^xsd:string ;
+    gita:certaintyScore   "0.95"^^xsd:decimal ;
+    gita:teaches          gita:Rajas ;
+    gita:teaches          gita:Sattva ;
+    gita:teaches          gita:Tamas .
+
+# Verse 3.8 — Action is better than inaction
+gita:Verse_3_8  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      8 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "नियतं कुरु कर्म त्वं कर्म ज्यायो ह्यकर्मणः। शरीरयात्रापि च ते न प्रसिद्ध्येदकर्मणः॥"^^xsd:string ;
+    gita:translationEn    "Perform your prescribed duty, for doing so is better than not working. One cannot even maintain one's physical body without work."^^xsd:string ;
+    gita:contextNote      "Practical injunction against inaction. Karma Yoga begins with simply doing one's duty — the body itself requires action for its maintenance."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:KarmaYoga_inst ;
+    gita:teaches          gita:Svadharma .
+
+# Verse 3.9 — Yajna: action as sacrifice
+gita:Verse_3_9  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      9 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "यज्ञार्थात् कर्मणोऽन्यत्र लोकोऽयं कर्मबन्धनः। तदर्थं कर्म कौन्तेय मुक्तसङ्गः समाचर॥"^^xsd:string ;
+    gita:translationEn    "Work done as a sacrifice for Vishnu has to be performed, otherwise work causes bondage in this material world. Therefore, O son of Kunti, perform your prescribed duties for His satisfaction, and in that way you will always remain unattached and free from bondage."^^xsd:string ;
+    gita:contextNote      "Introduces Yajna (sacrifice/offering) as the key to Nishkama Karma — action offered to the Divine is liberated action."^^xsd:string ;
+    gita:certaintyScore   "0.90"^^xsd:decimal ;
+    gita:teaches          gita:NishkamaKarma ;
+    gita:teaches          gita:KarmaYoga_inst ;
+    gita:teaches          gita:BhaktiYoga_inst .
+
+# Verse 3.19 — Act without attachment = attainment
+gita:Verse_3_19  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      19 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "तस्मादसक्तः सततं कार्यं कर्म समाचर। असक्तो ह्याचरन् कर्म परमाप्नोति पूरुषः॥"^^xsd:string ;
+    gita:translationEn    "Therefore, without being attached to the fruits of activities, one should act as a matter of duty, for by working without attachment one attains the Supreme."^^xsd:string ;
+    gita:contextNote      "Direct statement of Nishkama Karma leading to the Supreme (Moksha). Key verse for CQ1 and the property chain CQ6."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:NishkamaKarma ;
+    gita:teaches          gita:Moksha .
+
+# Verse 3.27 — The Gunas act, not the Self
+gita:Verse_3_27  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      27 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "प्रकृतेः क्रियमाणानि गुणैः कर्माणि सर्वशः। अहङ्कारविमूढात्मा कर्ताहमिति मन्यते॥"^^xsd:string ;
+    gita:translationEn    "The bewildered spirit soul, under the influence of the three modes of material nature, thinks himself the doer of activities that are in actuality carried out by nature."^^xsd:string ;
+    gita:contextNote      "Distinguishes the Self (Atman, non-doer) from the Gunas (actual doers). Key for understanding Karma as not belonging to the Self."^^xsd:string ;
+    gita:certaintyScore   "0.95"^^xsd:decimal ;
+    gita:teaches          gita:JnanaYoga_inst ;
+    gita:teaches          gita:Sattva ;
+    gita:teaches          gita:Rajas ;
+    gita:teaches          gita:Tamas .
+
+# Verse 3.35 — Svadharma teaching
+gita:Verse_3_35  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      35 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "श्रेयान् स्वधर्मो विगुणः परधर्मात् स्वनुष्ठितात्। स्वधर्मे निधनं श्रेयः परधर्मो भयावहः॥"^^xsd:string ;
+    gita:translationEn    "It is far better to perform one's natural duty, though tinged with faults, than to perform another's duty, even if flawlessly. Death in one's own duty is better, for to perform another's duty is dangerous."^^xsd:string ;
+    gita:contextNote      "The central Svadharma verse. Answers CQ8. The contrastsWith relationship (Svadharma ↔ Paradharma) is central to this verse."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Svadharma ;
+    gita:teaches          gita:KarmaYoga_inst .
+
+# Verse 3.42 — Hierarchy: senses < mind < intelligence < Self
+gita:Verse_3_42  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      42 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "इन्द्रियाणि पराण्याहुरिन्द्रियेभ्यः परं मनः। मनसस्तु परा बुद्धिर्यो बुद्धेः परतस्तु सः॥"^^xsd:string ;
+    gita:translationEn    "The working senses are superior to dull matter; mind is higher than the senses; intelligence is still higher than the mind; and the soul is even higher than the intelligence."^^xsd:string ;
+    gita:contextNote      "Establishes the ontological hierarchy: body < senses < mind < Buddhi < Atman. Basis for understanding why Buddhi (discrimination) must rule over Kama."^^xsd:string ;
+    gita:certaintyScore   "0.95"^^xsd:decimal ;
+    gita:teaches          gita:Buddhi ;
+    gita:teaches          gita:JnanaYoga_inst .
+
+# Verse 3.43 — Conquer Kama through the Self
+gita:Verse_3_43  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_3 ;
+    gita:verseNumber      43 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "एवं बुद्धेः परं बुद्ध्वा संस्तभ्यात्मानमात्मना। जहि शत्रुं महाबाहो कामरूपं दुरासदम्॥"^^xsd:string ;
+    gita:translationEn    "Thus knowing oneself to be transcendental to the material senses, mind and intelligence, O mighty-armed Arjuna, one should steady the mind by deliberate spiritual intelligence and thus — by spiritual strength — conquer this insatiable enemy known as lust."^^xsd:string ;
+    gita:contextNote      "Culminates Chapter 3: Buddhi (higher self) must conquer Kama (lust/desire). Directly connects to the downfall chain solution."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Buddhi ;
+    gita:teaches          gita:Kama ;
+    gita:teaches          gita:KarmaYoga_inst ;
+    gita:respondsTo       gita:Verse_3_42 .
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VERSE INSTANCES — Chapter 6: Dhyana Yoga (10 verses)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Verse 6.5 — The mind: friend or enemy?
+gita:Verse_6_5  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      5 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "उद्धरेदात्मनाऽत्मानं नात्मानमवसादयेत्। आत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥"^^xsd:string ;
+    gita:translationEn    "One must deliver himself with the help of his mind, and not degrade himself. The mind is the friend of the conditioned soul, and his enemy as well."^^xsd:string ;
+    gita:contextNote      "Opens Chapter 6 with the paradox of the mind: it can liberate or destroy. Sets the stage for all Dhyana Yoga practice."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:Buddhi .
+
+# Verse 6.10 — Practical meditation instruction (setting and posture)
+gita:Verse_6_10  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      10 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "योगी युञ्जीत सततमात्मानं रहसि स्थितः। एकाकी यतचित्तात्मा निराशीरपरिग्रहः॥"^^xsd:string ;
+    gita:translationEn    "A transcendentalist should always try to concentrate his mind on the Supreme Self; he should live alone in a secluded place and should always carefully control his mind. He should be free from desires and feelings of possessiveness."^^xsd:string ;
+    gita:contextNote      "Practical Dhyana instruction: solitude, mind-control, freedom from desire and possessiveness. Answers CQ4 directly."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:Abhyasa ;
+    gita:teaches          gita:Vairagya .
+
+# Verse 6.13 — Posture for meditation
+gita:Verse_6_13  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      13 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "समं कायशिरोग्रीवं धारयन्नचलं स्थिरः। सम्प्रेक्ष्य नासिकाग्रं स्वं दिशश्चानवलोकयन्॥"^^xsd:string ;
+    gita:translationEn    "One should hold one's body, neck and head erect in a straight line and stare steadily at the tip of one's nose. Thus, with an unagitated, subdued mind, devoid of fear, completely free from sex life, one should meditate upon Me within the heart."^^xsd:string ;
+    gita:contextNote      "Specific physical and gaze instructions for meditation — the most practically concrete verse in Chapter 6."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:Abhyasa .
+
+# Verse 6.17 — Regulated lifestyle for the yogi
+gita:Verse_6_17  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      17 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "युक्ताहारविहारस्य युक्तचेष्टस्य कर्मसु। युक्तस्वप्नावबोधस्य योगो भवति दुःखहा॥"^^xsd:string ;
+    gita:translationEn    "He who is regulated in his habits of eating, sleeping, recreation and work can mitigate all material pains by practicing the yoga system."^^xsd:string ;
+    gita:contextNote      "Prescribes the regulated lifestyle (Yukta-ahara-vihara) as prerequisite for successful meditation. Balance in all activities eliminates suffering."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:Abhyasa ;
+    gita:teaches          gita:Samata .
+
+# Verse 6.18 — When the yogi is established in Yoga
+gita:Verse_6_18  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      18 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "यदा विनियतं चित्तमात्मन्येवावतिष्ठते। निःस्पृहः सर्वकामेभ्यो युक्त इत्युच्यते तदा॥"^^xsd:string ;
+    gita:translationEn    "When the yogi, by practice of yoga, disciplines his mental activities and becomes situated in transcendence — devoid of all material desires — he is said to be well established in yoga."^^xsd:string ;
+    gita:contextNote      "Describes the state of established Yoga: Chitta resting in Atman, free from all desires. The result of sustained Abhyasa."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:Samadhi ;
+    gita:teaches          gita:Vairagya .
+
+# Verse 6.20 — Samadhi: mind restrained by Yoga
+gita:Verse_6_20  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      20 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "यत्रोपरमते चित्तं निरुद्धं योगसेवया। यत्र चैवात्मनात्मानं पश्यन्नात्मनि तुष्यति॥"^^xsd:string ;
+    gita:translationEn    "The stage of perfection is called trance, or samadhi, when one's mind is completely restrained from material mental activities by the practice of yoga. This perfection is characterized by one's ability to see the Self by the pure mind and to relish and rejoice in the Self."^^xsd:string ;
+    gita:contextNote      "Describes Samadhi: the state of restrained Chitta seeing the Self directly. The goal of Dhyana Yoga practice."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:Samadhi ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:AtmaJnana .
+
+# Verse 6.23 — Yoga = disconnection from suffering
+gita:Verse_6_23  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      23 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "तं विद्याद् दुःखसंयोगवियोगं योगसंज्ञितम्। स निश्चयेन योक्तव्यो योगोऽनिर्विण्णचेतसा॥"^^xsd:string ;
+    gita:translationEn    "The state of severance from union with sorrow is to be known by the name of yoga. This yoga is to be practiced with determination and with an undiscouraged mind."^^xsd:string ;
+    gita:contextNote      "Redefines Yoga as the disconnection from suffering (Dukha-samyoga-viyoga). Practice requires determination (Nishchaya)."^^xsd:string ;
+    gita:certaintyScore   "0.90"^^xsd:decimal ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:Abhyasa .
+
+# Verse 6.25 — Gradual withdrawal through Buddhi
+gita:Verse_6_25  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      25 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "शनैः शनैरुपरमेद् बुद्ध्या धृतिगृहीतया। आत्मसंस्थं मनः कृत्वा न किञ्चिदपि चिन्तयेत्॥"^^xsd:string ;
+    gita:translationEn    "Gradually, step by step, one should become situated in trance by means of intelligence sustained by full conviction, and thus the mind should be fixed on the Self alone and should think of nothing else."^^xsd:string ;
+    gita:contextNote      "Prescribes the gradual method: Buddhi-sustained withdrawal, mind fixed on Atman. Addresses Arjuna's fear that meditation is too difficult."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:Buddhi ;
+    gita:teaches          gita:Abhyasa .
+
+# Verse 6.33 — Arjuna's question: mind is too restless (reference for 6.35)
+gita:Verse_6_33  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      33 ;
+    gita:spokenBy         gita:Arjuna ;
+    gita:textSanskrit     "अर्जुन उवाच। योऽयं योगस्त्वया प्रोक्तः साम्येन मधुसूदन।"^^xsd:string ;
+    gita:translationEn    "Arjuna said: O Madhusudana, the system of yoga which you have summarized appears impractical and unendurable to me, for the mind is restless and unsteady."^^xsd:string ;
+    gita:contextNote      "Arjuna's complaint that the mind is too restless for meditation — the question that 6.35 answers."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal .
+
+# Verse 6.35 — Abhyasa + Vairagya = mind mastery
+gita:Verse_6_35  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      35 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "असंशयं महाबाहो मनो दुर्निग्रहं चलम्। अभ्यासेन तु कौन्तेय वैराग्येण च गृह्यते॥"^^xsd:string ;
+    gita:translationEn    "Lord Sri Krishna said: O mighty-armed son of Kunti, it is undoubtedly very difficult to curb the restless mind, but it is possible by suitable practice and by detachment."^^xsd:string ;
+    gita:contextNote      "The two-factor formula for mind mastery: Abhyasa (practice) + Vairagya (detachment). The most practical verse for meditation beginners. Answers Arjuna's question in 6.33."^^xsd:string ;
+    gita:certaintyScore   "1.00"^^xsd:decimal ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:Vairagya ;
+    gita:teaches          gita:Abhyasa ;
+    gita:respondsTo       gita:Verse_6_33 .
+
+# Verse 6.47 — The greatest yogi: devotion
+gita:Verse_6_47  a gita:Verse ;
+    gita:belongsToChapter gita:Chapter_6 ;
+    gita:verseNumber      47 ;
+    gita:spokenBy         gita:Krishna ;
+    gita:textSanskrit     "योगिनामपि सर्वेषां मद्गतेनान्तरात्मना। श्रद्धावान् भजते यो मां स मे युक्ततमो मतः॥"^^xsd:string ;
+    gita:translationEn    "And of all yogis, the one with great faith who always abides in Me, thinks of Me within himself, and renders transcendental loving service to Me — he is the most intimately united with Me in yoga and is the highest of all."^^xsd:string ;
+    gita:contextNote      "The culminating verse of Chapter 6: the greatest yogi is the devotee (Bhakta). Straddles Dhyana Yoga (0.75) and Bhakti Yoga (0.90) — key fuzzy membership example in Module 6."^^xsd:string ;
+    gita:certaintyScore   "0.85"^^xsd:decimal ;
+    gita:teaches          gita:DhyanaYoga_inst ;
+    gita:teaches          gita:BhaktiYoga_inst ;
+    gita:teaches          gita:Moksha .
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# END OF ONTOLOGY
+# Total: 16 classes, 9 object properties, 10 data properties
+# Instances: 3 chapters, 2 speakers, 3 commentary traditions
+#           23 philosophical concepts, 31 verses (30 + Verse_3_1 + Verse_6_33 refs)
+# Key axioms: leadsTo (Transitive), contrastsWith (Symmetric),
+#             spirituallyProgressesTo (PropertyChain: teaches∘leadsTo)
+# ═══════════════════════════════════════════════════════════════════════════════

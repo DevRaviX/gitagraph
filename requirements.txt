@@ -1,0 +1,22 @@
+# Digital Bhaṣya — Intelligent Gītā Reader's Assistant
+# Python 3.11+
+
+# Core UI
+streamlit>=1.35.0
+
+# Knowledge Graph / RDF
+rdflib>=7.0.0
+SPARQLWrapper>=2.0.0
+
+# Graph algorithms
+networkx>=3.3
+
+# Visualization
+plotly>=5.22.0
+
+# Data
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Optional: Apache Jena Fuseki integration
+# requests>=2.31.0
