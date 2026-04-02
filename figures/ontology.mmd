@@ -1,0 +1,42 @@
+%%{init: {'theme': 'neutral', 'themeVariables': {'fontSize': '13px'}}}%%
+graph TD
+    OT["owl:Thing"]
+    PC["PhilosophicalConcept"]
+    YP["YogaPath"]
+    KY["KarmaYoga"]
+    JY["JnanaYoga"]
+    BY["BhaktiYoga"]
+    DY["DhyanaYoga"]
+    PR["Practice\n(Vairagya, Tapas ...)"]
+    AT["Attainment\n(Moksha, Samadhi ...)"]
+    DC["DownfallCause\n(Kama, Krodha ...)"]
+    GU["Guna\n(Sattva, Rajas, Tamas)"]
+    EC["EthicalConcept\n(Ahimsa, Satya ...)"]
+    TU["TextualUnit"]
+    CH["Chapter"]
+    VE["Verse"]
+    PE["Person\n(Krishna, Arjuna)"]
+    CT["CommentaryTradition\n(Advaita, Vishishtadvaita, Dvaita)"]
+
+    OT --> PC & TU & PE & CT
+    PC --> YP & PR & AT & DC & GU & EC
+    YP --> KY & JY & BY & DY
+    TU --> CH & VE
+
+    style OT fill:#2C3E50,color:#fff,stroke:#1A252F
+    style PC fill:#8E44AD,color:#fff,stroke:#5D2E73
+    style YP fill:#9B59B6,color:#fff,stroke:#6C3483
+    style KY fill:#D7BDE2,stroke:#9B59B6
+    style JY fill:#D7BDE2,stroke:#9B59B6
+    style BY fill:#D7BDE2,stroke:#9B59B6
+    style DY fill:#D7BDE2,stroke:#9B59B6
+    style PR fill:#2980B9,color:#fff,stroke:#1A5276
+    style AT fill:#27AE60,color:#fff,stroke:#1A7340
+    style DC fill:#E74C3C,color:#fff,stroke:#A93226
+    style GU fill:#E67E22,color:#fff,stroke:#A04000
+    style EC fill:#16A085,color:#fff,stroke:#0E6655
+    style TU fill:#7F8C8D,color:#fff,stroke:#566573
+    style CH fill:#BDC3C7,stroke:#7F8C8D
+    style VE fill:#BDC3C7,stroke:#7F8C8D
+    style PE fill:#F39C12,color:#fff,stroke:#A04000
+    style CT fill:#1ABC9C,color:#fff,stroke:#148F77

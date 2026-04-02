@@ -1,0 +1,30 @@
+%%{init: {'theme': 'neutral', 'themeVariables': {'fontSize': '14px'}}}%%
+flowchart LR
+    subgraph path1["A* Path 1 — Vairagya to Moksha (3 hops)"]
+        V1["Vairagya\nh=1 (Practice)"] -->|"leadsTo\ng=1, f=2"| C1["ChittaShuddhi\nh=1 (Practice)"]
+        C1 -->|"leadsTo\ng=2, f=2"| A1["AtmaJnana\nh=0 (Attainment)"]
+        A1 -->|"spirituallyProgressesTo\ng=3, f=3"| M["Moksha\nh=0 ✓"]
+    end
+
+    subgraph path2["A* Path 2 — DhyanaYoga to Moksha (3 hops)"]
+        V2["DhyanaYoga\nh=2 (YogaPath)"] -->|"leadsTo\ng=1, f=3"| S["Samadhi\nh=1 (Practice)"]
+        S -->|"leadsTo\ng=2, f=2"| A2["AtmaJnana\nh=0 (Attainment)"]
+        A2 -->|"spirituallyProgressesTo\ng=3, f=3"| M
+    end
+
+    subgraph heuristic["Admissible Heuristic h(n)"]
+        H1["DownfallCause → h=4"]
+        H2["Guna → h=3"]
+        H3["YogaPath → h=2"]
+        H4["Practice → h=1"]
+        H5["Attainment → h=0"]
+        H1 -.-> H2 -.-> H3 -.-> H4 -.-> H5
+    end
+
+    style M fill:#27AE60,color:#fff,stroke:#1A7340
+    style V1 fill:#E74C3C,color:#fff,stroke:#A93226
+    style V2 fill:#9B59B6,color:#fff,stroke:#6C3483
+    style C1 fill:#2980B9,color:#fff,stroke:#1A5276
+    style S fill:#2980B9,color:#fff,stroke:#1A5276
+    style A1 fill:#1ABC9C,color:#fff,stroke:#148F77
+    style A2 fill:#1ABC9C,color:#fff,stroke:#148F77

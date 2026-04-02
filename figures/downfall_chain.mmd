@@ -1,0 +1,21 @@
+%%{init: {'theme': 'neutral', 'themeVariables': {'fontSize': '14px'}}}%%
+flowchart LR
+    K["Kāma\n(Desire)\nVerse 3.37"] -->|"leadsTo (OWL Transitive)"| KR["Krodha\n(Anger)\nVerse 3.37"]
+    KR -->|"leadsTo"| MO["Moha\n(Delusion)\nVerse 2.63"]
+    MO -->|"leadsTo"| BN["BuddhiNāśa\n(Destruction of\nDiscrimination)\nVerse 2.63"]
+    BN -->|"leadsTo"| SN["Smaraṇa-Naśa\n(Memory Loss)\nVerse 2.63"]
+    SN -->|"leadsTo"| RD["Ruin\n(Downfall)"]
+
+    subgraph inference["OWL Transitive Inference"]
+        TI["Kāma leadsTo BuddhiNāśa\n(inferred via transitivity,\nnot explicit in TTL)"]
+    end
+
+    K -.->|"inferred"| BN
+
+    style K fill:#E74C3C,color:#fff,stroke:#A93226
+    style KR fill:#E67E22,color:#fff,stroke:#A04000
+    style MO fill:#F39C12,color:#fff,stroke:#8E6B00
+    style BN fill:#8E44AD,color:#fff,stroke:#5D2E73
+    style SN fill:#6C3483,color:#fff,stroke:#4A235A
+    style RD fill:#2C3E50,color:#fff,stroke:#1A252F
+    style TI fill:#EBF5FB,stroke:#2980B9
