@@ -4,17 +4,80 @@ Serves the static SPA and exposes all AI modules as JSON endpoints.
 Run: python api.py
 """
 
-import os, sys, json, csv
-from flask import Flask, jsonify, request, send_from_directory
+import os, sys, json, csv, io, sqlite3, datetime, re
+from flask import Flask, jsonify, request, send_from_directory, Response
 from functools import lru_cache
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 app = Flask(__name__, static_folder="static", static_url_path="")
 
+# ── SQLite user state ─────────────────────────────────────────────────────────
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "user_data.db")
+
+def get_db():
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def init_db():
+    conn = get_db()
+    conn.executescript("""
+        CREATE TABLE IF NOT EXISTS plans (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            session_id  TEXT NOT NULL,
+            goal        TEXT,
+            plan_json   TEXT NOT NULL,
+            created_at  TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS progress (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_session_id TEXT NOT NULL,
+            chapter         TEXT NOT NULL,
+            verse           TEXT NOT NULL,
+            completed       INTEGER NOT NULL DEFAULT 0,
+            updated_at      TEXT NOT NULL,
+            UNIQUE(user_session_id, chapter, verse)
+        );
+    """)
+    conn.commit()
+    conn.close()
+
+init_db()
+
 # ── Resource loading (lazy, cached) ──────────────────────────────────────────
 _kg = None
 _gita_data = None
+_audio_ds = None
+_embeddings = None
+_emb_index  = None
+_st_model   = None
+
+def get_embeddings():
+    global _embeddings, _emb_index
+    if _embeddings is None:
+        import numpy as np
+        emb_dir = os.path.join(os.path.dirname(__file__), "embeddings")
+        _embeddings = np.load(os.path.join(emb_dir, "verse_embeddings.npy"))
+        with open(os.path.join(emb_dir, "verse_index.json"), encoding="utf-8") as f:
+            _emb_index = json.load(f)
+    return _embeddings, _emb_index
+
+def get_audio_ds():
+    global _audio_ds
+    if _audio_ds is None:
+        import glob as _glob, pyarrow.parquet as pq, pyarrow as pa
+        local_cache = os.path.join(os.path.dirname(__file__), "audio_cache")
+        parquet_files = sorted(_glob.glob(os.path.join(local_cache, "*.parquet")))
+        if not parquet_files:
+            raise FileNotFoundError("Run download_audio.py first to cache the dataset.")
+        # Read all parquet files and concat — avoid datasets audio decoder
+        tables = [pq.read_table(f) for f in parquet_files]
+        table = pa.concat_tables(tables)
+        # Build lookup: shloka_id → row index
+        ids = table.column("shloka_id").to_pylist()
+        _audio_ds = {"_table": table, "_ids": {sid: i for i, sid in enumerate(ids)}}
+    return _audio_ds
 
 def get_kg():
     global _kg
@@ -112,9 +175,21 @@ def verses():
         concepts = []
         if vkey in kg.nodes:
             concepts = list(kg.neighbours_by_edge(vkey, "teaches"))
+        import re
+        def strip_prefix(text):
+            # Remove "1.1 ", "1.2. ", "।।1.1।।" verse-number prefixes
+            text = re.sub(r'^[\d]+\.[\d]+\.?\s*', '', text.strip())
+            text = re.sub(r'^।।[\d]+\.[\d]+।।', '', text.strip())
+            return text.strip()
+        raw_wm = r.get("WordMeaning","")
+        clean_wm = re.sub(r'^[\d]+\.[\d]+\.?\s*', '', raw_wm.strip())
         out.append({"chapter": c, "verse": v, "key": vkey,
-                    "en": r.get("EngMeaning",""), "hi": r.get("HinMeaning",""),
-                    "sa": r.get("Shloka",""), "ai_corpus": vkey in kg.nodes,
+                    "en": strip_prefix(r.get("EngMeaning","")),
+                    "hi": strip_prefix(r.get("HinMeaning","")),
+                    "sa": r.get("Shloka",""),
+                    "transliteration": r.get("Transliteration",""),
+                    "word_meanings": clean_wm,
+                    "ai_corpus": vkey in kg.nodes,
                     "concepts": [c.replace("_inst","").replace("_"," ") for c in concepts]})
     return jsonify({"total": len(rows), "verses": out})
 
@@ -258,6 +333,196 @@ def belief():
     engine = NonMonotonicEngine()
     steps = engine.full_revision_demo()
     return jsonify({"steps": steps})
+
+# ── AUDIO ─────────────────────────────────────────────────────────────────────
+@app.route("/api/audio/<chapter>/<verse>")
+def audio(chapter, verse):
+    shloka_id = f"{chapter}_{verse}"
+    try:
+        lookup = get_audio_ds()
+        idx = lookup["_ids"].get(shloka_id)
+        if idx is None:
+            return jsonify({"error": f"verse {shloka_id} not found"}), 404
+        # Slice single row — audio column is struct<bytes: binary, path: string>
+        row = lookup["_table"].slice(idx, 1)
+        audio_struct = row.column("audio")[0].as_py()
+        wav_bytes = audio_struct.get("bytes") if isinstance(audio_struct, dict) else None
+        if not wav_bytes:
+            return jsonify({"error": "no audio bytes"}), 404
+        return Response(wav_bytes, mimetype="audio/wav",
+                        headers={"Cache-Control": "public, max-age=86400"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# ── SEMANTIC SEARCH ───────────────────────────────────────────────────────────
+@app.route("/api/semantic_search")
+def semantic_search():
+    global _st_model
+    import numpy as np
+    q = request.args.get("q", "").strip()
+    k = int(request.args.get("k", 10))
+    if not q:
+        return jsonify({"error": "q is required"}), 400
+    try:
+        embeddings, index = get_embeddings()
+    except FileNotFoundError:
+        return jsonify({"error": "Embeddings not found. Run generate_embeddings.py first."}), 503
+    if _st_model is None:
+        from sentence_transformers import SentenceTransformer
+        _st_model = SentenceTransformer("all-MiniLM-L6-v2")
+    q_vec = _st_model.encode([q], normalize_embeddings=True)[0]
+    scores = embeddings @ q_vec
+    top_k_idx = scores.argsort()[::-1][:k]
+    kg = get_kg()
+    results = []
+    for i in top_k_idx:
+        entry = index[i]
+        vkey = entry["key"]
+        concepts = []
+        if vkey in kg.nodes:
+            concepts = list(kg.neighbours_by_edge(vkey, "teaches"))
+        results.append({
+            **entry,
+            "score": float(scores[i]),
+            "ai_corpus": vkey in kg.nodes,
+            "concepts": [c.replace("_inst","").replace("_"," ") for c in concepts],
+        })
+    return jsonify({"query": q, "results": results, "count": len(results)})
+
+# ── PLANS (SQLite) ────────────────────────────────────────────────────────────
+@app.route("/api/plans/save", methods=["POST"])
+def plans_save():
+    body = request.json or {}
+    session_id = body.get("session_id", "default")
+    goal       = body.get("goal", "")
+    plan_json  = json.dumps(body.get("plan", []))
+    now        = datetime.datetime.utcnow().isoformat()
+    conn = get_db()
+    cur  = conn.execute(
+        "INSERT INTO plans (session_id, goal, plan_json, created_at) VALUES (?,?,?,?)",
+        (session_id, goal, plan_json, now)
+    )
+    conn.commit()
+    plan_id = cur.lastrowid
+    conn.close()
+    return jsonify({"id": plan_id, "saved": True})
+
+@app.route("/api/plans/list")
+def plans_list():
+    session_id = request.args.get("session_id", "default")
+    conn = get_db()
+    rows = conn.execute(
+        "SELECT id, goal, plan_json, created_at FROM plans WHERE session_id=? ORDER BY created_at DESC",
+        (session_id,)
+    ).fetchall()
+    conn.close()
+    result = [{"id": r["id"], "goal": r["goal"],
+               "plan": json.loads(r["plan_json"]), "created_at": r["created_at"]}
+              for r in rows]
+    return jsonify({"plans": result})
+
+# ── PROGRESS (SQLite) ─────────────────────────────────────────────────────────
+@app.route("/api/progress/update", methods=["POST"])
+def progress_update():
+    body      = request.json or {}
+    uid       = body.get("user_session_id", "default")
+    chapter   = str(body.get("chapter", ""))
+    verse     = str(body.get("verse", ""))
+    completed = 1 if body.get("completed", False) else 0
+    now       = datetime.datetime.utcnow().isoformat()
+    conn = get_db()
+    conn.execute("""
+        INSERT INTO progress (user_session_id, chapter, verse, completed, updated_at)
+        VALUES (?,?,?,?,?)
+        ON CONFLICT(user_session_id, chapter, verse)
+        DO UPDATE SET completed=excluded.completed, updated_at=excluded.updated_at
+    """, (uid, chapter, verse, completed, now))
+    conn.commit()
+    conn.close()
+    return jsonify({"updated": True})
+
+@app.route("/api/progress/get")
+def progress_get():
+    uid = request.args.get("user_session_id", "default")
+    conn = get_db()
+    rows = conn.execute(
+        "SELECT chapter, verse, completed FROM progress WHERE user_session_id=?", (uid,)
+    ).fetchall()
+    conn.close()
+    return jsonify({"progress": [dict(r) for r in rows]})
+
+# ── IDDFS ─────────────────────────────────────────────────────────────────────
+@app.route("/api/iddfs", methods=["POST"])
+def iddfs():
+    kg = get_kg()
+    body    = request.json or {}
+    start   = body.get("start", "Kama")
+    goal    = body.get("goal", "Moksha")
+    max_dep = int(body.get("max_depth", 6))
+
+    # Run IDDFS manually to collect per-iteration stats
+    def dls_count(current, goal_n, limit, path, counter):
+        counter[0] += 1
+        path = path + [current]
+        if current == goal_n:
+            return path
+        if limit == 0:
+            return None
+        for nb in kg.neighbours_by_edge(current, "leadsTo"):
+            if nb not in path:
+                res = dls_count(nb, goal_n, limit - 1, path, counter)
+                if res is not None:
+                    return res
+        return None
+
+    iterations = []
+    total_explored = 0
+    found_path = None
+    found_depth = None
+    for d in range(max_dep + 1):
+        counter = [0]
+        result = dls_count(start, goal, d, [], counter)
+        total_explored += counter[0]
+        iterations.append({"depth": d, "nodes_explored": counter[0], "found": result is not None})
+        if result is not None:
+            found_path = result
+            found_depth = d
+            break
+
+    if found_path:
+        return jsonify({"found": True, "path": found_path, "depth_found": found_depth,
+                        "nodes_explored": total_explored, "iterations": iterations})
+    return jsonify({"found": False, "path": [], "depth_searched": max_dep,
+                    "nodes_explored": total_explored, "iterations": iterations})
+
+# ── OLLAMA CONTEXTUALIZE ───────────────────────────────────────────────────────
+@app.route("/api/contextualize", methods=["POST"])
+def contextualize():
+    import requests as _req
+    body       = request.json or {}
+    verse_ref  = body.get("verse_ref", "")
+    english    = body.get("english", "")
+    user_query = body.get("user_query", "general study")
+    model      = body.get("model", "llama3.2")
+    prompt = (
+        f"You are a compassionate Bhagavad Gītā scholar. "
+        f"Verse {verse_ref}: \"{english[:300]}\"\n\n"
+        f"Explain in 3 short paragraphs how this verse applies to: \"{user_query}\".\n"
+        f"Be warm, practical, and grounded. Keep each paragraph under 60 words."
+    )
+    try:
+        res = _req.post(
+            "http://localhost:11434/api/generate",
+            json={"model": model, "prompt": prompt, "stream": False},
+            timeout=90,
+        )
+        res.raise_for_status()
+        commentary = res.json().get("response", "")
+        return jsonify({"commentary": commentary, "verse_ref": verse_ref, "model": model})
+    except _req.exceptions.ConnectionError:
+        return jsonify({"error": "Ollama not running. Start with: ollama serve"}), 503
+    except Exception as e:
+        return jsonify({"error": str(e)}), 503
 
 if __name__ == "__main__":
     print("🪷 Digital Bhaṣya API starting at http://localhost:8080")

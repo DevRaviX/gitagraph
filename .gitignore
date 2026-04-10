@@ -1,15 +1,44 @@
+# Python
 __pycache__/
 *.pyc
 *.pyo
-.DS_Store
 *.egg-info/
-dist/
-build/
 .env
 .venv/
 env/
 venv/
 *.pkl
+
+# Secrets
 .streamlit/secrets.toml
+
+# IDE / OS
+.DS_Store
+.vscode/
 .claude/
 .gemini/
+missfont.log
+
+# Build
+dist/
+build/
+
+# Audio dataset (~3.3 GB) — run download_audio.py to regenerate
+audio_cache/
+
+# SQLite user data — local state only
+user_data.db
+
+# Node modules
+frontend/node_modules/
+
+# Frontend build output (npm run build)
+frontend/dist/
+
+# LaTeX aux files
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk

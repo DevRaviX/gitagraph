@@ -232,53 +232,74 @@ This converts the Python KG into a JSON format D3.js can render as a force-direc
 
 ---
 
-## 5. Frontend Architecture — `static/`
+## 5. Frontend Architecture — `frontend/` (Digital Bhaṣya 2.0)
 
-### 5.1 Module Structure (No Framework — Pure JS)
+### 5.1 Module Structure (React 18 + Vite)
 
 ```
-utils.js          ← Router + API client + 20 UI helper functions
-pages/home.js     ← Home page (self-contained)
-pages/graph.js    ← D3.js knowledge graph
-pages/search.js   ← Animated traversal
-... (one file per page)
+frontend/src/
+  App.jsx           ← 8 routes · mobile hamburger sidebar
+  api.js            ← 24 typed fetch wrappers (GET + POST)
+  pages/
+    Home.jsx        ← Stats cards · PEAS table
+    Verses.jsx      ← 701 verses · virtual scroll · AI/keyword search
+                      Ollama commentary · verse comparison panel
+    Graph.jsx       ← D3 force-directed · CF-weighted edges
+    Search.jsx      ← BFS · DFS · A* · IDDFS tabs
+    Ask.jsx         ← Chat inference · SPARQL · Semantic RAG
+    Planner.jsx     ← CSP plan · flashcard quiz · print/export
+    Uncertainty.jsx ← MYCIN CF · fuzzy radar · belief revision
+    Expert.jsx      ← Reader profiles · rule base
+  components/
+    ui/             ← Badge · Button · Card · CFBar · Tabs …
+    layout/         ← Sidebar · PageTransition
 ```
 
-**Why no React/Vue?** The project is demonstrating AI, not frontend frameworks. Vanilla JS keeps the focus on the algorithms. Also — it's faster to load, no build step needed.
+The React SPA is built with Vite (`npm run build`), which produces `frontend/dist/`. The Flask API serves `static/index.html` from the production build. During development, Vite proxies all `/api/*` requests to `http://localhost:8080`.
 
-### 5.2 SPA Router
+**Key Libraries:**
+- **TanStack Query v5** — caching, `useMutation`, `placeholderData` for smooth UX
+- **Framer Motion 11** — page transitions, `AnimatePresence`
+- **D3.js v7** — force-directed graph with zoom/pan/drag
+- **@tanstack/react-virtual** — windowed rendering for 700+ verse cards
+
+### 5.2 D3.js Force Graph — CF-Weighted Edges
 
 ```javascript
-const Router = {
-  go(page) {
-    // 1. Highlight correct nav item
-    $$('.nav-item').forEach(n =>
-      n.classList.toggle('active', n.dataset.page === page));
-    // 2. Show loading state
-    setContent('<div class="spinner">Loading...</div>');
-    // 3. Call the page function (defined in pages/*.js)
-    window.Pages[page]?.();
-  }
-};
+// CF scale: combined certainty factor (0–1) → stroke width (1–4 px)
+const cfScale = d3.scaleLinear().domain([0, 1]).range([1, 4]).clamp(true)
+
+const link = g.append('g').selectAll('line').data(links).join('line')
+  .attr('stroke-width', d => {
+    const cf = verseCF[d.source.id] ?? 0
+    return cf > 0 ? cfScale(cf) : 1.2
+  })
 ```
 
-`window.Pages[page]?.()` — the `?.` is **optional chaining**: if the page function doesn't exist, it silently does nothing instead of crashing.
+Edges from high-CF verses (Verse_2_47: CF=0.9991) appear visually thicker, encoding confidence directly into the graph topology.
 
-### 5.3 D3.js Force Graph — Key Concepts
+### 5.3 Semantic RAG Search
 
-```javascript
-const sim = d3.forceSimulation(nodes)
-    .force('link',   d3.forceLink(links).id(d => d.id).distance(80))
-    .force('charge', d3.forceManyBody().strength(-220))  // repulsion
-    .force('center', d3.forceCenter(W/2, H/2))           // gravity to center
-    .force('collide',d3.forceCollide(24));               // no overlap
+```python
+# api.py — /api/semantic_search
+q_vec = _st_model.encode([q], normalize_embeddings=True)[0]  # 384-dim
+scores = embeddings @ q_vec   # dot product = cosine sim (normalised)
+top_k_idx = scores.argsort()[::-1][:k]
 ```
 
-Four forces act simultaneously on each node like a physics simulation:
-1. **Link force** — edges act like springs, pulling connected nodes together
-2. **Charge** — nodes repel each other (negative = repulsion)
-3. **Center** — gentle pull toward center of canvas
-4. **Collide** — prevents nodes from overlapping
+All 701 verse embeddings are pre-computed (`generate_embeddings.py`) and loaded as a NumPy matrix. Query is encoded at runtime, dot-product gives cosine similarity in O(701) — no index needed at this scale.
+
+### 5.4 Ollama Local Commentary
+
+```python
+# api.py — /api/contextualize
+res = requests.post("http://localhost:11434/api/generate",
+    json={"model": "llama3.2", "prompt": prompt, "stream": False},
+    timeout=90)
+commentary = res.json().get("response", "")
+```
+
+No API key, no cloud dependency. The prompt instructs the model to act as a Gītā scholar and explain the verse in 3 paragraphs relative to the user's situation.
 
 ---
 
