@@ -693,19 +693,50 @@ Tested against 4 reader profiles:
 
 2. **Corpus size:** 30 verses covers key themes but misses major Gītā concepts from Chapters 4 (Karma-Jnana synthesis), 7 (Knowledge of the Absolute), and 18 (final synthesis). Future work: encode all 700 verses.
 
-3. **Natural language input:** The system matches keywords in reader's concern against hardcoded strings. A proper NLP pipeline (word embeddings, intent classification) would improve robustness for paraphrased inputs.
+3. **Natural language input:** The keyword-matching expert system is augmented by semantic search (sentence-transformers) but the production-rule side still uses hardcoded string matching. An intent classification layer would improve robustness.
 
 4. **CSP scalability:** With 30 verses and 5 sessions, the domain is manageable. Scaling to 700 verses would require constraint propagation (AC-3) and smarter domain ordering beyond MRV.
 
-### 11.2 Future Extensions
+5. **Ollama latency:** The local LLM (Ollama) can take 15–60 seconds on CPU-only machines. GPU acceleration (`OLLAMA_GPU=1`) or a smaller model (phi3.5) reduces this.
 
-1. **Full OWL reasoner integration:** Use Owlready2 + HermiT for complete Description Logic inference, enabling true `spirituallyProgressesTo` materialisation
-2. **LLM verse selector:** Use an embedding model to match free-text queries to verse concepts without keyword matching
-3. **All 18 chapters:** Encode the complete Gītā corpus (700 verses) with automated translation alignment
-4. **Fuseki SPARQL endpoint:** Deploy Apache Jena Fuseki for production-grade SPARQL with OWL reasoning enabled
-5. **Personalised CF:** Learn tradition weights from reader feedback using Bayesian updating
-6. **Multi-agent extension:** Model the three commentary traditions (Shankara, Ramanuja, Madhva) as separate agents that negotiate verse interpretations
+### 11.2 Completed Extensions (v2.1)
+
+1. **Semantic RAG search** — `all-MiniLM-L6-v2` 384-dim embeddings over all 701 verses; cosine similarity ranking; fully local, no API key
+2. **Ollama commentary** — per-verse contextualised explanation via local LLM; graceful fallback message when Ollama is not running
+3. **IDDFS UI wiring** — iterative-deepening search now has its own tab in Search page with per-depth iteration trace and nodes-explored counter
+4. **SQLite user state** — study plans and per-verse progress persist across browser sessions via localStorage session ID
+5. **Flashcard quiz mode** — flip-card quiz over any generated study plan with correct/incorrect score tracking
+6. **Print/export** — formatted print view of any study plan (opens browser print dialog)
+7. **Virtual scrolling** — `@tanstack/react-virtual` windowed list for 700+ verse cards
+8. **Search history** — localStorage chips for recent searches, one-click recall
+9. **Verse comparison** — pin up to 3 verses for side-by-side comparison panel
+10. **CF-weighted edges** — D3 edge `strokeWidth` driven by MYCIN combined CF of source verse
+11. **Mobile sidebar** — hamburger toggle on small screens with animated drawer and backdrop overlay
+
+### 11.3 Future Extensions
+
+1. **Full OWL reasoner integration:** Use Owlready2 + HermiT for complete Description Logic inference
+2. **All 18 chapters in AI corpus:** Encode the complete Gītā (700 verses) with automated TTL generation
+3. **Fuseki SPARQL endpoint:** Deploy Apache Jena Fuseki for production-grade SPARQL with OWL reasoning
+4. **Personalised CF:** Learn tradition weights from reader feedback using Bayesian updating
+5. **Multi-agent extension:** Model the three commentary traditions as separate agents that negotiate verse interpretations
 
 ---
 
-*Documentation prepared for AI Minor Project submission | GitaGraph | DevRaviX*
+## 12. New API Endpoints (v2.1)
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/semantic_search` | GET | Cosine similarity search over 701 verse embeddings. Params: `q`, `k` |
+| `/api/contextualize` | POST | Ollama local-LLM commentary. Body: `verse_ref`, `english`, `user_query`, `model` |
+| `/api/iddfs` | POST | Iterative deepening DFS with per-depth iteration trace. Body: `start`, `goal`, `max_depth` |
+| `/api/plans/save` | POST | Persist generated study plan to SQLite. Body: `session_id`, `goal`, `plan` |
+| `/api/plans/list` | GET | List saved plans for a session. Param: `session_id` |
+| `/api/progress/update` | POST | Upsert verse completion status. Body: `user_session_id`, `chapter`, `verse`, `completed` |
+| `/api/progress/get` | GET | Get all progress entries for a session. Param: `user_session_id` |
+
+**Total endpoints: 24** (17 original + 7 new)
+
+---
+
+*Documentation prepared for AI Minor Project submission | GitaGraph v2.1 | DevRaviX*

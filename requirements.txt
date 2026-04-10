@@ -1,8 +1,9 @@
 # Digital Bhaṣya — Intelligent Gītā Reader's Assistant
-# Python 3.11+
+# Python 3.12+
 
-# Core UI
-streamlit>=1.35.0
+# Web API
+flask>=3.0.0
+flask-cors>=4.0.0
 
 # Knowledge Graph / RDF
 rdflib>=7.0.0
@@ -11,12 +12,25 @@ SPARQLWrapper>=2.0.0
 # Graph algorithms
 networkx>=3.3
 
-# Visualization
-plotly>=5.22.0
-
 # Data
 pandas>=2.2.0
 numpy>=1.26.0
 
-# Optional: Apache Jena Fuseki integration
-# requests>=2.31.0
+# Audio dataset (parquet)
+pyarrow>=16.0.0
+
+# Semantic search (RAG)
+sentence-transformers>=3.0.0
+
+# Local LLM commentary via Ollama (no API key — ollama serve must be running)
+# Install Ollama separately: https://ollama.com
+# Then: ollama pull llama3.2
+
+# Audio dataset download
+requests>=2.31.0
+tqdm>=4.66.0
+huggingface_hub>=0.24.0
+
+# Legacy Streamlit UI
+streamlit>=1.35.0
+plotly>=5.22.0

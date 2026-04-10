@@ -1,15 +1,17 @@
 %%{init: {'theme': 'neutral', 'themeVariables': {'fontSize': '14px'}}}%%
 flowchart TD
     A["📄 INPUT LAYER\nReader Query + CSV (701 verses)"]
-    B["🧠 MODULE 2: KNOWLEDGE BASE\nOWL 2 Ontology · 658 RDF Triples · 24 Concepts\ngita_ontology.ttl"]
+    B["🧠 MODULE 2: KNOWLEDGE BASE\nOWL 2 Ontology · 658 RDF Triples · 23 Concepts\ngita_ontology.ttl"]
     C["RDFLib\n(SPARQL Engine)"]
-    D["NetworkX\n61 Nodes · 175 Edges"]
+    D["NetworkX\n61 Nodes · 175+ Edges\nCF-weighted edges"]
     E["CSV Data\n701 Verses"]
     F["M4: EXPERT SYSTEM\n8 Rules · Forward Chaining\n8 SPARQL CQs"]
     G["M3: GRAPH SEARCH\nBFS · DFS · A* · IDDFS"]
-    H["M5: CSP PLANNER\nBacktracking · MRV\nForward Checking"]
+    H["M5: CSP PLANNER\nBacktracking · MRV\nForward Checking · SQLite"]
     I["MODULE 6: UNCERTAINTY\nMYCIN CFs · Fuzzy Logic\nBelief Revision"]
-    J["MODULE 0: UI\nStreamlit (8 pages) + Flask REST API"]
+    J["MODULE 0: UI\nReact SPA (8 pages) + Flask REST API\n24 endpoints · port 8080"]
+    K["SEMANTIC RAG\nsentence-transformers\nall-MiniLM-L6-v2\n384-dim cosine similarity"]
+    L["OLLAMA LOCAL LLM\nllama3.2 · no API key\n/api/generate"]
 
     A --> B
     B --> C & D & E
@@ -19,6 +21,8 @@ flowchart TD
     G --> I
     H --> I
     I --> J
+    K --> J
+    L --> J
 
     style A fill:#4A90D9,color:#fff,stroke:#2C5F8A
     style B fill:#7B68EE,color:#fff,stroke:#4B3FA0
@@ -30,3 +34,5 @@ flowchart TD
     style H fill:#F0AD4E,color:#fff,stroke:#C87D1E
     style I fill:#D9534F,color:#fff,stroke:#A02020
     style J fill:#337AB7,color:#fff,stroke:#1A4F7A
+    style K fill:#17A589,color:#fff,stroke:#0E7058
+    style L fill:#8E44AD,color:#fff,stroke:#5B2C6F
