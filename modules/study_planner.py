@@ -2,6 +2,9 @@
 study_planner.py — Digital Bhaṣya  Module 5
 Constraint Satisfaction Problem (CSP) Study Planner.
 
+Author: Shouryavi Awasthi (@shouryaviawasthi)
+Module: Search/CSP (Constraint Satisfaction, MRV, Forward Checking)
+
 Implements:
   StudyPlanner class: Backtracking CSP with MRV + Forward Checking
   generate_plan(reader_goal, num_sessions, verses_per_session)

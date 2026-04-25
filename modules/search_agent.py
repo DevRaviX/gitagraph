@@ -2,6 +2,9 @@
 search_agent.py — Digital Bhaṣya  Module 3
 Graph Search over the Gita Concept-Verse Knowledge Graph.
 
+Author: Shouryavi Awasthi (@shouryaviawasthi)
+Module: Graph Search (BFS, DFS, A*, IDDFS)
+
 Implements:
   bfs_reading_list(start_concept, max_hops)  → BFS reading list
   dfs_chain(start_node, edge_type)           → DFS chain tracer
