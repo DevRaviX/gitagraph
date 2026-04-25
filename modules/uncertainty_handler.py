@@ -2,6 +2,9 @@
 uncertainty_handler.py — Digital Bhaṣya  Module 6
 Uncertainty Handling: Certainty Factors, Fuzzy Logic, Non-Monotonic Reasoning.
 
+Author: Ayushi Choyal (@KA1117)
+Module: Uncertainty (MYCIN CF, fuzzy yoga-path membership, non-monotonic reasoning)
+
 Implements:
   mycin_combine(cf1, cf2)           → MYCIN combination formula
   compute_verse_cf(verse, evidences) → combine multiple CFs for a verse
