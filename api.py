@@ -2,6 +2,9 @@
 api.py — Digital Bhaṣya Flask REST API
 Serves the static SPA and exposes all AI modules as JSON endpoints.
 Run: python api.py
+
+Author: Ravi Kant Gupta (@DevRaviX)
+Module: Core Architecture & Full-Stack Integration
 """
 
 import os, sys, json, csv, io, sqlite3, datetime, re

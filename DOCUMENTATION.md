@@ -739,4 +739,17 @@ Tested against 4 reader profiles:
 
 ---
 
-*Documentation prepared for AI Minor Project submission | GitaGraph v2.1 | DevRaviX*
+## 13. Team & Contributions
+
+This project was developed by the following team for the AI Minor Project at NIT Kurukshetra:
+
+| Member | GitHub | Module & Responsibilities |
+| :--- | :--- | :--- |
+| **Ravi Kant Gupta** | [@DevRaviX](https://github.com/DevRaviX) | **Team Lead** · M1 (PEAS); M2 (OWL 2 ontology); M7 (Semantic RAG, Ollama); React SPA |
+| **Hariom Rajput** | [@Hariomrajput7049](https://github.com/Hariomrajput7049) | **Expert System** · M4 (9-rule engine, SPARQL CQs, specificity conflict resolution) |
+| **Ayushi Choyal** | [@KA1117](https://github.com/KA1117) | **Uncertainty** · M6 (MYCIN CF, fuzzy logic, non-monotonic belief revision) |
+| **Shouryavi Awasthi** | [@shouryaviawasthi](https://github.com/shouryaviawasthi) | **Graph & CSP** · M3 (BFS/DFS/A*/IDDFS); M5 (CSP backtracking, MRV, FC) |
+
+---
+
+*Documentation prepared for AI Minor Project submission | GitaGraph v2.1 | GitaGraph Team*

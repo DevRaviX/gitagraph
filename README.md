@@ -355,12 +355,23 @@ GitaGraph/
 
 ---
 
+## Team & Contributions
+
+This project was built as an AI Minor Project by students of NIT Kurukshetra.
+
+| Member | GitHub | Module & Responsibilities |
+| :--- | :--- | :--- |
+| **Ravi Kant Gupta** | [@DevRaviX](https://github.com/DevRaviX) | **Team Lead** · M1 (PEAS); M2 (OWL 2 ontology); M7 (Semantic RAG, Ollama); React SPA |
+| **Hariom Rajput** | [@Hariomrajput7049](https://github.com/Hariomrajput7049) | **Expert System** · M4 (9-rule engine, SPARQL CQs, specificity conflict resolution) |
+| **Ayushi Choyal** | [@KA1117](https://github.com/KA1117) | **Uncertainty** · M6 (MYCIN CF, fuzzy logic, non-monotonic belief revision) |
+| **Shouryavi Awasthi** | [@shouryaviawasthi](https://github.com/shouryaviawasthi) | **Graph & CSP** · M3 (BFS/DFS/A*/IDDFS); M5 (CSP backtracking, MRV, FC) |
+
+---
+
 <div align="center">
 
 *"योगः कर्मसु कौशलम्" — Yoga is excellence in action. (Gītā 2.50)*
 
-Built with devotion by [DevRaviX](https://github.com/DevRaviX) · AI Minor Project · NIT Kurukshetra
-
-[![GitHub](https://img.shields.io/badge/GitHub-DevRaviX-181717?style=for-the-badge&logo=github)](https://github.com/DevRaviX)
+Built with devotion by the GitaGraph Team · AI Minor Project · NIT Kurukshetra
 
 </div>

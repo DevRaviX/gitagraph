@@ -2,6 +2,9 @@
 knowledge_graph.py — Digital Bhaṣya
 Shared Knowledge Graph: loads the TTL ontology into RDFLib + NetworkX.
 All other modules import this as their single source of truth.
+
+Author: Ravi Kant Gupta (@DevRaviX)
+Module: Core Architecture & Knowledge Graph
 """
 
 import os
