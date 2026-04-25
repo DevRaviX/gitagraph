@@ -70,6 +70,15 @@ class StudyPlanner:
         # Pre-prune: remove pairs with no shared concept
         domains = {s: [p for p in d if self._theme_ok(p)]
                    for s, d in domains.items()}
+        mandatory_pairs = [p for p in all_pairs if set(MANDATORY_PAIR).issubset(set(p))]
+        if verses_per_session == len(MANDATORY_PAIR) and mandatory_pairs:
+            for s in sessions:
+                domains[s] = [p for p in domains[s] if (
+                    set(MANDATORY_PAIR).issubset(set(p)) or
+                    not any(v in p for v in MANDATORY_PAIR)
+                )]
+            domains[sessions[0]] = [p for p in domains[sessions[0]]
+                                    if set(MANDATORY_PAIR).issubset(set(p))]
 
         assignment = {}
         result = self._backtrack(assignment, sessions, domains, reader_goal)
@@ -116,7 +125,10 @@ class StudyPlanner:
                    domains: dict, goal: str) -> dict | None:
         if len(assignment) == len(sessions):
             if self._check_chapter_coverage(assignment):
-                return assignment
+                if (self._check_mandatory_pair(assignment) and
+                        self._check_speaker_variety(assignment) and
+                        self._check_goal_complete(assignment, goal)):
+                    return assignment
             return None
 
         # MRV: pick unassigned session with fewest valid pairs remaining
@@ -160,7 +172,10 @@ class StudyPlanner:
         used = [v for pair in assignment.values() for v in pair]
         valid = [p for p in domain if not any(v in used for v in p)]
         return sorted(valid,
-                      key=lambda p: -len(self.kg.shared_concepts(*p)))
+                      key=lambda p: (
+                          0 if set(MANDATORY_PAIR).issubset(set(p)) else 1,
+                          -len(self.kg.shared_concepts(*p)),
+                      ))
 
     # ── Consistency Check ─────────────────────────────────────────────────────
 
@@ -186,39 +201,27 @@ class StudyPlanner:
                 return False
 
         # (4) Downfall chain: 2.62 and 2.63 must be in same session
-        if "Verse_2_62" in pair and "Verse_2_63" not in pair:
-            # Check if 2.63 hasn't been assigned elsewhere
-            for s, p in assignment.items():
-                if "Verse_2_63" in p:
-                    return False
-        if "Verse_2_63" in pair and "Verse_2_62" not in pair:
-            earlier_verses = [v for s in sessions[:session_idx]
-                              for v in assignment.get(s, [])]
-            if "Verse_2_62" not in earlier_verses:
-                return False
+        if ("Verse_2_62" in pair) != ("Verse_2_63" in pair):
+            return False
 
-        # (5) Reader-goal: meditation → Ch6 verse by session 3
+        # (5) Reader-goal requirements such as "include Verse_2_47 by S2"
         goal_lower = goal.lower()
-        if "meditation" in goal_lower or "meditat" in goal_lower:
-            ch6_verses = [v for v in self.corpus
-                          if self.kg.nodes.get(v) and self.kg.nodes[v].chapter_number == 6]
-            # If we're past S3 and no Ch6 verse assigned yet, check this pair
-            if session_idx >= 2:
-                ch6_assigned = [v for pair_used in assignment.values()
-                                for v in pair_used
-                                if self.kg.nodes.get(v) and self.kg.nodes[v].chapter_number == 6]
-                if not ch6_assigned:
-                    pair_ch6 = [v for v in pair
-                                if self.kg.nodes.get(v) and self.kg.nodes[v].chapter_number == 6]
-                    if not pair_ch6:
-                        return False
-
-        # (6) Anxiety goal: Verse_2_47 by session 2
-        if "anxiety" in goal_lower or "anxious" in goal_lower:
-            if session_idx >= 1:
-                assigned_all = [v for p in assignment.values() for v in p]
-                if "Verse_2_47" not in assigned_all and "Verse_2_47" not in pair:
+        req = self._goal_requirement(goal_lower)
+        if req:
+            deadline_idx = req.get("by_session", len(sessions)) - 1
+            if session_idx >= deadline_idx:
+                assigned_all = [v for p in assignment.values() for v in p] + list(pair)
+                if "must_include_verse" in req and req["must_include_verse"] not in assigned_all:
                     return False
+                if "must_include_chapter" in req:
+                    required_chapter = req["must_include_chapter"]
+                    has_chapter = any(
+                        self.kg.nodes.get(v) and
+                        self.kg.nodes[v].chapter_number == required_chapter
+                        for v in assigned_all
+                    )
+                    if not has_chapter:
+                        return False
 
         return True
 
@@ -253,6 +256,8 @@ class StudyPlanner:
 
     def _theme_ok(self, pair: tuple) -> bool:
         """Theme coherence: pair shares at least one concept."""
+        if set(MANDATORY_PAIR).issubset(set(pair)):
+            return True
         return bool(self.kg.shared_concepts(*pair))
 
     def _check_chapter_coverage(self, assignment: dict) -> bool:
@@ -264,6 +269,53 @@ class StudyPlanner:
                 if node:
                     chapters.add(node.chapter_number)
         return {2, 3, 6}.issubset(chapters)
+
+    def _check_mandatory_pair(self, assignment: dict) -> bool:
+        """Require the downfall-chain verses to appear together in one session."""
+        return any(set(MANDATORY_PAIR).issubset(set(pair)) for pair in assignment.values())
+
+    def _check_speaker_variety(self, assignment: dict) -> bool:
+        """Require at least one Arjuna verse when the corpus/domain allows it."""
+        assigned = [v for pair in assignment.values() for v in pair]
+        has_arjuna = any(
+            self.kg.nodes.get(v) and self.kg.nodes[v].speaker == "Arjuna"
+            for v in assigned
+        )
+        arjuna_available = any(
+            self.kg.nodes.get(v) and self.kg.nodes[v].speaker == "Arjuna"
+            for v in self.corpus
+        )
+        return has_arjuna or not arjuna_available
+
+    def _check_goal_complete(self, assignment: dict, goal: str) -> bool:
+        """Verify final assignment satisfies the selected reader-goal constraint."""
+        req = self._goal_requirement(goal.lower())
+        if not req:
+            return True
+        assigned = [v for pair in assignment.values() for v in pair]
+        if "must_include_verse" in req:
+            return req["must_include_verse"] in assigned
+        if "must_include_chapter" in req:
+            required_chapter = req["must_include_chapter"]
+            return any(
+                self.kg.nodes.get(v) and self.kg.nodes[v].chapter_number == required_chapter
+                for v in assigned
+            )
+        return True
+
+    def _goal_requirement(self, goal_lower: str) -> dict:
+        """Map free-text goals to the documented hard goal constraints."""
+        if "meditation" in goal_lower or "meditat" in goal_lower or "dhyan" in goal_lower:
+            return GOAL_CONSTRAINTS["meditation"]
+        if "anxiety" in goal_lower or "anxious" in goal_lower or "worry" in goal_lower:
+            return GOAL_CONSTRAINTS["anxiety"]
+        if "duty" in goal_lower or "dharma" in goal_lower or "confus" in goal_lower:
+            return GOAL_CONSTRAINTS["duty"]
+        if "wisdom" in goal_lower or "wise" in goal_lower or "jnana" in goal_lower:
+            return GOAL_CONSTRAINTS["wisdom"]
+        if "liberation" in goal_lower or "moksha" in goal_lower or "mukti" in goal_lower:
+            return GOAL_CONSTRAINTS["liberation"]
+        return GOAL_CONSTRAINTS["general"]
 
     def _describe_theme(self, shared_concepts: list) -> str:
         """Human-readable theme from shared concept names."""

@@ -31,6 +31,8 @@ class WorkingMemory:
     start_verse: str = ""
     fired_rules: list = field(default_factory=list)
     confidence: float = 0.0
+    recommendation_specificity: int = 0
+    recommendation_cf: float = 0.0
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -218,6 +220,46 @@ class ExpertSystem:
         self.kg = kg
         self.rules = sorted(PRODUCTION_RULES, key=lambda r: -r.specificity)
 
+    def _apply_rule(self, wm: WorkingMemory, rule: Rule) -> None:
+        """
+        Apply a rule while preserving conflict resolution.
+        A later rule may fire for traceability, but it can only replace the
+        active recommendation if it is more specific, or equally specific with
+        a higher certainty factor.
+        """
+        before = {
+            "recommend_concept": wm.recommend_concept,
+            "recommend_chapter": wm.recommend_chapter,
+            "start_verse": wm.start_verse,
+            "confidence": wm.confidence,
+            "recommendation_specificity": wm.recommendation_specificity,
+            "recommendation_cf": wm.recommendation_cf,
+        }
+
+        rule.action(wm)
+        recommendation_changed = (
+            wm.recommend_concept != before["recommend_concept"] or
+            wm.recommend_chapter != before["recommend_chapter"] or
+            wm.start_verse != before["start_verse"]
+        )
+        if not recommendation_changed:
+            return
+
+        old_rank = (before["recommendation_specificity"], before["recommendation_cf"])
+        new_rank = (rule.specificity, rule.cf)
+        if old_rank != (0, 0.0) and new_rank < old_rank:
+            wm.recommend_concept = before["recommend_concept"]
+            wm.recommend_chapter = before["recommend_chapter"]
+            wm.start_verse = before["start_verse"]
+            wm.confidence = before["confidence"]
+            wm.recommendation_specificity = before["recommendation_specificity"]
+            wm.recommendation_cf = before["recommendation_cf"]
+            return
+
+        wm.recommendation_specificity = rule.specificity
+        wm.recommendation_cf = rule.cf
+        wm.confidence = max(wm.confidence, rule.cf)
+
     def infer(self, concern: str = "", goal: str = "",
               stage: str = "beginner", tradition: str = "",
               already_read: list = None, nature: str = "active") -> dict:
@@ -242,7 +284,7 @@ class ExpertSystem:
                 if rule.name not in wm.fired_rules:
                     try:
                         if rule.condition(wm):
-                            rule.action(wm)
+                            self._apply_rule(wm, rule)
                             wm.fired_rules.append(rule.name)
                             if not wm.confidence:
                                 wm.confidence = rule.cf

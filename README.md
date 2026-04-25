@@ -34,10 +34,10 @@ The **Digital Bhaṣya 2.0** frontend is a React 18 SPA served by a Flask REST A
 | **M1 — Agent** | PEAS framework, goal-based agent | Partially observable, sequential, discrete |
 | **M2 — Knowledge Base** | OWL 2 ontology + SPARQL | 658 RDF triples · 16 classes · 9 properties |
 | **M3 — Graph Search** | BFS · DFS · A\* · IDDFS | 61-node, 175-edge concept graph |
-| **M4 — Expert System** | Forward-chaining production rules | 8 rules · 8 SPARQL CQs · Hindi/Hinglish |
+| **M4 — Expert System** | Forward-chaining production rules | 9 rules · 8 SPARQL CQs · Hindi/Hinglish |
 | **M5 — Study Planner** | CSP backtracking + MRV + FC | 7 hard constraints · 5-session plans |
 | **M6 — Uncertainty** | MYCIN CFs · Fuzzy logic · NMR | 3 commentary traditions |
-| **M7 — Semantic RAG + LLM** | sentence-transformers + FAISS + Ollama | 701 verses · EN/Hindi/Hinglish commentary |
+| **M7 — Semantic RAG + LLM** | sentence-transformers + NumPy cosine search + Ollama | 701 verses · EN/Hindi/Hinglish commentary |
 
 ---
 
@@ -263,7 +263,7 @@ python download_audio.py
 | Graph algorithms | NetworkX | 3.3+ |
 | REST API | Flask | 3.0+ |
 | Embeddings | sentence-transformers (all-MiniLM-L6-v2) | 2.7+ |
-| Vector index | FAISS IndexFlatIP | 1.8+ |
+| Vector search | NumPy cosine similarity | 1.26+ |
 | Local LLM | Ollama + Llama 3 Q4\_K\_M | 0.3+ |
 | Frontend | React + Vite | 18 / 5.4 |
 | Styling | Tailwind CSS | 3.4 |
@@ -294,7 +294,7 @@ GitaGraph/
 ├── modules/
 │   ├── knowledge_graph.py    — GitaNode + GitaKnowledgeGraph
 │   ├── search_agent.py       — BFS · DFS · A* · IDDFS
-│   ├── expert_system.py      — 8 rules · 8 SPARQL CQs · Hindi/Hinglish
+│   ├── expert_system.py      — 9 rules · 8 SPARQL CQs · Hindi/Hinglish
 │   ├── study_planner.py      — CSP backtracking · MRV · forward checking
 │   └── uncertainty_handler.py — MYCIN · Fuzzy · NonMonotonicEngine
 │

@@ -166,7 +166,7 @@ def stats():
         "concepts": s["concepts"],
         "edges": s["edges"],
         "rdf_triples": s["rdf_triples"],
-        "modules": 6,
+        "modules": 7,
     })
 
 # ── KNOWLEDGE GRAPH DATA ───────────────────────────────────────────────────────
@@ -504,9 +504,18 @@ def semantic_search():
     except FileNotFoundError:
         return jsonify({"error": "Embeddings not found. Run generate_embeddings.py first."}), 503
     if _st_model is None:
-        from sentence_transformers import SentenceTransformer
-        _st_model = SentenceTransformer("all-MiniLM-L6-v2")
-    q_vec = _st_model.encode([q], normalize_embeddings=True)[0]
+        try:
+            from sentence_transformers import SentenceTransformer
+            _st_model = SentenceTransformer("all-MiniLM-L6-v2", local_files_only=True)
+        except Exception as e:
+            return jsonify({
+                "error": "Semantic search model is not available locally. Run generate_embeddings.py once with network access, or pre-cache all-MiniLM-L6-v2.",
+                "detail": str(e),
+            }), 503
+    try:
+        q_vec = _st_model.encode([q], normalize_embeddings=True)[0]
+    except Exception as e:
+        return jsonify({"error": "Could not encode semantic search query.", "detail": str(e)}), 503
     scores = embeddings @ q_vec
     top_k_idx = scores.argsort()[::-1][:k]
     kg = get_kg()

@@ -385,7 +385,7 @@ WorkingMemory(
 
 **Conflict Resolution:** Rules are sorted by `specificity` (an integer field). Higher specificity = fires earlier in the iteration. Rule R3 (specificity=3) fires *after* R1 (specificity=1) because R3's condition depends on `recommend_concept` being set by R1 — the forward-chaining fixpoint loop ensures this.
 
-**Fixpoint Convergence:** The engine iterates until no new rules fire in a complete pass. With 8 rules and a small working memory, convergence is guaranteed within ≤ 8 iterations.
+**Fixpoint Convergence:** The engine iterates until no new rules fire in a complete pass. With 9 rules and a small working memory, convergence is guaranteed within ≤ 9 iterations.
 
 **Rule R3 example trace:**
 ```

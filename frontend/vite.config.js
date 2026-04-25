@@ -12,4 +12,16 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          charts: ['d3', 'recharts'],
+          motion: ['framer-motion'],
+          query: ['@tanstack/react-query', '@tanstack/react-virtual'],
+        },
+      },
+    },
+  },
 })

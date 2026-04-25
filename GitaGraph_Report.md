@@ -10,7 +10,7 @@ Kurukshetra, Haryana, India · {524110006, 524410017, 524410027, 524410028}@nitk
 
 The Bhagavad Gītā, comprising 700 Sanskrit verses across 18 chapters, presents a rich but navigationally complex domain for knowledge representation and philosophical reasoning. Readers face significant challenges: non-linear conceptual dependencies, contradictions between yoga paths, the absence of personalized study guidance, and the inability to query the text in natural language across multiple languages.
 
-This paper presents **GitaGraph v2.1**, a modular knowledge-based AI system that models the Bhagavad Gītā as a semantic knowledge graph and extends it with hybrid neural–symbolic reasoning. The system integrates seven AI modules: (1) an OWL 2 ontology with 658 RDF triples, 16 classes, and 9 object properties—including transitive and symmetric axioms and property-chain inference; (2) four graph search algorithms (BFS, DFS, A\*, IDDFS) on a 61-node, 175-edge concept graph; (3) an 8-rule forward-chaining expert system with SPARQL competency queries; (4) a backtracking CSP solver with MRV heuristic and forward checking for personalized 5-session study plans; (5) a multi-modal uncertainty handler combining MYCIN certainty factors, fuzzy yoga-path membership functions, and non-monotonic belief revision; (6) a Semantic Retrieval-Augmented Generation (RAG) layer using sentence-transformer embeddings and FAISS indexing over all 701 verses; and (7) an Ollama-powered local LLM integration generating contextual commentary in English, Hindi, and Hinglish.
+This paper presents **GitaGraph v2.1**, a modular knowledge-based AI system that models the Bhagavad Gītā as a semantic knowledge graph and extends it with hybrid neural–symbolic reasoning. The system integrates seven AI modules: (1) an OWL 2 ontology with 658 RDF triples, 16 classes, and 9 object properties—including transitive and symmetric axioms and property-chain inference; (2) four graph search algorithms (BFS, DFS, A\*, IDDFS) on a 61-node, 175-edge concept graph; (3) a 9-rule forward-chaining expert system with SPARQL competency queries; (4) a backtracking CSP solver with MRV heuristic and forward checking for personalized 5-session study plans; (5) a multi-modal uncertainty handler combining MYCIN certainty factors, fuzzy yoga-path membership functions, and non-monotonic belief revision; (6) a Semantic Retrieval-Augmented Generation (RAG) layer using sentence-transformer embeddings and NumPy cosine search over all 701 verses; and (7) an Ollama-powered local LLM integration generating contextual commentary in English, Hindi, and Hinglish.
 
 Experimental results show A\* achieves optimal 3-hop paths to *Mokṣa* with 63% fewer node expansions than uniform-cost search; the CSP planner satisfies all 7 constraints in under 0.3 s; semantic RAG achieves MAP@5 = 0.837; and MYCIN combination reaches CF = 0.9991 for multi-tradition confirmed verse-concept pairs.
 
@@ -42,10 +42,10 @@ Classical AI offers a natural toolkit: ontologies encode philosophical taxonomy;
 
 - **OWL 2 Ontology:** 16 classes, 9 object properties (`owl:TransitiveProperty`, `owl:SymmetricProperty`, property chain axioms), 658 RDF triples.
 - **Multi-Algorithm Graph Search:** BFS, DFS, A\*, IDDFS on a 61-node, 175-edge philosophical knowledge graph with admissible heuristic and UI pathway visualization.
-- **Production-Rule Expert System:** 8-rule forward-chaining with Hindi/Hinglish keyword support, specificity-based conflict resolution, 8 SPARQL Competency Questions.
+- **Production-Rule Expert System:** 9-rule forward-chaining with Hindi/Hinglish keyword support, specificity-based conflict resolution, 8 SPARQL Competency Questions.
 - **CSP Study Planner:** Backtracking + MRV + forward checking, 7 hard constraints, personalized 5-session verse scheduling.
 - **Multi-Modal Uncertainty Handler:** MYCIN certainty factors, fuzzy yoga-path membership, non-monotonic belief revision.
-- **Semantic RAG Layer:** `all-MiniLM-L6-v2` embeddings + FAISS indexing over all 701 verses for semantic similarity search.
+- **Semantic RAG Layer:** `all-MiniLM-L6-v2` embeddings + NumPy cosine search over all 701 verses for semantic similarity search.
 - **Ollama LLM Integration:** Local Llama 3 commentary in English, Hindi, and Hinglish—no API key, no cloud dependency.
 - **React SPA:** Ancient manuscript-inspired UI (React 18, Vite, Tailwind CSS, Framer Motion) + Flask REST API with 16 endpoints.
 
@@ -109,9 +109,9 @@ GitaGraph v2.1 follows a three-tier layered architecture:
 | RDF triples | 658 | OWL 2 DL profile |
 | Graph nodes | 61 | Verses + concepts |
 | Graph edges | 175 | 9 property types |
-| FAISS-indexed verses | 701 | all-MiniLM-L6-v2 |
-| Embedding dimension | 384 | IndexFlatIP |
-| Production rules | 8 | +Hindi/Hinglish |
+| Cosine-indexed verses | 701 | all-MiniLM-L6-v2 |
+| Embedding dimension | 384 | NumPy inner product on normalised vectors |
+| Production rules | 9 | +Hindi/Hinglish |
 | SPARQL CQs | 8 | Competency questions |
 
 **Ontology — `gita_ontology.ttl`:**
@@ -127,7 +127,7 @@ GitaGraph v2.1 follows a three-tier layered architecture:
 | Graph algorithms | NetworkX | 3.3 |
 | REST API | Flask | 3.0 |
 | Embeddings | sentence-transformers (all-MiniLM-L6-v2) | 2.7 |
-| Vector index | FAISS IndexFlatIP | 1.8 |
+| Vector search | NumPy cosine similarity | 1.26 |
 | Local LLM | Ollama + Llama 3 Q4\_K\_M | 0.3+ |
 | Frontend | React + Vite | 18 / 5.4 |
 | Styling | Tailwind CSS | 3.4 |
@@ -310,19 +310,17 @@ def combine_cf(cf1: float, cf2: float) -> float:
 
 ```python
 from sentence_transformers import SentenceTransformer
-import faiss, numpy as np
+import numpy as np
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 embeddings = np.load('embeddings/gita_embeddings.npy')
-faiss.normalize_L2(embeddings)
-index = faiss.IndexFlatIP(384)
-index.add(embeddings)
 
 def semantic_search(query: str, top_k: int = 12):
-    q_vec = model.encode([query], normalize_embeddings=True)
-    scores, ids = index.search(q_vec, top_k)
-    return [{**enrich_verse_by_idx(i), 'score': float(s)}
-            for i, s in zip(ids[0], scores[0])]
+    q_vec = model.encode([query], normalize_embeddings=True)[0]
+    scores = embeddings @ q_vec
+    ids = scores.argsort()[::-1][:top_k]
+    return [{**enrich_verse_by_idx(i), 'score': float(scores[i])}
+            for i in ids]
 ```
 
 Similarity score: `score(q,v) = (e_q · e_v) / (|e_q|·|e_v|)` (cosine via inner product on normalized vectors).
@@ -378,7 +376,7 @@ def contextualize(verse_ref, english, sanskrit, concept,
 ### 4.1 Experimental Setup
 
 Platform: MacBook Pro, Apple M-series, 16 GB RAM, macOS 14.  
-Software: Python 3.11, RDFLib 7.0, NetworkX 3.3, sentence-transformers 2.7, FAISS 1.8, Ollama 0.3, React 18. No GPU required; Ollama used CPU-only quantized inference.
+Software: Python 3.11, RDFLib 7.0, NetworkX 3.3, sentence-transformers 2.7, NumPy 1.26, Ollama 0.3, React 18. No GPU required; Ollama used CPU-only quantized inference.
 
 ### 4.2 Graph Search Results
 
@@ -542,7 +540,7 @@ GitaGraph v2.1 demonstrates that a classical knowledge-based AI stack—OWL onto
 
 ## Acknowledgments
 
-The authors thank the open-source communities behind RDFLib, NetworkX, sentence-transformers, FAISS, Ollama, React, and Tailwind CSS. Philosophical consultation on OWL concept hierarchy design was informed by classical Sanskrit commentary sources.
+The authors thank the open-source communities behind RDFLib, NetworkX, NumPy, sentence-transformers, Ollama, React, and Tailwind CSS. Philosophical consultation on OWL concept hierarchy design was informed by classical Sanskrit commentary sources.
 
 ---
 
@@ -580,9 +578,9 @@ The authors thank the open-source communities behind RDFLib, NetworkX, sentence-
 
 | Member (Roll No.) | Role | Modules & Responsibilities |
 |---|---|---|
-| Hariom Rajput (524110006) | Expert System | M4: 8-rule forward-chaining engine; Hindi/Hinglish keywords (R1–R9); specificity conflict resolution; 8 SPARQL CQs; `cq_id` case-normalisation fix |
+| Hariom Rajput (524110006) | Expert System | M4: 9-rule forward-chaining engine; Hindi/Hinglish keywords (R1–R9); specificity conflict resolution; 8 SPARQL CQs; `cq_id` case-normalisation fix |
 | Ayushi Choyal (524410017) | Uncertainty | M6: MYCIN CF combination; fuzzy yoga-path membership; non-monotonic belief revision across 3 traditions; Gauge and CFBar UI components |
-| Ravi Kant Gupta (524410027) | Team Lead | M1 (PEAS); M2 (OWL 2 ontology, 658 triples); M7 (Semantic RAG + FAISS; Ollama LLM; EN/Hindi/Hinglish toggle); Flask REST API (16 endpoints, CSV enrichment pipeline); React SPA architecture; ancient manuscript UI design system |
+| Ravi Kant Gupta (524410027) | Team Lead | M1 (PEAS); M2 (OWL 2 ontology, 658 triples); M7 (Semantic RAG + NumPy cosine search; Ollama LLM; EN/Hindi/Hinglish toggle); Flask REST API, CSV enrichment pipeline; React SPA architecture; ancient manuscript UI design system |
 | Shouryavi Awasthi (524410028) | Graph & CSP | M3 (BFS, DFS, A\*, IDDFS + UI timeline); M5 (CSP backtracking, MRV, forward checking, 7 constraints); Search page verse card and path rendering |
 
 ---

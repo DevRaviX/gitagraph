@@ -13,7 +13,7 @@ async function req(method, path, body) {
 
 export const api = {
   stats:          ()           => req('GET',  '/stats'),
-  verses:         (q,ch)       => req('GET',  `/verses?q=${q||''}&chapter=${ch||''}&limit=1000`),
+  verses:         (q,ch)       => req('GET',  `/verses?q=${encodeURIComponent(q||'')}&chapter=${encodeURIComponent(ch||'')}&limit=1000`),
   graph:          (verses)     => req('GET',  `/graph?verses=${verses}`),
   concepts:       ()           => req('GET',  '/concepts'),
   bfs:            (b)          => req('POST', '/bfs',              b),
