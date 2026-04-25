@@ -3,16 +3,16 @@ import { motion } from 'framer-motion'
 import { BookOpen, Network, Brain, Layers, Cpu, Sparkles, ArrowRight, GitBranch, Search, CalendarDays, HelpCircle } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
-import { MetricCard, Card } from '../components/ui'
+import { MetricCard } from '../components/ui'
 import { PageHeader } from '../components/layout/PageTransition'
 
 const MODULES = [
-  { icon: Layers,       title: 'Knowledge Base',  desc: 'OWL 2 ontology · 658 RDF triples · 16 classes', path: '/graph',       color: 'text-gold',    module: 'M2' },
-  { icon: GitBranch,    title: 'Graph Search',     desc: 'BFS · DFS · A* · IDDFS on 61-node graph',       path: '/search',      color: 'text-teal',    module: 'M3' },
-  { icon: Brain,        title: 'Expert System',    desc: '8 forward-chaining rules · SPARQL CQs',          path: '/ask',         color: 'text-saffron', module: 'M4' },
-  { icon: CalendarDays, title: 'Study Planner',    desc: 'CSP backtracking · MRV · 7 constraints',         path: '/planner',     color: 'text-gold',    module: 'M5' },
-  { icon: HelpCircle,   title: 'Uncertainty',      desc: 'MYCIN CFs · Fuzzy logic · Belief revision',      path: '/uncertainty', color: 'text-crimson', module: 'M6' },
-  { icon: Search,       title: 'Verse Browser',    desc: '701 verses · Sanskrit · English · Hindi',        path: '/verses',      color: 'text-teal',    module: 'M2' },
+  { icon: Layers,       title: 'Knowledge Base',  desc: 'OWL 2 ontology · 658 RDF triples · 16 classes', path: '/graph',       accent: '#C9A84C', module: 'M2' },
+  { icon: GitBranch,    title: 'Graph Search',     desc: 'BFS · DFS · A* · IDDFS on 61-node graph',       path: '/search',      accent: '#4A9E7A', module: 'M3' },
+  { icon: Brain,        title: 'Expert System',    desc: '8 forward-chaining rules · SPARQL CQs',          path: '/ask',         accent: '#E8861A', module: 'M4' },
+  { icon: CalendarDays, title: 'Study Planner',    desc: 'CSP backtracking · MRV · 7 constraints',         path: '/planner',     accent: '#C9A84C', module: 'M5' },
+  { icon: HelpCircle,   title: 'Uncertainty',      desc: 'MYCIN CFs · Fuzzy logic · Belief revision',      path: '/uncertainty', accent: '#B03020', module: 'M6' },
+  { icon: Search,       title: 'Verse Browser',    desc: '701 verses · Sanskrit · English · Hindi',        path: '/verses',      accent: '#4A9E7A', module: 'M2' },
 ]
 
 const PEAS = [
@@ -32,7 +32,7 @@ const item = {
 }
 
 export default function Home() {
-  const nav = useNavigate()
+  const nav  = useNavigate()
   const { data } = useQuery({ queryKey: ['stats'], queryFn: api.stats })
 
   const metrics = [
@@ -45,7 +45,7 @@ export default function Home() {
   ]
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-6 md:p-8 max-w-6xl mx-auto">
       <PageHeader
         title="GitaGraph Dashboard"
         subtitle="Ontology-Driven AI System for Philosophical Navigation of the Bhagavad Gītā"
@@ -54,10 +54,8 @@ export default function Home() {
       />
 
       {/* Metrics */}
-      <motion.div
-        variants={container} initial="hidden" animate="show"
-        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8"
-      >
+      <motion.div variants={container} initial="hidden" animate="show"
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
         {metrics.map((m, i) => (
           <motion.div key={m.label} variants={item}>
             <MetricCard {...m} delay={i * 0.06} />
@@ -65,39 +63,53 @@ export default function Home() {
         ))}
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8">
         {/* PEAS Framework */}
-        <Card className="lg:col-span-2" delay={0.3} hover={false}>
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, delay: 0.3 }}
+          className="lg:col-span-2 parchment-card p-5">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-cinzel font-bold text-lg text-gold">PEAS Framework</h3>
-            <span className="chip chip-gold">Goal-Based Agent</span>
+            <h3 className="font-cinzel font-bold text-lg shimmer-text">PEAS Framework</h3>
+            <span style={{
+              fontSize: '0.65rem', fontFamily: 'Cinzel, serif', fontWeight: 700,
+              letterSpacing: '0.15em', textTransform: 'uppercase',
+              color: '#f0d8a0', background: 'rgba(201,168,76,0.10)',
+              border: '1px solid rgba(201,168,76,0.28)', padding: '0.25rem 0.7rem', borderRadius: 999,
+            }}>Goal-Based Agent</span>
           </div>
           <div className="space-y-3">
             {PEAS.map(({ label, value }) => (
               <div key={label} className="flex gap-3">
-                <span className="label w-24 shrink-0 pt-0.5">{label}</span>
-                <span className="text-sm text-ink-2 leading-relaxed">{value}</span>
+                <span className="shrink-0 pt-0.5 font-cinzel uppercase tracking-[0.15em]"
+                  style={{ fontSize: '0.6rem', fontWeight: 700, color: 'rgba(122,96,64,0.85)', width: 88 }}>
+                  {label}
+                </span>
+                <span className="font-fell leading-relaxed" style={{ color: '#c4a97a', fontSize: '0.88rem' }}>
+                  {value}
+                </span>
               </div>
             ))}
           </div>
-        </Card>
+        </motion.div>
 
-        {/* System Stats ring */}
-        <Card delay={0.35} hover={false}>
-          <h3 className="font-cinzel font-bold text-base text-gold mb-4">Graph Topology</h3>
-          <div className="space-y-3">
+        {/* Graph topology bars */}
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, delay: 0.35 }}
+          className="parchment-card p-5">
+          <h3 className="font-cinzel font-bold text-base shimmer-text mb-4">Graph Topology</h3>
+          <div className="space-y-3.5">
             {[
-              { label: 'Verses',   val: 32,  color: '#C9A84C' },
-              { label: 'Concepts', val: 24,  color: '#1ABC9C' },
-              { label: 'Edges',    val: 175, color: '#FF9933', max: 200 },
-              { label: 'Triples',  val: 658, color: '#9B59B6', max: 700 },
-            ].map(({ label, val, color, max = 40 }) => (
+              { label: 'Verses',   val: 32,  color: '#C9A84C', max: 40 },
+              { label: 'Concepts', val: 24,  color: '#4A9E7A', max: 30 },
+              { label: 'Edges',    val: 175, color: '#E8861A', max: 200 },
+              { label: 'Triples',  val: 658, color: '#9B7BC4', max: 700 },
+            ].map(({ label, val, color, max }) => (
               <div key={label} className="space-y-1">
-                <div className="flex justify-between text-xs">
-                  <span className="text-ink-2">{label}</span>
-                  <span className="font-mono" style={{ color }}>{val}</span>
+                <div className="flex justify-between">
+                  <span style={{ fontSize: '0.7rem', color: 'rgba(196,169,122,0.8)' }}>{label}</span>
+                  <span className="font-mono" style={{ fontSize: '0.7rem', color }}>{val}</span>
                 </div>
-                <div className="h-1.5 bg-bg-4 rounded-full overflow-hidden">
+                <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(61,46,30,0.7)' }}>
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${Math.min((val / max) * 100, 100)}%` }}
@@ -109,31 +121,51 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </Card>
+        </motion.div>
       </div>
 
       {/* Module Cards */}
-      <h3 className="section-title mb-4">AI Modules</h3>
-      <motion.div
-        variants={container} initial="hidden" animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-      >
-        {MODULES.map(({ icon: Icon, title, desc, path, color, module }, i) => (
+      <p className="font-cinzel font-bold text-xl shimmer-text mb-4">AI Modules</p>
+      <motion.div variants={container} initial="hidden" animate="show"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {MODULES.map(({ icon: Icon, title, desc, path, accent, module }, i) => (
           <motion.div key={title} variants={item}>
-            <Card onClick={() => nav(path)} glow="gold" delay={0.4 + i * 0.05}>
-              <div className="flex items-start justify-between mb-3">
-                <div className={`w-9 h-9 rounded-lg bg-bg-4 border border-border flex items-center justify-center ${color}`}>
-                  <Icon size={16} />
+            <motion.div
+              whileHover={{ y: -3, transition: { duration: 0.2 } }}
+              onClick={() => nav(path)}
+              className="parchment-card p-5 cursor-pointer transition-shadow duration-300 group"
+              style={{ position: 'relative', overflow: 'hidden' }}
+            >
+              {/* Hover glow overlay */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{ background: `radial-gradient(circle at top left, ${accent}0D, transparent 60%)` }} />
+
+              <div className="relative flex items-start justify-between mb-3">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: `${accent}15`, border: `1px solid ${accent}35` }}>
+                  <Icon size={16} style={{ color: accent }} />
                 </div>
-                <span className="chip">{module}</span>
+                <span style={{
+                  fontSize: '0.58rem', fontFamily: 'Cinzel, serif', fontWeight: 700,
+                  letterSpacing: '0.18em', textTransform: 'uppercase',
+                  color: 'rgba(122,96,64,0.7)', background: 'rgba(31,23,16,0.6)',
+                  border: '1px solid rgba(61,46,30,0.8)', padding: '0.18rem 0.55rem', borderRadius: 6,
+                }}>
+                  {module}
+                </span>
               </div>
-              <h4 className="font-semibold text-ink-1 mb-1">{title}</h4>
-              <p className="text-xs text-ink-2 leading-relaxed mb-3">{desc}</p>
-              <div className="flex items-center gap-1 text-xs text-gold opacity-70 hover:opacity-100 transition-opacity">
+              <h4 className="relative font-cinzel font-semibold mb-1.5" style={{ color: '#f5edcf', fontSize: '0.88rem' }}>
+                {title}
+              </h4>
+              <p className="relative font-fell leading-relaxed mb-4" style={{ color: 'rgba(196,169,122,0.75)', fontSize: '0.82rem' }}>
+                {desc}
+              </p>
+              <div className="relative flex items-center gap-1.5 font-cinzel uppercase tracking-[0.14em] transition-colors group-hover:gap-2"
+                style={{ fontSize: '0.6rem', color: accent, opacity: 0.75 }}>
                 <span>Explore</span>
-                <ArrowRight size={11} />
+                <ArrowRight size={10} />
               </div>
-            </Card>
+            </motion.div>
           </motion.div>
         ))}
       </motion.div>

@@ -6,21 +6,21 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { font-size: 15px; }
   body {
-    background-color: #0A0A10;
-    color: #EDE8DC;
+    background-color: #0E0B07;
+    color: #F5EDCF;
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
   }
   ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: #12121C; }
-  ::-webkit-scrollbar-thumb { background: #2A2A42; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: #C9A84C44; }
+  ::-webkit-scrollbar-track { background: #16110A; }
+  ::-webkit-scrollbar-thumb { background: #3D2E1E; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #C9A84C55; }
 
   input, select, textarea {
-    background: #1A1A28;
-    border: 1px solid #2A2A42;
-    color: #EDE8DC;
+    background: #1F1710;
+    border: 1px solid #3D2E1E;
+    color: #F5EDCF;
     border-radius: 8px;
     padding: 0.55rem 0.9rem;
     font-family: 'Inter', sans-serif;
@@ -33,7 +33,7 @@
     border-color: #C9A84C88;
     box-shadow: 0 0 0 3px #C9A84C1A;
   }
-  select option { background: #1A1A28; }
+  select option { background: #1F1710; }
 
   input[type=range] {
     -webkit-appearance: none;
@@ -43,7 +43,7 @@
   }
   input[type=range]::-webkit-slider-track {
     height: 4px;
-    background: #2A2A42;
+    background: #3D2E1E;
     border-radius: 2px;
   }
   input[type=range]::-webkit-slider-thumb {
@@ -91,12 +91,12 @@
     color: #8A7A6A;
   }
   .glass {
-    background: linear-gradient(135deg, #1A1A2899 0%, #12121Cbb 100%);
+    background: linear-gradient(135deg, rgba(31,23,16,0.85) 0%, rgba(18,13,9,0.92) 100%);
     backdrop-filter: blur(12px);
-    border: 1px solid #2A2A42;
+    border: 1px solid #3D2E1E;
   }
   .glass-gold {
-    background: linear-gradient(135deg, #C9A84C0A 0%, #12121Cbb 100%);
+    background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(18,13,9,0.92) 100%);
     backdrop-filter: blur(12px);
     border: 1px solid #C9A84C33;
   }
@@ -132,5 +132,564 @@
   }
   .chip-gold {
     @apply border-gold-dim text-gold bg-gold-faint;
+  }
+
+  .verse-sanctum {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .verse-sanctum::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 32px;
+    background:
+      radial-gradient(circle at top left, rgba(201, 168, 76, 0.12), transparent 34%),
+      radial-gradient(circle at top right, rgba(92, 81, 54, 0.16), transparent 28%),
+      linear-gradient(180deg, rgba(20, 15, 10, 0.32), transparent 22%);
+    pointer-events: none;
+    z-index: -2;
+  }
+
+  .verse-sanctum::after {
+    content: '';
+    position: absolute;
+    inset: 18px 10px auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.38), transparent);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .verse-hero {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201, 168, 76, 0.22);
+    border-radius: 30px;
+    padding: 1.6rem;
+    background:
+      linear-gradient(140deg, rgba(32, 23, 14, 0.95), rgba(10, 9, 8, 0.94)),
+      radial-gradient(circle at top, rgba(201, 168, 76, 0.16), transparent 40%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 235, 183, 0.06),
+      0 24px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  .verse-hero__title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 4vw, 3.75rem);
+    line-height: 0.98;
+    letter-spacing: 0.05em;
+    color: #f3ddac;
+    text-shadow: 0 2px 24px rgba(201, 168, 76, 0.12);
+  }
+
+  .verse-hero__subtitle {
+    margin-top: 0.9rem;
+    max-width: 58ch;
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: 1.18rem;
+    line-height: 1.45;
+    color: #d5c4a1;
+  }
+
+  .royal-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    background: rgba(201, 168, 76, 0.08);
+    color: #f0d8a0;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .royal-chip-muted {
+    border-color: rgba(138, 110, 42, 0.32);
+    background: rgba(65, 51, 27, 0.28);
+    color: #c8b48a;
+  }
+
+  .royal-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-height: 102px;
+    justify-content: center;
+    border-radius: 22px;
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    background:
+      linear-gradient(180deg, rgba(54, 38, 20, 0.55), rgba(16, 14, 13, 0.85));
+    padding: 1rem 1.05rem;
+  }
+
+  .royal-stat__label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #9c8a6b;
+  }
+
+  .royal-stat__value {
+    font-family: 'Cinzel', serif;
+    font-size: 1.45rem;
+    line-height: 1.1;
+    color: #f2deaf;
+  }
+
+  .royal-stat__value--small {
+    font-size: 0.95rem;
+    line-height: 1.25;
+  }
+
+  .verse-control-panel {
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    background:
+      linear-gradient(180deg, rgba(26, 20, 16, 0.96), rgba(12, 10, 10, 0.94));
+    box-shadow: inset 0 1px 0 rgba(255, 228, 170, 0.03);
+  }
+
+  .manuscript-input {
+    background:
+      linear-gradient(180deg, rgba(46, 34, 21, 0.78), rgba(22, 18, 17, 0.94));
+    border-color: rgba(138, 110, 42, 0.34);
+    color: #efe0ba;
+    box-shadow: inset 0 1px 0 rgba(255, 237, 202, 0.03);
+  }
+
+  .manuscript-input::placeholder {
+    color: rgba(185, 167, 138, 0.68);
+  }
+
+  .manuscript-mode-toggle {
+    border: 1px solid transparent;
+  }
+
+  .manuscript-mode-toggle--active {
+    background: linear-gradient(180deg, #d5b35b, #ad8430);
+    color: #160f08;
+    box-shadow: 0 10px 28px rgba(201, 168, 76, 0.16);
+  }
+
+  .manuscript-toggle {
+    background: rgba(43, 32, 21, 0.52);
+  }
+
+  .manuscript-toggle--active {
+    border-color: rgba(201, 168, 76, 0.54);
+    background: rgba(201, 168, 76, 0.11);
+    color: #f0d8a0;
+    box-shadow: 0 0 22px rgba(201, 168, 76, 0.08);
+  }
+
+  .royal-history-chip {
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid rgba(138, 110, 42, 0.3);
+    background: rgba(36, 27, 20, 0.55);
+    color: #b9a78a;
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .royal-history-chip:hover {
+    border-color: rgba(201, 168, 76, 0.48);
+    color: #f0d8a0;
+    transform: translateY(-1px);
+  }
+
+  .verse-card-monarch {
+    position: relative;
+    background:
+      linear-gradient(145deg, rgba(27, 20, 14, 0.96), rgba(10, 9, 9, 0.94)),
+      radial-gradient(circle at top, rgba(201, 168, 76, 0.12), transparent 38%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 241, 204, 0.04),
+      0 24px 70px rgba(0, 0, 0, 0.28);
+  }
+
+  .verse-card-monarch::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, transparent 0%, rgba(201, 168, 76, 0.04) 48%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .manuscript-sheet {
+    position: relative;
+    border-radius: 24px;
+    border: 1px solid rgba(201, 168, 76, 0.12);
+    background:
+      radial-gradient(circle at top, rgba(201, 168, 76, 0.08), transparent 45%),
+      linear-gradient(180deg, rgba(30, 23, 18, 0.88), rgba(18, 15, 13, 0.9));
+    padding: 1.15rem 1.1rem 1rem;
+  }
+
+  .verse-sanctum .verse-sanskrit {
+    color: #f4d9a1;
+    text-shadow: 0 0 24px rgba(201, 168, 76, 0.06);
+  }
+
+  .transliteration-strip {
+    color: #cdb899;
+  }
+
+  .leaf-note {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 1px solid rgba(210, 191, 153, 0.14);
+    background:
+      linear-gradient(180deg, rgba(74, 59, 39, 0.9), rgba(41, 32, 23, 0.9));
+    padding: 1rem 1rem 1.05rem 1.1rem;
+    box-shadow: inset 0 1px 0 rgba(255, 246, 220, 0.05);
+  }
+
+  .leaf-note::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: linear-gradient(180deg, rgba(201, 168, 76, 0.92), rgba(125, 95, 39, 0));
+    opacity: 0.9;
+  }
+
+  .leaf-note__label {
+    margin-bottom: 0.45rem;
+    font-size: 0.64rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #a28e6c;
+  }
+
+  .leaf-note-meaning {
+    background:
+      linear-gradient(180deg, rgba(88, 70, 46, 0.88), rgba(49, 39, 28, 0.92));
+  }
+
+  .leaf-note-reflection {
+    background:
+      linear-gradient(180deg, rgba(62, 49, 35, 0.85), rgba(39, 30, 24, 0.94));
+  }
+
+  .leaf-note-commentary {
+    background:
+      linear-gradient(180deg, rgba(53, 43, 31, 0.8), rgba(28, 24, 21, 0.92));
+  }
+
+  .verse-sanctum .verse-english {
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: 1.28rem;
+    line-height: 1.55;
+    color: #f2e3bf;
+  }
+
+  .verse-sanctum .verse-hindi {
+    font-size: 1rem;
+    line-height: 1.95;
+    color: #e2d0af;
+  }
+
+  .verse-sanctum .verse-transliteration {
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .drop-cap::first-letter {
+    float: left;
+    margin: 0.06em 0.18em 0 0;
+    font-family: 'Cinzel', serif;
+    font-size: 2.55em;
+    line-height: 0.85;
+    color: #f0d8a0;
+  }
+
+  .verse-highlight {
+    color: #fff4cf;
+    background:
+      linear-gradient(180deg, rgba(201, 168, 76, 0.1), rgba(201, 168, 76, 0.28));
+    padding: 0 0.16em;
+    border-radius: 0.22em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .concept-seal {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(201, 168, 76, 0.34);
+    background: rgba(201, 168, 76, 0.08);
+    color: #efd69d;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .scribe-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border: 1px solid rgba(201, 168, 76, 0.18);
+    border-radius: 999px;
+    padding: 0.5rem 0.95rem;
+    background: rgba(32, 26, 22, 0.55);
+    color: #d1b98a;
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+
+  .scribe-toggle:hover {
+    color: #f0d8a0;
+    border-color: rgba(201, 168, 76, 0.42);
+    transform: translateY(-1px);
+  }
+
+  .scribe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .scribe-entry {
+    border-radius: 18px;
+    border: 1px solid rgba(201, 168, 76, 0.12);
+    background: rgba(53, 41, 30, 0.55);
+    padding: 0.85rem 0.9rem;
+  }
+
+  .scribe-entry__word {
+    font-family: 'Martel', 'Noto Serif Devanagari', serif;
+    color: #f0d8a0;
+    font-size: 0.92rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .scribe-entry__meaning {
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    color: #eadcc0;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .oracle-panel {
+    border-top: 1px solid rgba(201, 168, 76, 0.12);
+    padding-top: 1rem;
+  }
+
+  .comparison-panel-monarch {
+    background:
+      linear-gradient(180deg, rgba(33, 25, 18, 0.94), rgba(10, 10, 10, 0.92));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 231, 185, 0.05),
+      0 24px 80px rgba(0, 0, 0, 0.32);
+  }
+
+  .royal-scroll {
+    scrollbar-color: rgba(201, 168, 76, 0.4) rgba(18, 18, 28, 0.6);
+  }
+
+  .verses-empty-state {
+    border: 1px dashed rgba(201, 168, 76, 0.2);
+    border-radius: 24px;
+    background: rgba(20, 16, 14, 0.55);
+  }
+
+  .raven-sigil {
+    position: absolute;
+    width: 74px;
+    height: 44px;
+    pointer-events: none;
+    opacity: 0.12;
+    background: linear-gradient(180deg, rgba(201, 168, 76, 0.68), rgba(201, 168, 76, 0));
+    clip-path: polygon(0 72%, 14% 44%, 28% 30%, 45% 8%, 56% 34%, 74% 18%, 100% 0, 90% 28%, 74% 62%, 60% 100%, 39% 84%, 22% 100%);
+  }
+
+  .raven-sigil-left {
+    left: 1.2rem;
+    top: 1rem;
+    transform: scaleX(-1) rotate(-4deg);
+  }
+
+  .raven-sigil-right {
+    right: 1.2rem;
+    top: 1rem;
+    transform: rotate(7deg);
+  }
+
+  /* ── Parchment card — warm leaf-note surface ── */
+  .parchment-card {
+    position: relative;
+    background:
+      radial-gradient(ellipse at top left, rgba(201,168,76,0.10) 0%, transparent 55%),
+      linear-gradient(160deg, #241a10 0%, #14100a 100%);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 20px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,241,195,0.05),
+      0 8px 40px rgba(0,0,0,0.45);
+  }
+
+  /* ── Illuminated card — glowing gold border ── */
+  .illuminated-card {
+    position: relative;
+    background:
+      radial-gradient(ellipse at top, rgba(201,168,76,0.14) 0%, transparent 50%),
+      linear-gradient(175deg, #1f1710 0%, #0e0b07 100%);
+    border: 1px solid rgba(201,168,76,0.38);
+    border-radius: 20px;
+    box-shadow:
+      0 0 28px rgba(201,168,76,0.12),
+      0 0 80px rgba(201,168,76,0.05),
+      inset 0 1px 0 rgba(255,241,195,0.07);
+  }
+  .illuminated-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 21px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.22) 0%, transparent 40%, transparent 60%, rgba(201,168,76,0.12) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Knotwork rule — decorative Celtic divider ── */
+  .knotwork-rule {
+    position: relative;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 0.5rem 0;
+  }
+  .knotwork-rule::before,
+  .knotwork-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.45), transparent);
+  }
+  .knotwork-rule span {
+    color: rgba(201,168,76,0.6);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    font-family: 'Cinzel', serif;
+  }
+
+  /* ── Manuscript paper — faint ruled lines in chat ── */
+  .manuscript-paper {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 27px,
+      rgba(201,168,76,0.04) 27px,
+      rgba(201,168,76,0.04) 28px
+    );
+    background-size: 100% 28px;
+  }
+
+  /* ── Chat bubbles — monarch period ── */
+  .royal-bubble-user {
+    background: linear-gradient(135deg, rgba(61,46,30,0.95), rgba(42,31,20,0.90));
+    border: 1px solid rgba(201,168,76,0.28);
+    border-radius: 18px 18px 4px 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,241,195,0.06);
+    color: #f5edcf;
+  }
+
+  .royal-bubble-system {
+    background: linear-gradient(135deg, rgba(22,17,10,0.96), rgba(31,23,16,0.90));
+    border: 1px solid rgba(201,168,76,0.14);
+    border-radius: 18px 18px 18px 4px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,241,195,0.03);
+    color: #c4a97a;
+  }
+
+  .raven-bubble {
+    background: linear-gradient(135deg, rgba(15,11,7,0.97), rgba(25,19,12,0.93));
+    border: 1px solid rgba(139,32,16,0.35);
+    border-radius: 18px 18px 18px 4px;
+    box-shadow:
+      0 4px 24px rgba(0,0,0,0.40),
+      0 0 30px rgba(139,32,16,0.08),
+      inset 0 1px 0 rgba(255,180,120,0.04);
+    color: #e8d5b0;
+  }
+
+  /* ── Wax seal concept chip ── */
+  .wax-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid rgba(139,32,16,0.45);
+    background: linear-gradient(135deg, rgba(139,32,16,0.18), rgba(80,20,10,0.12));
+    color: #e8a080;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,180,120,0.06);
+  }
+
+  /* ── Scroll input — ancient quill textarea ── */
+  .scroll-input {
+    background:
+      linear-gradient(180deg, rgba(31,23,16,0.96), rgba(20,16,10,0.94));
+    border: 1px solid rgba(138,110,42,0.38);
+    color: #f0e6c8;
+    font-family: 'IM Fell English', 'Spectral', serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    border-radius: 14px;
+    padding: 0.85rem 1rem;
+    box-shadow: inset 0 1px 0 rgba(255,241,195,0.04), 0 2px 12px rgba(0,0,0,0.25);
+    resize: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .scroll-input::placeholder {
+    color: rgba(180,160,120,0.5);
+    font-style: italic;
+  }
+  .scroll-input:focus {
+    border-color: rgba(201,168,76,0.55);
+    box-shadow: inset 0 1px 0 rgba(255,241,195,0.04), 0 0 0 3px rgba(201,168,76,0.10);
+    outline: none;
+  }
+
+  /* ── Verse emphasis — gold-highlighted key text ── */
+  .verse-emphasis {
+    color: #fff4cf;
+    background: linear-gradient(180deg, rgba(201,168,76,0.08), rgba(201,168,76,0.22));
+    padding: 0.05em 0.22em;
+    border-radius: 0.2em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    font-weight: 500;
+  }
+
+  /* ── Manuscript drop-cap via utility class ── */
+  .manuscript-dropcap::first-letter {
+    float: left;
+    margin: 0.04em 0.16em 0 0;
+    font-family: 'Uncial Antiqua', 'Cinzel', serif;
+    font-size: 3.2em;
+    line-height: 0.78;
+    color: #f0d8a0;
+    text-shadow: 0 0 18px rgba(201,168,76,0.35);
   }
 }

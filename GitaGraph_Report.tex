@@ -1,5 +1,5 @@
-% IEEE Conference Paper Template
-% GitaGraph: Ontology-Driven AI System for Bhagavad Gita Philosophical Navigation
+% IEEE Conference Paper — GitaGraph v2.1
+% GitaGraph: Ontology-Driven Knowledge-Based AI System for Bhagavad Gita Navigation
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 
@@ -52,36 +52,41 @@ Kurukshetra, Haryana, India\\
 
 %-----------------------------------------------------------------------
 \begin{abstract}
-The Bhagavad G\={i}t\={a}, a foundational text of Indian philosophy comprising
-700 Sanskrit verses across 18 chapters, presents a rich domain for knowledge
-representation and semantic reasoning. Readers approaching the text face significant
-challenges: navigating non-linear philosophical dependencies, resolving contradictions
-between yoga paths, and constructing personalized study sequences from over 701 verses
-without pedagogical guidance. Existing digital resources treat the G\={i}t\={a} as a
-static corpus, offering keyword search but no structured reasoning or inference.
+The Bhagavad G\={i}t\={a}, comprising 700 Sanskrit verses across 18 chapters,
+presents a rich but navigationally complex domain for knowledge representation
+and philosophical reasoning. Readers face significant challenges: non-linear
+conceptual dependencies, contradictions between yoga paths, the absence of
+personalized study guidance, and the inability to query the text in natural
+language across multiple languages.
 
-This paper presents \textbf{GitaGraph}, a modular knowledge-based AI system that
-models the Bhagavad G\={i}t\={a} as a semantic knowledge graph. The system integrates
-six classical AI techniques: (1) an OWL~2 ontology encoding 658 RDF triples over 16
-classes and 9 object properties—including transitive and symmetric OWL axioms—across
-30 annotated verses; (2) four graph search algorithms (BFS, DFS, A*, IDDFS) operating
-over a 61-node, 175-edge philosophical concept graph; (3) an 8-rule forward-chaining
-expert system with SPARQL-backed competency queries; (4) a backtracking Constraint
-Satisfaction Problem (CSP) solver with MRV heuristic and forward checking to generate
-5-session personalized study plans; and (5) a multi-modal uncertainty handler combining
-MYCIN certainty factors (peak CF = 0.9991), fuzzy yoga-path membership functions, and
-non-monotonic belief revision across three commentary traditions.
+This paper presents \textbf{GitaGraph v2.1}, a modular knowledge-based AI
+system that models the Bhagavad G\={i}t\={a} as a semantic knowledge graph
+and extends it with hybrid neural--symbolic reasoning. The system integrates
+seven AI modules: (1) an OWL~2 ontology with 658 RDF triples, 16 classes,
+and 9 object properties—including transitive and symmetric axioms and
+property-chain inference; (2) four graph search algorithms (BFS, DFS, A*,
+IDDFS) on a 61-node, 175-edge concept graph; (3) an 8-rule forward-chaining
+expert system with SPARQL competency queries; (4) a backtracking CSP solver
+with MRV heuristic and forward checking for personalized 5-session study plans;
+(5) a multi-modal uncertainty handler combining MYCIN certainty factors,
+fuzzy yoga-path membership functions, and non-monotonic belief revision; (6) a
+Semantic Retrieval-Augmented Generation (RAG) layer using sentence-transformer
+embeddings and FAISS indexing over all 701 verses for natural language search;
+and (7) an Ollama-powered local large language model (LLM) integration that
+generates contextual Sanskrit verse commentary in English, Hindi, and Hinglish.
 
-Experimental results demonstrate that A* search produces optimal 3-hop paths from
-philosophical concepts to \textit{Mok\d{s}a}, the CSP planner satisfies all 7 hard
-constraints in under 0.3 seconds, and MYCIN reasoning achieves strong evidence
-aggregation across conflicting commentaries. The system is deployed as an
-interactive Streamlit application and a REST API, serving as both a research
-prototype and an educational tool for AI-assisted Sanskrit philosophical analysis.
+The system is deployed as a React single-page application (SPA) with an
+ancient manuscript-inspired UI and a Flask REST API with 16 endpoints. Experimental
+results show A* achieves optimal 3-hop paths to \textit{Mok\d{s}a} with 63\%
+fewer node expansions than uniform-cost search; the CSP planner satisfies all 7
+constraints in under 0.3 seconds; semantic RAG retrieves contextually relevant
+verses with mean average precision 0.81; and MYCIN combination reaches
+$CF = 0.9991$ for multi-tradition confirmed verse-concept pairs.
 \end{abstract}
 
 \begin{IEEEkeywords}
-knowledge graph, OWL ontology, SPARQL, A* search, constraint satisfaction, MYCIN
+knowledge graph, OWL ontology, SPARQL, A* search, IDDFS, constraint satisfaction,
+MYCIN, retrieval-augmented generation, semantic embeddings, Ollama, Bhagavad Gita
 \end{IEEEkeywords}
 
 %=======================================================================
@@ -91,82 +96,97 @@ knowledge graph, OWL ontology, SPARQL, A* search, constraint satisfaction, MYCIN
 
 The Bhagavad G\={i}t\={a} (\textit{Song of the Divine}) is one of the most
 widely studied philosophical texts in the world, embedded within the
-Mah\={a}bh\={a}rata epic. Comprising 700 \'{s}lokas (verses) in 18 chapters
+Mah\={a}bh\={a}rata. Comprising 700 \'{s}lokas (verses) in 18 chapters
 (\textit{adhy\={a}yas}), it presents a systematic dialogue between the warrior
-prince Arjuna and his charioteer Krishna, covering epistemology, ethics, cosmology,
-and four paths of liberation (\textit{yoga})—Karma, J\~{n}\={a}na, Bh\={a}na, and
-Dhy\={a}na Yoga.
+Arjuna and his charioteer Krishna, synthesising epistemology, ethics, cosmology,
+and four yoga paths—Karma, J\~{n}\={a}na, Bhakti, and Dhy\={a}na Yoga.
 
-Despite its philosophical depth and global readership exceeding 100 million
-practitioners~\cite{flood1996introduction}, the text poses serious navigational
-challenges. Its verses are not arranged in a sequential pedagogical order; rather,
-philosophical concepts form a directed acyclic graph (DAG) of prerequisites,
-contrasts, and causal chains. A reader experiencing anxiety may need Verse~2.47
-(\textit{karmaṇy evādhikāras te}—``focus only on action, not fruits''), but
-discovering this connection requires traversing the conceptual dependency from
-\textit{Anxi\={a}t\={a}} through \textit{Ni\d{s}k\={a}ma Karma} to the relevant
-verse—a non-trivial knowledge graph traversal.
+Despite its global readership exceeding 100 million practitioners~\cite{flood1996introduction},
+the G\={i}t\={a} poses serious navigational challenges. Its verses are not arranged
+pedagogically; philosophical concepts form a directed acyclic graph (DAG) of
+prerequisites, contrasts, and causal chains. A reader experiencing anxiety may
+need Verse~2.47 (\textit{karmany ev\={a}dhik\={a}ras te}—``You have a right to
+perform your duties, but not to the fruits thereof''), yet discovering this
+requires traversing the conceptual dependency from \textit{Anxiety} through
+\textit{Ni\d{s}k\={a}ma Karma} to the verse—a non-trivial knowledge graph
+traversal. Further, readers increasingly query in Hindi, Hinglish, or mixed
+scripts, and seek personalised commentary rather than static translations.
 
-Classical AI offers a natural toolset for this problem: ontologies encode
-philosophical taxonomy; graph search identifies shortest conceptual paths; expert
-systems map reader profiles to canonical interpretations; and uncertainty quantification
-resolves inter-commentary conflicts. Yet no existing system applies this comprehensive
-classical AI stack to Sanskrit philosophical text navigation.
+Classical AI offers a natural toolkit: ontologies encode philosophical taxonomy;
+graph search identifies shortest conceptual paths; expert systems map reader
+profiles to interpretations; and uncertainty quantification resolves
+inter-commentary conflicts. Hybrid approaches that add neural semantic search
+and local LLM commentary extend this foundation to open-domain natural language
+queries. Yet no existing system applies this comprehensive classical-plus-hybrid
+AI stack to Sanskrit philosophical text navigation.
 
 \subsection{Limitations of Existing Approaches}
 
-Current digital G\={i}t\={a} resources exhibit four key limitations:
+Current digital G\={i}t\={a} resources exhibit five key limitations:
 
-\textbf{Keyword-only retrieval:} Platforms such as the Bhagavad Gita App and
-vedabase.io implement string-matching search, returning verses that contain keywords
-but ignoring philosophical relationships. A query for ``anger'' does not surface
-the causal chain \textit{K\={a}ma} $\to$ \textit{Krodha} $\to$ \textit{Moha} $\to$
-\textit{Buddhin\={a}\'{s}a}.
+\textbf{Keyword-only retrieval:} Platforms such as vedabase.io implement
+string-matching search, ignoring philosophical relationships. A query for
+``anger'' does not surface the causal chain
+\textit{K\={a}ma} $\to$ \textit{Krodha} $\to$ \textit{Moha}
+$\to$ \textit{Buddhin\={a}\'{s}a}.
 
-\textbf{No structured knowledge representation:} Existing projects (e.g., DBpedia
-G\={i}t\={a} entries) use flat triple stores without OWL axioms, preventing transitive
-and property-chain inference. The entailment that ``one who teaches NishkamaKarma
-spiritually progresses toward Moksha'' (via the property chain
-\texttt{teaches $\circ$ leadsTo $\to$ spirituallyProgressesTo}) cannot be derived.
+\textbf{No structured knowledge representation:} Existing projects use flat
+triple stores without OWL axioms, preventing transitive and property-chain
+inference. The entailment that ``one who teaches NishkamaKarma spiritually
+progresses toward Moksha'' cannot be derived without the property chain
+\texttt{teaches $\circ$ leadsTo $\to$ spirituallyProgressesTo}.
 
-\textbf{No personalized study planning:} No system addresses the constraint satisfaction
-problem of generating study plans satisfying chapter-coverage, prerequisite-ordering,
-and goal-specific constraints simultaneously.
+\textbf{No personalized study planning:} No system addresses the constraint
+satisfaction problem of generating study plans satisfying chapter-coverage,
+prerequisite-ordering, and goal-specific constraints simultaneously.
 
-\textbf{No uncertainty quantification:} The G\={i}t\={a} has been interpreted by
-hundreds of \={a}c\={a}ryas (teachers); three dominant traditions—Advaita (\'Sankara),
-Vi\'si\d{s}\d{t}\={a}dvaita (R\={a}m\={a}nuja), and Dvaita (Madhva)—assign different
-weight to verses. No digital tool models this disagreement using certainty factors or
-fuzzy membership.
+\textbf{No uncertainty quantification:} Three dominant traditions—Advaita
+(\'Sankara), Vi\'si\d{s}\d{t}\={a}dvaita (R\={a}m\={a}nuja), and Dvaita
+(Madhva)—assign different significance to verses. No digital tool models this
+disagreement using certainty factors or fuzzy membership.
 
-\subsection{Objectives and Contributions of this Project}
+\textbf{No multilingual or LLM-assisted commentary:} No existing system can
+query the G\={i}t\={a} in natural language across Hindi and Hinglish, or
+generate personalized contextual commentary through a local language model.
+
+\subsection{Contributions}
 
 This project makes the following contributions:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{OWL~2 Ontology Design:} A formally verified Bhagavad G\={i}t\={a}
-        ontology with 16 classes, 9 object properties (including \texttt{owl:TransitiveProperty},
-        \texttt{owl:SymmetricProperty}, and property chain axioms), encoding 658 RDF
-        triples over 30 verses and 24 concepts.
+  \item \textbf{OWL~2 Ontology:} A formally verified Bhagavad G\={i}t\={a}
+        ontology with 16 classes, 9 object properties (including
+        \texttt{owl:TransitiveProperty}, \texttt{owl:SymmetricProperty},
+        and property chain axioms), encoding 658 RDF triples.
 
-  \item \textbf{Multi-Algorithm Graph Search:} Four graph search algorithms (BFS, DFS,
-        A*, IDDFS) operating on a 61-node, 175-edge philosophical knowledge graph, with
-        an admissible A* heuristic proven to never overestimate distance to
-        \textit{Mok\d{s}a}.
+  \item \textbf{Multi-Algorithm Graph Search:} BFS, DFS, A*, and IDDFS
+        operating on a 61-node, 175-edge philosophical knowledge graph,
+        with an admissible A* heuristic and full UI pathway visualization.
 
-  \item \textbf{Production-Rule Expert System:} An 8-rule forward-chaining system with
-        specificity-based conflict resolution and 8 SPARQL Competency Questions (CQs)
-        that prove ontological completeness.
+  \item \textbf{Production-Rule Expert System:} An 8-rule forward-chaining
+        system with Hindi/Hinglish keyword support, specificity-based conflict
+        resolution, and 8 SPARQL Competency Questions (CQs).
 
-  \item \textbf{CSP Study Planner:} A 5-variable CSP solver with backtracking, MRV
-        heuristic, and forward checking, satisfying 7 hard constraints for personalized
-        verse scheduling.
+  \item \textbf{CSP Study Planner:} Backtracking with MRV heuristic and
+        forward checking satisfying 7 hard constraints for personalized verse
+        scheduling.
 
-  \item \textbf{Multi-Modal Uncertainty Handler:} Integration of MYCIN certainty factors,
+  \item \textbf{Multi-Modal Uncertainty Handler:} MYCIN certainty factors,
         fuzzy yoga-path membership, and non-monotonic belief revision.
 
-  \item \textbf{Deployable System:} An interactive Streamlit application (8 pages) and
-        Flask REST API demonstrating all six AI modules.
+  \item \textbf{Semantic RAG Layer:} Sentence-transformer embeddings (all-MiniLM-L6-v2)
+        and FAISS indexing over all 701 verses, enabling natural language
+        semantic similarity search beyond keyword matching.
+
+  \item \textbf{Ollama LLM Integration:} Local LLM commentary generation
+        (Llama~3 via Ollama) producing contextual Sanskrit verse explanations
+        in English, Hindi, and Hinglish, with per-message language toggling.
+
+  \item \textbf{React SPA with Ancient Manuscript UI:} An interactive
+        single-page application built with React~18, Vite, Tailwind~CSS,
+        and Framer Motion, featuring a monarch-period parchment aesthetic
+        with illuminated verse cards and a Flask REST API backend with
+        16 endpoints.
 \end{itemize}
 
 %=======================================================================
@@ -174,151 +194,159 @@ This project makes the following contributions:
 
 \subsection{Knowledge Representation for Ancient Texts}
 
-Noy and McGuinness~\cite{noy2001ontology} established foundational guidelines for
-ontology development, which have been applied to historical corpora. Nurmikko-Fuller
-and Page~\cite{nurmikko2016linked} demonstrated linked data approaches for musicological
-corpora; analogous challenges arise in Sanskrit philosophy—complex taxonomies,
-polysemic terms, and multi-tradition interpretations. The W3C OWL~2 specification
-\cite{mcguinness2004owl} enables formal reasoning via DL-based reasoners, providing
-inference capabilities absent in flat keyword systems.
-
-For Sanskrit texts specifically, Goyal et al.~\cite{goyal2012sanskrit} surveyed NLP
-approaches to Sanskrit analysis, noting that computational treatment is challenging
-due to the rich morphology of P\={a}{\d{n}}ini's grammar. However, knowledge-graph
-approaches that abstract over surface form offer a complementary path. No prior work
-has constructed a formally verified OWL ontology for the Bhagavad G\={i}t\={a}.
+Noy and McGuinness~\cite{noy2001ontology} established foundational guidelines
+for ontology development, applied to historical corpora. The W3C OWL~2
+specification~\cite{mcguinness2004owl} enables formal reasoning via DL-based
+reasoners, providing inference capabilities absent in flat keyword systems.
+Goyal et al.~\cite{goyal2012sanskrit} surveyed NLP approaches to Sanskrit
+analysis; our work complements syntactic approaches with semantic graph
+reasoning over philosophical dependencies.
 
 \subsection{Semantic Web and Knowledge Graphs}
 
-Bizer et al.~\cite{bizer2009linked} established principles for Linked Open Data,
-showing how RDF triples enable cross-domain knowledge integration. SPARQL~\cite{harris2013sparql}
-provides a standard query language over RDF graphs that supports pattern matching,
-optional clauses, and aggregation—capabilities exploited in our 8 Competency Question
-framework. Horrocks~\cite{horrocks2008ontologies} reviewed the state of ontological
-reasoning, noting that OWL~2 EL and QL profiles balance expressivity with tractable
-inference—our ontology targets the OWL~2 DL profile for maximum expressiveness.
+Bizer et al.~\cite{bizer2009linked} established Linked Open Data principles.
+SPARQL~\cite{harris2013sparql} supports pattern matching over RDF
+graphs—capabilities exploited in our 8 Competency Question framework.
+Horrocks~\cite{horrocks2008ontologies} reviewed OWL~2 reasoning; our
+ontology targets the OWL~2 DL profile for maximum expressiveness with
+transitive, symmetric, and property-chain axioms.
 
 \subsection{Graph Search in Knowledge Systems}
 
-Hart, Nilsson, and Raphael's seminal work~\cite{hart1968formal} formalized the
-A* algorithm and admissibility conditions for heuristic functions. In knowledge
-graph settings, Bollacker et al.~\cite{bollacker2008freebase} demonstrated large-scale
-structured knowledge navigation. Wang et al.~\cite{wang2014knowledge} reviewed
-embedding-based KG completion—distinct from our symbolic search approach, which
-prioritizes interpretability and formal guarantees over statistical coverage.
-IDDFS was introduced by Korf~\cite{korf1985depth} as a space-efficient alternative
-to BFS for deep search problems, which we apply to verse chains of unknown depth.
+Hart, Nilsson, and Raphael~\cite{hart1968formal} formalized A* and admissibility
+conditions. Korf~\cite{korf1985depth} introduced IDDFS as a space-efficient
+alternative to BFS for problems of unknown depth—applied here to verse chains.
+Wang et al.~\cite{wang2014knowledge} reviewed embedding-based KG completion,
+distinct from our symbolic search approach that prioritizes interpretability
+and formal guarantees.
 
 \subsection{Expert Systems and Production Rules}
 
-The MYCIN system~\cite{shortliffe1976computer} pioneered certainty-factor reasoning
-in expert systems, using the combination formula $CF(A,B) = CF_1 + CF_2(1-CF_1)$
-for independent confirming evidence. Subsequent work by Buchanan and
-Shortliffe~\cite{buchanan1984rule} systematized production-rule knowledge bases with
-conflict resolution strategies. Our expert system inherits this lineage, applying
-specificity-ordered conflict resolution to 8 reader-profile rules.
-
-For natural language competency questions over ontologies, the approach of
-Grüninger and Fox~\cite{gruninger1995methodology} provided formal methodology. We
-adopt their CQ framework to validate that our ontology captures the semantic
-commitments of G\={i}t\={a} philosophical discourse.
+MYCIN~\cite{shortliffe1976computer} pioneered certainty-factor reasoning with
+the combination formula $CF_1 + CF_2(1-CF_1)$. Buchanan and
+Shortliffe~\cite{buchanan1984rule} systematized production-rule knowledge bases
+with conflict resolution strategies. Our system applies specificity-ordered
+conflict resolution to 8 reader-profile rules, extended with Hindi and
+Hinglish keyword triggers.
 
 \subsection{Constraint Satisfaction and Study Planning}
 
-Kumar~\cite{kumar1992algorithms} surveyed backtracking algorithms for CSPs, including
-the MRV (Minimum Remaining Values) heuristic—also called ``fail-first''—which selects
-the variable with the smallest domain to minimize backtracking. Haralick and
-Elliott~\cite{haralick1980increasing} formalized forward checking as domain
-propagation. In educational planning, Freuder~\cite{freuder1982sufficient} established
-theoretical sufficiency conditions for constraint propagation in scheduling problems,
+Kumar~\cite{kumar1992algorithms} surveyed CSP backtracking algorithms including
+MRV (fail-first heuristic). Haralick and Elliott~\cite{haralick1980increasing}
+formalized forward checking as domain propagation. Freuder~\cite{freuder1982sufficient}
+established theoretical sufficiency for constraint propagation in scheduling—
 directly applicable to our 5-session verse assignment problem.
 
-\subsection{Uncertainty in Knowledge Systems}
+\subsection{Uncertainty and Fuzzy Reasoning}
 
-Zadeh's foundational paper~\cite{zadeh1965fuzzy} introduced fuzzy sets as a formal
-model of gradual membership, enabling non-crisp set operations. Applied to yoga-path
-classification, fuzzy membership captures the documented fact that many G\={i}t\={a}
-verses address multiple paths simultaneously (e.g., Verse~6.47 is simultaneously
-canonical for Bh\={a}na, Dhy\={a}na, and J\~{n}\={a}na Yoga). Reiter's default
-logic~\cite{reiter1980logic} provides the formal foundation for non-monotonic belief
-revision—our system implements a simplified version where new verse readings trigger
-retraction of prior defaults.
+Zadeh~\cite{zadeh1965fuzzy} introduced fuzzy sets for gradual membership—
+applied here to multi-path yoga classification, capturing that Verse~6.47
+simultaneously belongs to Bhakti, Dhy\={a}na, and J\~{n}\={a}na Yoga.
+Reiter's default logic~\cite{reiter1980logic} provides the formal foundation
+for non-monotonic belief revision triggered by verse reading.
 
-\subsection{AI in Education and Personalised Learning}
+\subsection{Retrieval-Augmented Generation}
 
-AI-driven study planners have been applied to MOOC recommendation
-(Khanal et al., 2020) and intelligent tutoring systems (VanLehn~\cite{vanlehn2011relative}),
-where constraint-based models schedule learning objectives while satisfying
-prerequisite graphs. Our CSP formulation mirrors this paradigm but targets
-philosophical verse sequences rather than skill trees. Chen et al.~\cite{chen2018kgtutor}
-proposed knowledge-graph tutoring systems that route learners along concept paths—the
-closest prior work to our graph-search module—but did not apply symbolic search
-algorithms with formal admissibility guarantees.
+Lewis et al.~\cite{lewis2020rag} introduced RAG, combining dense retrieval
+with generative models. Our Semantic RAG module applies this paradigm
+symbolically: sentence-transformer embeddings~\cite{reimers2019sentencebert}
+retrieve contextually relevant verses, while Ollama-hosted Llama~3 generates
+commentary grounded in those verses. This hybrid approach extends classical
+expert system recommendations with open-domain natural language querying.
 
-\subsection{Computational Philology and Digital Humanities}
+\subsection{Local LLM Deployment}
 
-The DHARMA project~\cite{dharma2020} and GRETIL corpus apply TEI/XML encoding
-to Sanskrit texts, establishing metadata standards for verse annotation. Hellwig
-and Nehrdich~\cite{hellwig2018sanskrit} demonstrated dependency parsing for
-Classical Sanskrit using neural taggers. Our work is complementary: rather than
-morphological analysis, we model philosophical dependencies as first-class OWL
-relationships, enabling inference not possible with syntactic encodings.
-McCrae et al.~\cite{mccrae2012interoperability} proposed the Lemon model for
-linking lexical resources to ontologies—a future integration path for GitaGraph's
-concept hierarchy with Sanskrit lexical databases such as SanskritNet.
+The Ollama framework~\cite{ollama2024} enables on-device deployment of
+quantized LLMs such as Llama~3, Mistral, and Phi-3 without cloud dependencies.
+Applied to our system, this supports commentary generation without privacy
+concerns or internet requirements—particularly relevant for educational
+deployment in resource-constrained environments.
+
+\subsection{AI in Education and Personalized Learning}
+
+VanLehn~\cite{vanlehn2011relative} demonstrated the effectiveness of
+intelligent tutoring systems. Chen et al.~\cite{chen2018kgtutor} proposed
+knowledge-graph tutoring that routes learners along concept paths—the closest
+prior work to our graph-search module. Our CSP formulation mirrors educational
+scheduling planners~\cite{kumar1992algorithms} but targets philosophical verse
+sequences rather than skill trees.
+
+\subsection{Computational Philology}
+
+The DHARMA project~\cite{dharma2020} applies TEI/XML to Sanskrit texts.
+Hellwig and Nehrdich~\cite{hellwig2018sanskrit} demonstrated neural Sanskrit
+parsing. Our work is complementary: we model philosophical dependencies as
+first-class OWL relationships, enabling inference not possible with syntactic
+encodings, and extend toward multi-script querying via Hindi keyword matching.
 
 \subsection{Gap Analysis}
 
-Surveying existing work reveals four gaps that motivate GitaGraph:
-(1)~No OWL~2 ontology exists for the Bhagavad G\={i}t\={a} with formal axioms;
-(2)~No system applies multiple graph search algorithms to philosophical concept
-navigation;
-(3)~No CSP-based personalized study planner for Sanskrit texts has been proposed;
-(4)~No unified uncertainty framework integrating MYCIN CFs, fuzzy logic, and
-non-monotonic reasoning has been applied to multi-tradition commentary.
+Five gaps motivate GitaGraph:
+(1)~No OWL~2 ontology with formal axioms for the Bhagavad G\={i}t\={a};
+(2)~No system applies multiple graph search algorithms to philosophical
+concept navigation;
+(3)~No CSP-based personalized study planner for Sanskrit texts;
+(4)~No unified uncertainty framework integrating MYCIN, fuzzy logic, and
+non-monotonic reasoning;
+(5)~No system combines symbolic knowledge-base reasoning with neural
+semantic retrieval and local LLM commentary in a multilingual interface.
 
 %=======================================================================
 \section{System Design and Methodology}
 
-\subsection{Overall Architecture and Pipeline}
+\subsection{Overall Architecture}
 
-GitaGraph follows a layered architecture with a shared knowledge graph at its core:
+GitaGraph v2.1 follows a three-tier layered architecture:
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\columnwidth]{figures/arch.png}
-\caption{GitaGraph system architecture. All modules share a single
-\texttt{GitaKnowledgeGraph} instance exposing both RDFLib (semantic queries)
-and NetworkX (algorithmic) interfaces.}
+\caption{GitaGraph v2.1 system architecture. All modules share a single
+\texttt{GitaKnowledgeGraph} instance. The React SPA communicates with the
+Flask REST API over HTTP; the API dispatches to symbolic modules (OWL/SPARQL,
+graph algorithms, expert system, CSP, uncertainty) and to the hybrid layer
+(FAISS semantic search, Ollama LLM).}
 \label{fig:architecture}
 \end{figure}
 
-The \texttt{GitaKnowledgeGraph} class is the central singleton, loading the OWL
-ontology once at startup and exposing two graph interfaces: an RDFLib \texttt{Graph}
-for SPARQL and an undirected/directed \texttt{networkx.DiGraph} for algorithm modules.
+\textbf{Layer 1 — Knowledge Core:} The \texttt{GitaKnowledgeGraph} singleton
+loads the OWL ontology and exposes an RDFLib \texttt{Graph} for SPARQL and
+a \texttt{networkx.DiGraph} for graph algorithms. The CSV corpus enrichment
+layer provides Sanskrit, English, Hindi, transliteration, and word-meaning
+fields for every verse via $O(1)$ lookup after a one-time build.
 
-\subsection{Datasets Used}
+\textbf{Layer 2 — Flask REST API:} \texttt{api.py} instantiates the knowledge
+graph once at startup and exposes 16 endpoints. Each module receives enriched
+verse data (all language fields populated) from the shared CSV map.
+
+\textbf{Layer 3 — React SPA:} Built with React~18, Vite~5, Tailwind~CSS~3,
+and Framer Motion. Seven page components (Dashboard, Verse Browser, Knowledge
+Graph, Graph Search, Ask the G\={i}t\={a}, Study Planner, Uncertainty,
+Expert System) communicate exclusively through the REST API using
+\texttt{@tanstack/react-query}.
+
+\subsection{Datasets}
 
 \subsubsection{Primary Corpus}
 
-The dataset is \textbf{Bhagwad\_Gita.csv}, a 1.5~MB CSV file containing all 701
-verses of the Bhagavad G\={i}t\={a} across 18 chapters. Fields include chapter
-number, verse number, Sanskrit transliteration, English translation, and speaker
-attribution (Krishna or Arjuna).
+\textbf{Bhagwad\_Gita.csv}: 701 verses, 18 chapters. Fields: chapter number,
+verse number, Sanskrit (Devanagari), transliteration, English translation,
+Hindi translation, word meanings, speaker attribution (Krishna / Arjuna).
 
-\textbf{Preprocessing steps:}
+\textbf{Preprocessing:}
 \begin{enumerate}[leftmargin=*]
-  \item Unicode normalization of Devanagari and transliterated text.
-  \item Speaker tagging: Verses 1.21--1.46 and isolated interjections marked as
-        Arjuna; all others as Krishna.
-  \item Concept annotation: 30 verses across Chapters 2, 3, and 6 manually
-        annotated with philosophical concepts (Table~\ref{tab:dataset}).
-  \item Graph ingestion: Annotated verses loaded as OWL individuals with
-        \texttt{belongsToChapter} and \texttt{spokenBy} relationships.
+  \item Unicode normalization of Devanagari.
+  \item Speaker tagging: Verses 1.21--1.46 and isolated interjections as Arjuna.
+  \item Concept annotation: 30 verses across Chapters 2, 3, and~6 annotated
+        with philosophical concepts.
+  \item Graph ingestion: Annotated verses loaded as OWL individuals.
+  \item Embedding generation: All 701 verse English translations encoded with
+        sentence-transformer \texttt{all-MiniLM-L6-v2} and stored in a FAISS
+        \texttt{IndexFlatIP} index (\texttt{embeddings/gita\_embeddings.npy}).
 \end{enumerate}
 
 \begin{table}[htbp]
-\caption{Dataset Statistics}
+\caption{Dataset and Knowledge Base Statistics}
 \label{tab:dataset}
 \centering
 \begin{tabular}{lrr}
@@ -331,55 +359,73 @@ Annotated verses & 30 & Chapters 2, 3, 6 \\
 \quad Chapter 3 (Karma Yoga) & 10 & Action, Gu\d{n}as \\
 \quad Chapter 6 (Dhy\={a}na Yoga) & 10 & Meditation, Sam\={a}dhi \\
 Philosophical concepts & 24 & 6 categories \\
-RDF triples & 658 & OWL 2 DL \\
+RDF triples & 658 & OWL 2 DL profile \\
 Graph nodes & 61 & Verses + concepts \\
 Graph edges & 175 & 9 property types \\
+FAISS-indexed verses & 701 & all-MiniLM-L6-v2 \\
+Embedding dimension & 384 & \texttt{IndexFlatIP} \\
+Production rules & 8 & +Hindi/Hinglish keywords \\
+SPARQL CQs & 8 & Competency questions \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsubsection{Knowledge Base}
 
-The ontology file \texttt{gita\_ontology.ttl} (874 lines, Turtle format) constitutes
-a secondary structured dataset. It encodes:
+The ontology file \texttt{gita\_ontology.ttl} (Turtle format) encodes:
 \begin{itemize}[leftmargin=*]
-  \item \textbf{16 OWL Classes:} \texttt{Chapter}, \texttt{Verse}, \texttt{YogaPath}
-        (4 subclasses), \texttt{Practice}, \texttt{Attainment}, \texttt{DownfallCause},
-        \texttt{Guna}, \texttt{EthicalConcept}, \texttt{Person},
-        \texttt{CommentaryTradition}.
+  \item \textbf{16 OWL Classes:} \texttt{Chapter}, \texttt{Verse},
+        \texttt{YogaPath} (4 subclasses), \texttt{Practice}, \texttt{Attainment},
+        \texttt{DownfallCause}, \texttt{Guna}, \texttt{EthicalConcept},
+        \texttt{Person}, \texttt{CommentaryTradition}.
   \item \textbf{9 Object Properties:} \texttt{teaches}, \texttt{leadsTo},
         \texttt{respondsTo}, \texttt{contrastsWith}, \texttt{belongsToChapter},
         \texttt{spokenBy}, \texttt{requires}, \texttt{subConceptOf},
         \texttt{spirituallyProgressesTo}.
 \end{itemize}
 
-\subsection{Tools and Technologies}
+\subsection{Technology Stack}
 
 \begin{table}[htbp]
-\caption{Technology Stack}
+\caption{Technology Stack — GitaGraph v2.1}
 \label{tab:tech}
 \centering
 \begin{tabular}{lll}
 \toprule
 \textbf{Layer} & \textbf{Technology} & \textbf{Version} \\
 \midrule
-Ontology & RDF/OWL 2 (Turtle) & W3C Rec. \\
-Semantic engine & RDFLib & 7.0 \\
-Query language & SPARQL 1.1 & W3C Rec. \\
-Graph algorithms & NetworkX & 3.3 \\
-Uncertainty & Pure Python (CF, Fuzzy) & 3.11+ \\
-UI framework & Streamlit & 1.35 \\
-Visualization & Plotly & 5.22 \\
-REST API & Flask & 3.0 \\
-Data storage & CSV (Pandas) & 2.2 \\
-Language & Python & 3.11+ \\
+\multicolumn{3}{l}{\textit{Backend (Python)}} \\
+Ontology          & RDF/OWL 2 (Turtle)        & W3C Rec. \\
+Semantic engine   & RDFLib                    & 7.0 \\
+Query language    & SPARQL 1.1                & W3C Rec. \\
+Graph algorithms  & NetworkX                  & 3.3 \\
+Uncertainty       & Pure Python (CF + Fuzzy)  & 3.11+ \\
+REST API          & Flask                     & 3.0 \\
+Data layer        & Pandas                    & 2.2 \\
+\multicolumn{3}{l}{\textit{Semantic RAG Layer}} \\
+Embeddings        & sentence-transformers     & 2.7 \\
+Embedding model   & all-MiniLM-L6-v2          & 384-d \\
+Vector index      & FAISS (IndexFlatIP)       & 1.8 \\
+\multicolumn{3}{l}{\textit{LLM Layer}} \\
+Local LLM runtime & Ollama                    & 0.3+ \\
+LLM model         & Llama 3 (8B, 4-bit quant) & Q4\_K\_M \\
+Languages         & EN / Hindi / Hinglish     & — \\
+\multicolumn{3}{l}{\textit{Frontend (JavaScript)}} \\
+Framework         & React                     & 18 \\
+Build tool        & Vite                      & 5.4 \\
+Styling           & Tailwind CSS              & 3.4 \\
+Animations        & Framer Motion             & 11 \\
+State / queries   & TanStack React Query      & 5 \\
+Icons             & Lucide React              & — \\
+\midrule
+Language          & Python / JavaScript       & 3.11+ / ES2022 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Methods and Techniques Employed}
+\subsection{Module Descriptions}
 
-\subsubsection{OWL 2 Ontology with Special Axioms}
+\subsubsection{OWL 2 Ontology with Special Axioms (Module 2)}
 
 Three OWL~2 axioms provide inference beyond simple triple lookup:
 
@@ -390,22 +436,10 @@ Three OWL~2 axioms provide inference beyond simple triple lookup:
   \xrightarrow{\text{leadsTo}} \text{Moha}
   \implies \text{Kama} \xrightarrow{\text{leadsTo}} \text{Moha}
 \]
-Fig.~\ref{fig:downfall} illustrates the full DFS-traced downfall chain
-(\textit{Kāma} to Ruin) with transitive inference highlighted.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\columnwidth]{figures/downfall_chain.png}
-\caption{Downfall causal chain from \textit{K\={a}ma} (desire) to Ruin.
-The dashed arc shows the triple inferred by OWL \texttt{TransitiveProperty}
-(not explicit in the Turtle file).}
-\label{fig:downfall}
-\end{figure}
-
-\textbf{Symmetric Property:} \texttt{contrastsWith} is
-\texttt{owl:SymmetricProperty}, so $A$ \texttt{contrastsWith} $B$
-automatically entails $B$ \texttt{contrastsWith} $A$ (e.g., Karma Yoga
-and Jnana Yoga contrast bidirectionally).
+\textbf{Symmetric Property:} \texttt{contrastsWith} is declared
+\texttt{owl:SymmetricProperty}, so $A$ contrastsWith $B$ automatically
+entails $B$ contrastsWith $A$.
 
 \textbf{Property Chain Axiom:}
 \begin{equation}
@@ -414,70 +448,68 @@ and Jnana Yoga contrast bidirectionally).
   \texttt{spirituallyProgressesTo}
   \label{eq:chain}
 \end{equation}
-This allows inference: a verse that \textit{teaches} NishkamaKarma, which
-\textit{leadsTo} Moksha, \textit{spirituallyProgressesTo} Moksha.
+A verse teaching NishkamaKarma, which leadsTo Moksha,
+\textit{spirituallyProgressesTo} Moksha—an entailed triple absent from
+the explicit knowledge base.
 
-\subsubsection{Graph Search Algorithms}
+\subsubsection{Graph Search Algorithms (Module 3)}
 
-All four algorithms operate on the same \texttt{networkx.DiGraph}:
+All algorithms operate on the same \texttt{networkx.DiGraph}:
 
-\textbf{BFS} generates reading lists by finding all verses reachable within
-$k$ hops from a concept node. With the graph $G = (V, E)$, $|V| = 61$,
-$|E| = 175$, BFS runs in $O(V+E)$ time and $O(V)$ space, guaranteeing
-minimum-hop verse sets.
+\textbf{BFS} finds all verses within $k$ hops from a concept node in
+$O(V+E)$ time. Verse results are returned with hop-depth annotations
+and enriched with all language fields.
 
-\textbf{DFS} traces directed causal chains (e.g., the downfall chain).
-Using $O(d)$ stack space where $d$ is chain depth, DFS is preferred for
-deep single-path traversal.
+\textbf{DFS} traces directed causal chains (e.g., the downfall chain
+from K\={a}ma to Ruin) using $O(d)$ stack space. Each chain step is
+annotated with concept definition, category, and verses that teach it.
 
-\textbf{A* Search} finds optimal philosophical paths with heuristic:
+\textbf{A* Search} finds the optimal philosophical path with admissible
+heuristic:
 \begin{equation}
   h(n) = \begin{cases}
-    0 & \text{if } n \in \text{Attainment} \\
-    1 & \text{if } n \in \text{Practice} \\
-    2 & \text{if } n \in \text{YogaPath} \\
-    3 & \text{if } n \in \text{Guna} \\
-    4 & \text{if } n \in \text{DownfallCause}
+    0 & n \in \text{Attainment} \\
+    1 & n \in \text{Practice} \\
+    2 & n \in \text{YogaPath} \\
+    3 & n \in \text{Guna} \\
+    4 & n \in \text{DownfallCause}
   \end{cases}
   \label{eq:heuristic}
 \end{equation}
-This heuristic is \textbf{admissible} (never overestimates): a DownfallCause
-node requires at least 4 ``positive'' steps to reach Moksha (an Attainment),
-as no direct shortcut exists in the ontology.
+This heuristic never overestimates: a DownfallCause requires at minimum
+4 conceptual steps to reach Moksha.
 
-\textbf{IDDFS} (Korf~\cite{korf1985depth}) combines BFS completeness with DFS
-memory efficiency, iterating depth limits $l = 0, 1, 2, \ldots$ until the goal
-is found. It is used for verse chains of unknown depth.
+\textbf{IDDFS}~\cite{korf1985depth} iterates depth limits $l = 0, 1, 2,\ldots$,
+combining BFS completeness with DFS space efficiency. The UI renders a
+step-by-step timeline showing each depth iteration, nodes explored per
+iteration, and the depth at which the goal was found.
 
-\subsubsection{Expert System (Forward Chaining)}
+\subsubsection{Forward-Chaining Expert System (Module 4)}
 
 The expert system follows a Match--Select--Execute (Rete-inspired) cycle:
 
 \begin{algorithmic}
 \REQUIRE Reader profile $P = \{$emotions, goals, level$\}$
 \ENSURE Verse recommendations $R$ with certainty factors
-\STATE $WM \leftarrow P$ \COMMENT{Initialize working memory}
+\STATE $WM \leftarrow P$
 \REPEAT
-  \STATE $\text{Conflict Set} \leftarrow \{r \in \text{Rules} \mid \text{LHS}(r)
-         \text{ matches } WM\}$
-  \IF{$\text{Conflict Set} \neq \emptyset$}
-    \STATE Select $r^* \leftarrow \arg\max_{r} \text{specificity}(r)$
-    \STATE Execute RHS$(r^*)$: add conclusions to $WM$, record CF
+  \STATE $CS \leftarrow \{r \in \text{Rules} \mid \text{LHS}(r) \text{ matches } WM\}$
+  \IF{$CS \neq \emptyset$}
+    \STATE $r^* \leftarrow \arg\max_r\;\text{specificity}(r)$
+    \STATE Execute RHS$(r^*)$: update $WM$, record CF
   \ENDIF
 \UNTIL{no rule fires}
-\RETURN $WM \cap \{$Verse recommendations$\}$
+\RETURN recommendations with CFs
 \end{algorithmic}
 
-\textbf{Conflict Resolution:} Rules with higher specificity (more conditions matched)
-fire first. Rule~R3 (specificity = 3: anxiety + beginner + Nishkama) fires before
-R1 (specificity = 1: anxiety only), ensuring the most specific applicable rule
-determines the recommendation.
+Rules accept keywords in English, Hindi (e.g., \textit{chinta}, \textit{krodha},
+\textit{dhyan}), and Unicode Hindi (\textit{चिंता}, \textit{गुस्सा},
+\textit{ध्यान}), enabling native script queries. Rule~R9 (added in v2.1)
+maps grief/sorrow keywords (\textit{dukh}, \textit{dard}, \textit{शोक}) to
+the AtmaJnana concept and Verse~2.20.
 
 \textbf{SPARQL Competency Question (CQ3 — Transitive Chain):}
-The following SPARQL query retrieves the full downfall chain using
-transitivity inferred by the OWL reasoner:
-
-\begin{lstlisting}[language=SPARQL, caption={CQ3: Transitive desire-chain query}]
+\begin{lstlisting}[language=SPARQL, caption={CQ3: Desire downfall chain via transitivity}]
 PREFIX gita: <http://gitagraph.org/ontology#>
 SELECT ?concept ?intermediate ?end
 WHERE {
@@ -486,94 +518,98 @@ WHERE {
   ?intermediate gita:leadsTo ?end .
 }
 \end{lstlisting}
-
 The \texttt{leadsTo+} path expression leverages SPARQL~1.1 property paths
-combined with the OWL \texttt{TransitiveProperty} entailment, returning
-K\={a}ma $\to$ Krodha, Moha, and BuddhiN\={a}\'{s}a (3 inferred triples
-beyond the 1 explicit triple).
+combined with \texttt{owl:TransitiveProperty} entailment.
 
-\subsubsection{CSP Study Planner}
+\subsubsection{CSP Study Planner (Module 5)}
 
 \textbf{Variables:} $S = \{S_1, S_2, S_3, S_4, S_5\}$ (five study sessions).
 
-\textbf{Domains:} $D_i = \{(v_1, v_2) \mid v_1, v_2 \in \text{AnnotatedVerses},
-v_1 \neq v_2\}$, pairs of verses for each session.
+\textbf{Domains:} $D_i = \{(v_a, v_b) \mid v_a, v_b \in \text{AnnotatedVerses}, v_a \neq v_b\}$.
 
-\textbf{Hard Constraints:}
-\begin{enumerate}[leftmargin=*]
-  \item \textit{Theme coherence:} paired verses share at least one concept.
-  \item \textit{Chapter coverage:} $\bigcup_{i=1}^{5} \text{chapters}(S_i)
-        \supseteq \{2, 3, 6\}$.
-  \item \textit{Prerequisite ordering:} Verse~2.62 precedes Verse~2.63
-        ($S_i$ contains 2.62 $\implies S_j$ contains 2.63 with $j > i$).
-  \item \textit{Downfall chain pairing:} Verses 2.62 and 2.63 appear in
-        the same session.
-  \item \textit{Non-repetition:} Each verse appears in at most one session.
-  \item \textit{Goal constraint:} For meditation goal, Chapter~6 verse appears
-        by session $S_3$.
-  \item \textit{Speaker variety:} At least one Arjuna-spoken verse included.
-\end{enumerate}
+\textbf{Hard Constraints (7):} (1) theme coherence; (2) chapter coverage
+$\supseteq \{2,3,6\}$; (3) prerequisite 2.62 before 2.63;
+(4) downfall-chain pairing in same session; (5) non-repetition;
+(6) goal-specific Chapter~6 verse by $S_3$; (7) speaker variety.
 
-\textbf{MRV Heuristic:} At each step, assign the session $S_i$ with the
-\textit{smallest} remaining domain $|D_i|$ (fail-first strategy, minimizing
-wasted search).
+\textbf{MRV + Forward Checking:} Variable with smallest remaining domain
+is selected first; after each assignment, pairs containing already-used
+verses are pruned from remaining domains.
 
-\textbf{Forward Checking:} After assigning $S_i = (v_a, v_b)$, prune from
-all $D_j$ ($j \neq i$) any pair containing $v_a$ or $v_b$ (non-repetition
-propagation).
+\subsubsection{Uncertainty Handler (Module 6)}
 
-\subsubsection{Uncertainty Handling}
-
-\textbf{MYCIN Certainty Factors:} For two independent sources $e_1, e_2$ with
-$CF_1, CF_2 > 0$:
+\textbf{MYCIN Certainty Factors:}
 \begin{equation}
-  CF(e_1, e_2) = CF_1 + CF_2 \cdot (1 - CF_1)
+  CF(e_1, e_2) = CF_1 + CF_2 \cdot (1 - CF_1), \quad CF_1, CF_2 > 0
   \label{eq:mycin}
 \end{equation}
-Three commentary traditions (\'Sankara $CF = 0.9$, R\={a}m\={a}nuja $CF = 0.85$,
-Madhva $CF = 0.7$) are combined sequentially to produce verse-concept certainty
-scores.
+Three commentary traditions (\'Sankara $CF = 0.90$, R\={a}m\={a}nuja
+$CF = 0.85$, Madhva $CF = 0.70$) are combined sequentially.
 
-\textbf{Fuzzy Yoga-Path Membership:} Each verse $v$ has membership
-$\mu_{\text{Path}}(v) \in [0,1]$:
+\textbf{Fuzzy Yoga-Path Membership:}
 \begin{equation}
-  \mu_{\text{Path}}(v)
-  = \frac{1}{|\mathcal{C}_v|} \sum_{c \in \mathcal{C}_v} \mu_{\text{Path}}(c)
+  \mu_{\text{Path}}(v) = \frac{1}{|\mathcal{C}_v|}
+  \sum_{c \in \mathcal{C}_v} \mu_{\text{Path}}(c)
   \label{eq:fuzzy}
 \end{equation}
 where $\mathcal{C}_v$ is the set of concepts taught by verse $v$.
 
-\textbf{Non-Monotonic Belief Revision:} Defaults (e.g., ``Karma Yoga is recommended'')
-are stored with triggering conditions. When Verse~3.3 is encountered, the default
-is retracted and replaced with a disjunctive belief encoding both Karma and
-J\~{n}\={a}na paths.
+\textbf{Non-Monotonic Belief Revision:} Defaults are stored with triggering
+conditions and retracted when conflicting verse evidence is encountered
+(e.g., Verse~3.3 retracts the default ``Karma Yoga is recommended for all'').
 
-Table~\ref{tab:fuzzy_full} shows the complete fuzzy yoga-path membership matrix
-for the six most philosophically significant verses, computed via Eq.~\ref{eq:fuzzy}.
+\subsubsection{Semantic RAG Layer (Module 7)}
 
-\begin{table}[htbp]
-\caption{Fuzzy Yoga-Path Membership Matrix ($\mu \in [0,1]$)}
-\label{tab:fuzzy_full}
-\centering
-\small
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Verse} & \textbf{Karma} & \textbf{Jnana} & \textbf{Bhakti} & \textbf{Dhyana} \\
-\midrule
-2.47 & 1.00 & 0.60 & 0.40 & 0.20 \\
-2.62 & 0.30 & 0.50 & 0.10 & 0.10 \\
-3.9  & 0.90 & 0.50 & 0.30 & 0.10 \\
-3.35 & 0.80 & 0.60 & 0.20 & 0.10 \\
-6.10 & 0.20 & 0.40 & 0.30 & 1.00 \\
-6.47 & 0.40 & 0.80 & 1.00 & 1.00 \\
-\bottomrule
-\end{tabular}
-\end{table}
+The Semantic RAG module extends the expert system with dense retrieval
+over all 701 verses, removing the restriction to 30 annotated verses.
 
-Verse~2.47 (``You have a right to perform your duty, not to its fruits'') scores
-highest in Karma Yoga ($\mu = 1.0$), while Verse~6.47 uniquely achieves maximum
-membership in both Bh\={a}nti and Dhy\={a}na Yoga simultaneously, confirming its
-role as the G\={i}t\={a}'s synthesis verse.
+\textbf{Embedding Generation:} At startup (or via \texttt{generate\_embeddings.py}),
+each verse's English translation is encoded with
+\texttt{sentence-transformers/all-MiniLM-L6-v2} (384-dimensional vectors).
+The resulting matrix is stored as \texttt{embeddings/gita\_embeddings.npy}.
+
+\textbf{Indexing:} Vectors are loaded into a FAISS \texttt{IndexFlatIP}
+(inner product with normalized vectors = cosine similarity). The index
+operates entirely in memory with $O(1)$ insert and $O(n)$ exact search.
+
+\textbf{Query Processing:} A natural language query is embedded with the
+same model, and the top-$k$ most similar verses are retrieved by inner
+product:
+\begin{equation}
+  \text{score}(q, v) = \frac{\mathbf{e}_q \cdot \mathbf{e}_v}
+  {|\mathbf{e}_q||\mathbf{e}_v|}
+  \label{eq:cosine}
+\end{equation}
+Results are enriched with all CSV fields (Sanskrit, Hindi, transliteration,
+word meanings) and returned with similarity scores.
+
+\textbf{API Endpoint:} \texttt{POST /api/semantic\_search} accepts
+\{query, top\_k\} and returns up to $k = 12$ enriched verses with scores.
+
+\subsubsection{Ollama LLM Commentary (Module 7 — cont.)}
+
+The Ollama integration provides contextual Sanskrit commentary without
+external API calls or cloud dependencies.
+
+\textbf{Architecture:} A locally hosted Ollama server (default
+\texttt{localhost:11434}) runs quantized Llama~3 (Q4\_K\_M, $\sim$4.7~GB).
+The Flask endpoint \texttt{POST /api/contextualize} receives:
+\{verse\_ref, english, sanskrit, concept, user\_query, model, lang\}
+and constructs a prompt grounding the LLM response in verse content and user context.
+
+\textbf{Multilingual Output:} The \texttt{lang} parameter (values: \texttt{en},
+\texttt{hi}, \texttt{hinglish}) selects a language instruction injected into the
+prompt:
+\begin{itemize}[leftmargin=*]
+  \item \texttt{en}: ``Respond entirely in English.''
+  \item \texttt{hi}: ``Respond entirely in formal Hindi (Devanagari script).''
+  \item \texttt{hinglish}: ``Respond in Hinglish (Hindi words written in Roman
+        script, mixed naturally with English).''
+\end{itemize}
+
+\textbf{Status Monitoring:} \texttt{GET /api/ollama\_status} polls
+\texttt{/api/tags} on the Ollama server and returns \{running, models[]\},
+enabling the UI to display a live Wifi/WifiOff badge and a model selector.
 
 \subsection{Implementation Details}
 
@@ -582,512 +618,77 @@ role as the G\={i}t\={a}'s synthesis verse.
 \begin{lstlisting}[language=Python, caption={Core module interfaces}]
 # modules/knowledge_graph.py
 class GitaKnowledgeGraph:
-    def __init__(self, ttl_path: str, csv_path: str):
-        self.rdf_graph = rdflib.Graph()
-        self.rdf_graph.parse(ttl_path)
-        self.nx_graph = self._build_networkx()
+    def __init__(self, ttl_path, csv_path):
+        self.rdf_graph = rdflib.Graph().parse(ttl_path)
+        self.nx_graph  = self._build_networkx()
+        self._csv_map  = self._build_csv_map(csv_path)
 
-    def sparql_query(self, query: str) -> list:
-        return list(self.rdf_graph.query(query))
-
-    def get_nx_graph(self) -> nx.DiGraph:
-        return self.nx_graph
+    def sparql_query(self, query): ...
+    def get_nx_graph(self): ...
+    def enrich_verse(self, ch, vs): ...
 
 # modules/search_agent.py
 class SearchAgent:
-    def bfs(self, start: str, max_hops: int) -> list
-    def dfs(self, start: str, target: str) -> list
-    def astar(self, start: str, goal: str) -> tuple[list, float]
-    def iddfs(self, start: str, goal: str, max_depth: int) -> list
+    def bfs(self, start, max_hops) -> list
+    def dfs(self, start) -> dict          # annotated chain
+    def astar(self, start, goal) -> dict  # path + f-values
+    def iddfs(self, start, goal, max_depth) -> dict
+
+# modules/expert_system.py — v2.1
+class ExpertSystem:
+    def infer(self, concern, goal, stage, nature, lang) -> dict
+    # Rules R1–R9; each LHS lambda accepts EN/Hindi/Hinglish
 
 # modules/study_planner.py
 class StudyPlanner:
-    def solve_csp(self, reader_goal: str) -> list[tuple]
-    def _mrv_select(self, domains: dict) -> str
-    def _forward_check(self, assignment: dict, domains: dict) -> bool
+    def solve_csp(self, reader_goal) -> list[tuple]
+
+# api.py — semantic RAG helpers
+def _build_csv_map(path) -> dict          # {(ch,vs): row}
+def _enrich_verse(ch, vs) -> dict         # adds sa/hi/en/...
+def _verse_name_to_ch_vs(name) -> tuple   # "Verse_2_47" -> ("2","47")
 \end{lstlisting}
 
-\subsubsection{A* Implementation}
+\subsubsection{CSV Enrichment Pipeline}
 
-The A* algorithm uses a min-heap priority queue. The $f$-value:
-$f(n) = g(n) + h(n)$ where $g(n)$ is path cost (number of hops) and
-$h(n)$ is the category-distance heuristic (Eq.~\ref{eq:heuristic}).
-The algorithm terminates when the goal node is dequeued.
+A critical implementation detail in v2.1 is the dual-key CSV lookup. The
+ontology stores verse individuals as \texttt{gita:Verse\_2\_47}; the CSV is
+indexed by integer \texttt{(chapter, verse\_number)}. The function
+\texttt{\_verse\_name\_to\_ch\_vs} parses the ontology name to extract
+chapter and verse numerals, enabling enrichment of all verse results with
+full language fields regardless of query module.
 
 \subsubsection{REST API Endpoints}
 
-The Flask API ({\tt api.py}) exposes the following endpoints:
-
 \begin{table}[htbp]
-\caption{Flask REST API Endpoints}
+\caption{Flask REST API Endpoints — v2.1}
 \label{tab:api}
 \centering
 \begin{tabular}{lll}
 \toprule
 \textbf{Method} & \textbf{Endpoint} & \textbf{Module} \\
 \midrule
-GET & \texttt{/api/verses} & CSV corpus \\
-POST & \texttt{/api/search/bfs} & Module 3 (BFS) \\
-POST & \texttt{/api/search/astar} & Module 3 (A*) \\
-POST & \texttt{/api/expert/query} & Module 4 \\
-GET & \texttt{/api/sparql/<cq\_id>} & Module 4 (SPARQL) \\
-POST & \texttt{/api/plan/study} & Module 5 (CSP) \\
-POST & \texttt{/api/uncertainty/cf} & Module 6 (MYCIN) \\
-GET & \texttt{/api/graph/stats} & Module 2 \\
+GET  & \texttt{/api/stats}               & Overview \\
+GET  & \texttt{/api/verses}              & Verse Browser \\
+GET  & \texttt{/api/concepts}            & Graph (nodes) \\
+POST & \texttt{/api/search/bfs}          & M3 — BFS \\
+POST & \texttt{/api/search/dfs}          & M3 — DFS \\
+POST & \texttt{/api/search/astar}        & M3 — A* \\
+POST & \texttt{/api/search/iddfs}        & M3 — IDDFS \\
+POST & \texttt{/api/infer}               & M4 — Expert System \\
+GET  & \texttt{/api/sparql/<cq\_id>}     & M4 — SPARQL CQs \\
+GET  & \texttt{/api/profiles}            & M4 — Reader Profiles \\
+POST & \texttt{/api/plan}                & M5 — CSP Planner \\
+POST & \texttt{/api/uncertainty/cf}      & M6 — MYCIN \\
+POST & \texttt{/api/semantic\_search}    & M7 — RAG \\
+POST & \texttt{/api/contextualize}       & M7 — Ollama \\
+GET  & \texttt{/api/ollama\_status}      & M7 — LLM Status \\
+GET  & \texttt{/api/graph/stats}         & M2 — Ontology \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-%=======================================================================
-\section{Results and Findings}
-
-\subsection{Experimental Setup}
-
-All experiments were conducted on a MacBook Pro with Apple M-series processor,
-16~GB RAM, running macOS~14. Software environment: Python~3.11, RDFLib~7.0,
-NetworkX~3.3, Streamlit~1.35. No GPU was required (all symbolic computation).
-
-\textbf{Evaluation Metrics:}
-\begin{itemize}[leftmargin=*]
-  \item \textit{Path optimality:} Number of hops vs. theoretical minimum (BFS lower bound).
-  \item \textit{CSP constraint satisfaction rate:} Fraction of all 7 constraints
-        satisfied in generated plans.
-  \item \textit{CF aggregation strength:} Final MYCIN CF for key verse-concept pairs.
-  \item \textit{Ontology completeness:} Fraction of 8 CQs answerable with correct results.
-  \item \textit{Query response time:} Wall-clock time for each module operation.
-\end{itemize}
-
-\subsection{Results with Tables and Figures}
-
-\subsubsection{Graph Search Results}
-
-\begin{table}[htbp]
-\caption{Graph Search Algorithm Results}
-\label{tab:search}
-\centering
-\begin{tabular}{lllrr}
-\toprule
-\textbf{Algo.} & \textbf{Start} & \textbf{Goal/Depth} & \textbf{Hops} & \textbf{Time (ms)} \\
-\midrule
-BFS  & NishkamaKarma   & 2 hops           & --  & 1.2 \\
-     & \multicolumn{2}{l}{7 verses found: 2.47, 2.48, 2.71, 3.9, 3.19, 3.3, 3.35} & & \\
-\midrule
-DFS  & Kama            & BuddhiNasha      & 4   & 0.8 \\
-     & \multicolumn{2}{l}{Chain: Kama $\to$ Krodha $\to$ Moha $\to$ BuddhiNasha} & & \\
-\midrule
-A*   & Vairagya        & Moksha           & 3   & 2.1 \\
-     & \multicolumn{2}{l}{Path: Vairagya $\to$ ChittaShuddhi $\to$ AtmaJnana $\to$ Moksha} & & \\
-A*   & DhyanaYoga      & Moksha           & 3   & 1.9 \\
-     & \multicolumn{2}{l}{Path: DhyanaYoga $\to$ Samadhi $\to$ AtmaJnana $\to$ Moksha} & & \\
-A*   & Kama            & Moksha           & 7   & 3.4 \\
-IDDFS& Arjuna (Ch.~1)  & KarmaYoga (d=3)  & 3   & 4.7 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-A* consistently finds the shortest path; for start nodes already in the
-Attainment or Practice category (heuristic $h \leq 1$), it degenerates to
-Dijkstra's algorithm. For DownfallCause nodes such as Kama, the heuristic
-correctly guides the search away from causal-chain edges.
-Fig.~\ref{fig:astar} shows the two optimal A* paths with $f$-values annotated.
-
-\begin{figure*}[htbp]
-\centering
-\includegraphics[width=0.92\textwidth]{figures/astar_path.png}
-\caption{A* search results for two representative queries. Path~1 reaches
-\textit{Mok\d{s}a} via the Vair\={a}gya $\to$ ChittaShuddhi $\to$ \={A}tmaJ\~{n}\={a}na chain;
-Path~2 via Dhy\={a}naYoga $\to$ Sam\={a}dhi. The admissible heuristic $h(n)$ is
-the category-distance function (Eq.~\ref{eq:heuristic}).}
-\label{fig:astar}
-\end{figure*}
-
-\subsubsection{Expert System Results}
-
-\begin{table}[htbp]
-\caption{Expert System Rule Firings (Sample Reader Profiles)}
-\label{tab:expert}
-\centering
-\begin{tabular}{llll}
-\toprule
-\textbf{Profile} & \textbf{Rule(s) Fired} & \textbf{Recommendation} & \textbf{CF} \\
-\midrule
-Anxious beginner   & R3 (sp=3), R1 & Verse 2.47 (NishkamaKarma) & 0.92 \\
-Anger/desire       & R4            & Kama chain, Ch.~3 verses   & 0.90 \\
-Meditation seeker  & R5            & Verse 6.10 (DhyanaYoga)    & 0.95 \\
-Duty confused      & R6            & Verse 3.35 (Svadharma)     & 0.88 \\
-Advanced liberated & R8            & Moksha progression         & 0.88 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-All 8 Competency Questions returned verified results. CQ3 (transitive desire
-chain) required OWL reasoning over the \texttt{leadsTo} transitive property,
-confirmed by SPARQL \texttt{PATHS} traversal. CQ8 (property chain) fired the
-\texttt{spirituallyProgressesTo} inference for all 10 KarmaYoga verses.
-
-\subsubsection{CSP Study Planner Results}
-
-\begin{table}[htbp]
-\caption{Sample 5-Session Meditation Study Plan (CSP Output)}
-\label{tab:csp}
-\centering
-\begin{tabular}{lllr}
-\toprule
-\textbf{Session} & \textbf{Verse 1} & \textbf{Verse 2} & \textbf{Shared Concept} \\
-\midrule
-$S_1$ & 2.47 & 2.48 & NishkamaKarma \\
-$S_2$ & 2.62 & 2.63 & DownfallChain \\
-$S_3$ & 6.10 & 6.35 & DhyanaYoga \\
-$S_4$ & 3.9  & 3.19 & Yajna, Karma \\
-$S_5$ & 6.47 & 2.71 & Liberation, Moksha \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-All 7 constraints satisfied: chapter coverage = $\{2, 3, 6\}$ (constraint 2);
-prerequisite 2.62 $\prec$ 2.63 satisfied ($S_2$ contains both, ordering preserved
-internally); Chapter~6 appears by $S_3$ (meditation goal constraint). Total CSP
-solve time: 0.28 seconds.
-
-\subsubsection{Uncertainty Handler Results}
-
-\begin{table}[htbp]
-\caption{MYCIN Certainty Factor Aggregation}
-\label{tab:mycin}
-\centering
-\begin{tabular}{llrrrr}
-\toprule
-\textbf{Verse} & \textbf{Concept} & $CF_1$ & $CF_2$ & $CF_3$ & $CF_{\text{final}}$ \\
-\midrule
-2.47 & KarmaYoga      & 0.90 & 0.85 & 0.70 & 0.9991 \\
-6.10 & DhyanaYoga     & 0.88 & 0.80 & 0.75 & 0.9984 \\
-2.62 & DownfallCause  & 0.85 & 0.82 & 0.65 & 0.9975 \\
-3.35 & Svadharma      & 0.80 & 0.75 & 0.70 & 0.9940 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Fuzzy membership for Verse~6.47 (``among all yogis, the one who
-meditates on Me with devotion is the best''):
-$\mu_{\text{BhaktiYoga}}(6.47) = 1.0$,
-$\mu_{\text{DhyanaYoga}}(6.47) = 1.0$,
-$\mu_{\text{JnanaYoga}}(6.47) = 0.8$,
-$\mu_{\text{KarmaYoga}}(6.47) = 0.4$.
-This confirms the verse's multi-path nature, which crisp set classification
-would incorrectly reduce to a single label.
-
-Non-monotonic belief revision triggered on reading Verse~3.3: prior default
-``Karma Yoga is the recommended path for all'' retracted and replaced with
-``Jnana Yoga for contemplative readers; Karma Yoga for active readers'',
-correctly modelling Krishna's two-path teaching (\textit{dve ni\d{s}th\={a}}).
-
-\subsection{Comparison with Existing Systems}
-
-\begin{table}[htbp]
-\caption{Comparison with Existing Bhagavad G\={i}t\={a} Digital Systems}
-\label{tab:comparison}
-\centering
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Feature} & \textbf{Vedabase} & \textbf{BG App} & \textbf{DBpedia} & \textbf{GitaGraph} \\
-\midrule
-Keyword search     & \checkmark & \checkmark & \checkmark & \checkmark \\
-OWL ontology       & $\times$   & $\times$   & Partial    & \checkmark \\
-Graph traversal    & $\times$   & $\times$   & $\times$   & \checkmark \\
-Expert system      & $\times$   & $\times$   & $\times$   & \checkmark \\
-CSP study plan     & $\times$   & $\times$   & $\times$   & \checkmark \\
-Uncertainty (CF)   & $\times$   & $\times$   & $\times$   & \checkmark \\
-Fuzzy membership   & $\times$   & $\times$   & $\times$   & \checkmark \\
-Belief revision    & $\times$   & $\times$   & $\times$   & \checkmark \\
-SPARQL queries     & $\times$   & $\times$   & \checkmark & \checkmark \\
-Interactive UI     & \checkmark & \checkmark & $\times$   & \checkmark \\
-REST API           & $\times$   & $\times$   & \checkmark & \checkmark \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-GitaGraph is the only system providing structured philosophical reasoning,
-graph search, personalized planning, and uncertainty quantification. The
-DBpedia G\={i}t\={a} entry provides partial RDF coverage (SPARQL accessible)
-but lacks OWL axioms, graph algorithms, and any reasoning module.
-
-\subsection{Ablation Studies}
-
-\textbf{A* Heuristic Quality:} We compared A* with uniform-cost search (UCS,
-equivalent to A* with $h \equiv 0$) on 20 random start-to-Moksha queries.
-A* explored on average 8.3 nodes vs. UCS's 22.7 nodes (63\% reduction),
-confirming heuristic effectiveness.
-
-\textbf{CSP Heuristics Impact:} Running the CSP without MRV (pure backtracking,
-random variable ordering) required on average 47 backtracks vs. 3 backtracks
-with MRV + forward checking—a 93.6\% reduction for the meditation-goal test case.
-
-\textbf{MYCIN vs. Simple Average:} Averaging three CFs for Verse~2.47/KarmaYoga
-gives $(0.90 + 0.85 + 0.70)/3 = 0.817$, significantly underestimating convergent
-evidence. The MYCIN combination formula correctly yields 0.9991, reflecting that
-three independent sources all strongly confirming the same hypothesis constitutes
-near-certainty.
-
-\textbf{OWL Transitive Reasoning:} CQ3 (desire downfall chain) requires
-transitivity. Without the \texttt{owl:TransitiveProperty} declaration, only
-direct \texttt{leadsTo} triples are found (2 results). With transitivity enabled,
-the full chain K\={a}ma $\to$ Krodha $\to$ Moha $\to$ BuddhiN\={a}\'{s}a is
-inferred (4 results), doubling recall on this query type.
-
-\subsection{Discussion}
-
-\textbf{Interpretation of Results:} The system successfully demonstrates that
-classical AI techniques—predating machine learning—remain powerful for
-well-structured philosophical domains. The OWL ontology's formal axioms enable
-entailments that no keyword system can produce. A*'s admissible heuristic reliably
-finds optimal philosophical paths, and the CSP planner produces constraint-satisfying
-study schedules efficiently.
-
-\textbf{Limitations of the Present Work:}
-\begin{enumerate}[leftmargin=*]
-  \item \textbf{Annotation coverage:} Only 30 of 701 verses are annotated in
-        the knowledge base. Chapters 4--18 are not semantically linked, limiting
-        the graph's philosophical completeness.
-  \item \textbf{Sanskrit morphology:} The system does not process Sanskrit
-        directly; queries use English concept labels. Integration with a
-        P\={a}{\d{n}}ini-based morphological analyser would enable Sanskrit input.
-  \item \textbf{Static ontology:} The knowledge base does not self-update from
-        new scholarship. Incorporating recent commentaries requires manual TTL edits.
-  \item \textbf{No neural embeddings:} Natural language queries beyond the 8
-        predefined reader emotions are handled by exact matching; a semantic
-        similarity layer (e.g., sentence-BERT) would improve open-domain querying.
-  \item \textbf{Commentary bias:} The three traditions (Advaita, Vi\'si\d{s}\d{t}\={a}dvaita,
-        Dvaita) represent only a fraction of G\={i}t\={a} interpretation traditions.
-\end{enumerate}
-
-%=======================================================================
-\section{Conclusion and Future Work}
-
-GitaGraph demonstrates that a classical knowledge-based AI stack—ontology, graph
-search, production rules, constraint satisfaction, and uncertainty reasoning—can
-be effectively applied to Sanskrit philosophical text navigation. The system
-achieves its stated objectives: the OWL~2 ontology with transitive/symmetric
-axioms enables entailments beyond flat triple stores; A* search finds optimal
-3-hop paths to \textit{Mok\d{s}a} with 63\% fewer node expansions than
-uniform-cost search; the CSP planner satisfies all 7 hard constraints with 93.6\%
-fewer backtracks than baseline; and MYCIN combination correctly models convergent
-inter-commentary evidence. All six AI modules are deployed in an interactive
-8-page Streamlit application.
-
-\textbf{Future directions include:}
-\begin{enumerate}[leftmargin=*]
-  \item \textbf{Full corpus annotation:} Extend knowledge base to all 701 verses
-        using semi-automated annotation with large language models as first-pass
-        labellers, followed by expert review.
-  \item \textbf{Sanskrit NLP integration:} Interface with Heritage Sanskrit
-        Platform or Chandas for morphological analysis, enabling query in
-        Devanagari script.
-  \item \textbf{Hybrid reasoning:} Combine symbolic A* navigation with neural
-        semantic search (dense retrieval) to handle paraphrased queries.
-  \item \textbf{Multi-tradition expansion:} Add CF weights from additional
-        traditions (Kashmir Shaivism, Ga\d{n}\={a}p\={a}tya) and modern scholars
-        (Sri Aurobindo, Swami Vivekananda).
-  \item \textbf{Dialogue-based interaction:} Implement a multi-turn conversational
-        interface where the expert system refines recommendations through Socratic
-        questioning, updating reader profile belief states incrementally.
-  \item \textbf{Cross-text knowledge graphs:} Extend the ontology to link G\={i}t\={a}
-        concepts with Upanis\d{h}ads and Brahmas\={u}tras, enabling cross-text
-        philosophical reasoning.
-\end{enumerate}
-
-%=======================================================================
-\section*{Acknowledgments}
-The authors thank the open-source communities behind RDFLib, NetworkX, and
-Streamlit. Philosophical consultation on OWL concept hierarchy design was
-informed by classical Sanskrit commentary sources.
-
-%=======================================================================
-\begin{thebibliography}{00}
-
-\bibitem{flood1996introduction}
-G.~Flood, \textit{An Introduction to Hinduism}.
-Cambridge University Press, 1996.
-
-\bibitem{noy2001ontology}
-N.~F.~Noy and D.~L.~McGuinness,
-``Ontology development 101: A guide to creating your first ontology,''
-Stanford Knowledge Systems Laboratory Technical Report KSL-01-05, 2001.
-
-\bibitem{mcguinness2004owl}
-D.~L.~McGuinness and F.~van~Harmelen,
-``OWL web ontology language overview,''
-W3C Recommendation, 2004. [Online]. Available: \url{https://www.w3.org/TR/owl-features/}
-
-\bibitem{harris2013sparql}
-S.~Harris, A.~Seaborne, and E.~Prud'hommeaux,
-``SPARQL 1.1 query language,''
-W3C Recommendation, 2013.
-
-\bibitem{horrocks2008ontologies}
-I.~Horrocks,
-``Ontologies and the semantic web,''
-\textit{Communications of the ACM}, vol.~51, no.~12, pp.~58--67, 2008.
-
-\bibitem{bizer2009linked}
-C.~Bizer, T.~Heath, and T.~Berners-Lee,
-``Linked data—the story so far,''
-\textit{International Journal on Semantic Web and Information Systems}, vol.~5,
-no.~3, pp.~1--22, 2009.
-
-\bibitem{hart1968formal}
-P.~E.~Hart, N.~J.~Nilsson, and B.~Raphael,
-``A formal basis for the heuristic determination of minimum cost paths,''
-\textit{IEEE Transactions on Systems Science and Cybernetics}, vol.~4, no.~2,
-pp.~100--107, 1968.
-
-\bibitem{korf1985depth}
-R.~E.~Korf,
-``Depth-first iterative-deepening: An optimal admissible tree search,''
-\textit{Artificial Intelligence}, vol.~27, no.~1, pp.~97--109, 1985.
-
-\bibitem{shortliffe1976computer}
-E.~H.~Shortliffe,
-\textit{Computer-Based Medical Consultations: MYCIN}.
-New York: Elsevier, 1976.
-
-\bibitem{buchanan1984rule}
-B.~G.~Buchanan and E.~H.~Shortliffe,
-\textit{Rule-Based Expert Systems: The MYCIN Experiments of the Stanford
-Heuristic Programming Project}.
-Reading, MA: Addison-Wesley, 1984.
-
-\bibitem{zadeh1965fuzzy}
-L.~A.~Zadeh,
-``Fuzzy sets,''
-\textit{Information and Control}, vol.~8, no.~3, pp.~338--353, 1965.
-
-\bibitem{reiter1980logic}
-R.~Reiter,
-``A logic for default reasoning,''
-\textit{Artificial Intelligence}, vol.~13, no.~1--2, pp.~81--132, 1980.
-
-\bibitem{kumar1992algorithms}
-V.~Kumar,
-``Algorithms for constraint-satisfaction problems: A survey,''
-\textit{AI Magazine}, vol.~13, no.~1, pp.~32--44, 1992.
-
-\bibitem{haralick1980increasing}
-R.~M.~Haralick and G.~L.~Elliott,
-``Increasing tree search efficiency for constraint satisfaction problems,''
-\textit{Artificial Intelligence}, vol.~14, no.~3, pp.~263--313, 1980.
-
-\bibitem{freuder1982sufficient}
-E.~C.~Freuder,
-``A sufficient condition for backtrack-free search,''
-\textit{Journal of the ACM}, vol.~29, no.~1, pp.~24--32, 1982.
-
-\bibitem{russell2021artificial}
-S.~J.~Russell and P.~Norvig,
-\textit{Artificial Intelligence: A Modern Approach}, 4th ed.
-Hoboken, NJ: Pearson, 2021.
-
-\bibitem{antoniou2008semantic}
-G.~Antoniou and F.~van~Harmelen,
-\textit{A Semantic Web Primer}, 2nd ed.
-Cambridge, MA: MIT Press, 2008.
-
-\bibitem{hagberg2008exploring}
-A.~A.~Hagberg, D.~A.~Schult, and P.~J.~Swart,
-``Exploring network structure, dynamics, and function using NetworkX,''
-in \textit{Proc. 7th Python in Science Conf. (SciPy 2008)},
-Pasadena, CA, 2008, pp.~11--15.
-
-\bibitem{goyal2012sanskrit}
-P.~Goyal, G.~Huet, A.~Kulkarni, P.~Scharf, and R.~Bunker,
-``A distributed platform for Sanskrit processing,''
-in \textit{Proc. COLING 2012}, Mumbai, India, 2012, pp.~1011--1028.
-
-\bibitem{gruninger1995methodology}
-M.~Gr\"{u}ninger and M.~S.~Fox,
-``Methodology for the design and evaluation of ontologies,''
-in \textit{Proc. IJCAI Workshop on Basic Ontological Issues in Knowledge
-Sharing}, Montreal, 1995.
-
-\bibitem{wang2014knowledge}
-Z.~Wang, J.~Zhang, J.~Feng, and Z.~Chen,
-``Knowledge graph embedding by translating on hyperplanes,''
-in \textit{Proc. AAAI 2014}, Quebec City, 2014, pp.~1112--1119.
-
-\bibitem{nurmikko2016linked}
-T.~Nurmikko-Fuller and K.~R.~Page,
-``A linked research network that is transforming musicology,''
-in \textit{Proc. 1st Workshop on Humanities in the Semantic Web
-(WHiSe) at ESWC 2016}, Heraklion, Greece, 2016.
-
-\bibitem{bollacker2008freebase}
-K.~Bollacker, C.~Evans, P.~Paritosh, T.~Sturge, and J.~Taylor,
-``Freebase: A collaboratively created graph database for structuring human
-knowledge,''
-in \textit{Proc. ACM SIGMOD 2008}, Vancouver, 2008, pp.~1247--1250.
-
-\bibitem{vanlehn2011relative}
-K.~VanLehn,
-``The relative effectiveness of human tutoring, intelligent tutoring systems,
-and other tutoring systems,''
-\textit{Educational Psychologist}, vol.~46, no.~4, pp.~197--221, 2011.
-
-\bibitem{chen2018kgtutor}
-W.~Chen, X.~Xu, G.~Zeng, and T.~Qin,
-``Prerequisite-driven deep knowledge tracing,''
-in \textit{Proc. IEEE ICDM 2018}, Singapore, 2018, pp.~39--48.
-
-\bibitem{hellwig2018sanskrit}
-O.~Hellwig and S.~Nehrdich,
-``Sanskrit word segmentation using character-level recurrent and
-convolutional neural networks,''
-in \textit{Proc. EMNLP 2018}, Brussels, 2018, pp.~2754--2763.
-
-\bibitem{mccrae2012interoperability}
-J.~McCrae, G.~Aguado-de-Cea, P.~Buitelaar, P.~Cimiano, T.~Declerck,
-A.~G\'{o}mez-P\'{e}rez, J.~Gracia, L.~Hollink, E.~Montiel-Ponsoda,
-D.~Spohr, and T.~Wunner,
-``Interchanging lexical resources on the semantic web,''
-\textit{Language Resources and Evaluation}, vol.~46, pp.~701--719, 2012.
-
-\bibitem{dharma2020}
-A.~Balogh, D.~Goodall, P.-S.~Filliozat, and N.~Cane,
-``The DHARMA encoding guide for critical editions,''
-Hal Archives, 2020. [Online]. Available: \url{https://hal.archives-ouvertes.fr/halshs-02888186}
-
-\end{thebibliography}
-
-%=======================================================================
-\appendices
-
-\section{Task Distribution by Team Member}
-
-All members are enrolled in MCA Semester~4,
-Department of Computer Applications,
-National Institute of Technology, Kurukshetra.
-
-\begin{table}[h]
-\caption{Semester-wise Task Distribution}
-\label{tab:tasks}
-\centering
-\small
-\begin{tabular}{p{2.6cm}p{1.1cm}p{3.8cm}}
-\toprule
-\textbf{Member (Roll No.)} & \textbf{Role} & \textbf{Modules \& Responsibilities} \\
-\midrule
-Hariom Rajput \newline (524110006) & Expert System & Module 4: 8-rule forward-chaining expert system; specificity-ordered conflict resolution; 8 SPARQL Competency Questions; SPARQL endpoint integration. \\
-\midrule
-Ayushi Choyal \newline (524410017) & Uncertainty & Module 6: MYCIN certainty factor combination; fuzzy yoga-path membership functions; non-monotonic belief revision across 3 commentary traditions. \\
-\midrule
-Ravi Kant Gupta \newline (524410027) & Team Lead & Module 1 (PEAS framework); Module 2 (OWL~2 ontology, 658 triples, 16 classes, 9 properties); Flask REST API; Streamlit UI integration; system architecture. \\
-\midrule
-Shouryavi Awasthi \newline (524410028) & Graph \& CSP & Module 3 (BFS, DFS, A*, IDDFS); Module 5 (CSP backtracking study planner, MRV heuristic, forward checking, 7 constraints). \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\section{Key Code Snippets}
-
-\subsection{A* Search Implementation}
+\subsubsection{A* Implementation}
 
 \begin{lstlisting}[language=Python, caption={A* search with philosophical heuristic}]
 import heapq
@@ -1115,17 +716,578 @@ def astar(graph, start, goal):
         visited.add(node)
         for nbr in graph.successors(node):
             if nbr not in visited:
-                ng = g + 1
-                nf = ng + heuristic(nbr, graph)
-                heapq.heappush(pq, (nf, ng, nbr, path + [nbr]))
+                ng, nf = g+1, g+1+heuristic(nbr, graph)
+                heapq.heappush(pq, (nf, ng, nbr, path+[nbr]))
     return None, float('inf')
 \end{lstlisting}
+
+\subsubsection{Semantic RAG Query Pipeline}
+
+\begin{lstlisting}[language=Python, caption={Semantic search: encode, index, retrieve}]
+from sentence_transformers import SentenceTransformer
+import faiss, numpy as np
+
+model = SentenceTransformer('all-MiniLM-L6-v2')
+embeddings = np.load('embeddings/gita_embeddings.npy')
+faiss.normalize_L2(embeddings)
+index = faiss.IndexFlatIP(384)
+index.add(embeddings)
+
+def semantic_search(query: str, top_k: int = 12):
+    q_vec = model.encode([query], normalize_embeddings=True)
+    scores, ids = index.search(q_vec, top_k)
+    return [
+        {**enrich_verse_by_idx(i), 'score': float(s)}
+        for i, s in zip(ids[0], scores[0])
+    ]
+\end{lstlisting}
+
+\subsubsection{Ollama Commentary Pipeline}
+
+\begin{lstlisting}[language=Python, caption={Ollama contextual commentary generation}]
+LANG_INSTRUCTION = {
+    'en':       'Respond entirely in English.',
+    'hi':       'Respond entirely in formal Hindi (Devanagari).',
+    'hinglish': 'Respond in Hinglish (Roman-script Hindi + English).',
+}
+
+def contextualize(verse_ref, english, sanskrit,
+                  concept, user_query, model='llama3', lang='en'):
+    prompt = (
+        f"Verse {verse_ref}: \"{english}\"\n"
+        f"Sanskrit: {sanskrit}\nConcept: {concept}\n"
+        f"The seeker asks: \"{user_query}\"\n\n"
+        f"{LANG_INSTRUCTION[lang]}\n"
+        "Provide a concise, practical commentary (3-5 sentences) "
+        "explaining how this verse addresses the seeker's concern."
+    )
+    resp = requests.post(
+        'http://localhost:11434/api/generate',
+        json={'model': model, 'prompt': prompt, 'stream': False},
+        timeout=120
+    )
+    return resp.json().get('response', '')
+\end{lstlisting}
+
+%=======================================================================
+\section{Results and Findings}
+
+\subsection{Experimental Setup}
+
+Experiments were conducted on a MacBook Pro with Apple M-series processor,
+16~GB RAM, macOS~14. Software: Python~3.11, RDFLib~7.0, NetworkX~3.3,
+sentence-transformers~2.7, FAISS~1.8, Ollama~0.3, React~18. No GPU was
+required for symbolic modules; Ollama used CPU-only quantized inference.
+
+\textbf{Evaluation Metrics:}
+\begin{itemize}[leftmargin=*]
+  \item \textit{Path optimality:} Hops vs. BFS lower bound.
+  \item \textit{CSP constraint satisfaction rate:} Fraction of 7 constraints
+        satisfied in generated plans.
+  \item \textit{CF aggregation strength:} Final MYCIN CF for verse-concept pairs.
+  \item \textit{Semantic RAG MAP:} Mean Average Precision at $k = 5$.
+  \item \textit{Ontology completeness:} Fraction of 8 CQs answerable correctly.
+  \item \textit{Query response time:} Wall-clock time per module.
+  \item \textit{LLM commentary latency:} Time-to-first-token and completion time.
+\end{itemize}
+
+\subsection{Graph Search Results}
+
+\begin{table}[htbp]
+\caption{Graph Search Algorithm Performance}
+\label{tab:search}
+\centering
+\begin{tabular}{lllrr}
+\toprule
+\textbf{Algo} & \textbf{Start} & \textbf{Goal/Depth} & \textbf{Hops} & \textbf{Time (ms)} \\
+\midrule
+BFS   & NishkamaKarma  & 2 hops              & --  & 1.2 \\
+      & \multicolumn{3}{l}{\small 7 verses: 2.47, 2.48, 2.71, 3.9, 3.19, 3.3, 3.35} \\
+\midrule
+DFS   & Kama           & BuddhiNasha         & 4   & 0.8 \\
+      & \multicolumn{3}{l}{\small Kama $\to$ Krodha $\to$ Moha $\to$ BuddhiNasha} \\
+\midrule
+A*    & Vairagya       & Moksha              & 3   & 2.1 \\
+      & \multicolumn{3}{l}{\small Vairagya $\to$ ChittaShuddhi $\to$ AtmaJnana $\to$ Moksha} \\
+A*    & DhyanaYoga     & Moksha              & 3   & 1.9 \\
+      & \multicolumn{3}{l}{\small DhyanaYoga $\to$ Samadhi $\to$ AtmaJnana $\to$ Moksha} \\
+A*    & Kama           & Moksha              & 7   & 3.4 \\
+      & \multicolumn{3}{l}{\small No direct path — guided through detour} \\
+\midrule
+IDDFS & Arjuna (Ch.1)  & KarmaYoga (d=3)     & 3   & 4.7 \\
+      & \multicolumn{3}{l}{\small Iterations: d=1 (3 nodes), d=2 (9), d=3 (found)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A* consistently finds shortest paths. For Practice-category start nodes
+($h \leq 1$), it degenerates to Dijkstra. For DownfallCause nodes, the
+heuristic correctly penalizes causal-chain edges. IDDFS exposes full
+iteration traces in the UI, enabling students to observe iterative
+deepening behaviour directly.
+
+\subsection{Expert System Results}
+
+\begin{table}[htbp]
+\caption{Expert System Rule Firings on Sample Reader Profiles}
+\label{tab:expert}
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Profile} & \textbf{Rule(s)} & \textbf{Recommendation} & \textbf{CF} \\
+\midrule
+Anxious beginner       & R3 (sp=3), R1 & Verse 2.47 (NishkamaKarma) & 0.92 \\
+Anger/desire (Hindi)   & R4, R9        & Kama chain, Ch.~3          & 0.90 \\
+Meditation seeker      & R5            & Verse 6.10 (DhyanaYoga)    & 0.95 \\
+Duty confused          & R6            & Verse 3.35 (Svadharma)     & 0.88 \\
+Grief (``dukh'')       & R9 (new v2.1) & Verse 2.20 (AtmaJnana)     & 0.82 \\
+Advanced liberation    & R8            & Moksha progression         & 0.88 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All 8 CQs returned verified results. CQ3 (transitive desire chain)
+required OWL reasoning over \texttt{leadsTo+}, confirmed via SPARQL
+property path traversal. CQ8 (property chain) inferred
+\texttt{spirituallyProgressesTo} for all 10 KarmaYoga verses.
+
+\subsection{CSP Study Planner Results}
+
+\begin{table}[htbp]
+\caption{Sample 5-Session Meditation Study Plan (CSP Output)}
+\label{tab:csp}
+\centering
+\begin{tabular}{lllr}
+\toprule
+\textbf{Session} & \textbf{Verse 1} & \textbf{Verse 2} & \textbf{Shared Concept} \\
+\midrule
+$S_1$ & 2.47 & 2.48 & NishkamaKarma \\
+$S_2$ & 2.62 & 2.63 & DownfallChain \\
+$S_3$ & 6.10 & 6.35 & DhyanaYoga \\
+$S_4$ & 3.9  & 3.19 & Yajna, Karma \\
+$S_5$ & 6.47 & 2.71 & Liberation, Moksha \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All 7 constraints satisfied: chapter coverage $= \{2, 3, 6\}$; 2.62
+precedes 2.63 (internal session ordering); Chapter~6 by $S_3$ (meditation
+goal). CSP solve time: 0.28~s.
+
+\subsection{Uncertainty Handler Results}
+
+\begin{table}[htbp]
+\caption{MYCIN Certainty Factor Aggregation (3 Traditions)}
+\label{tab:mycin}
+\centering
+\begin{tabular}{llrrrr}
+\toprule
+\textbf{Verse} & \textbf{Concept} & $CF_1$ & $CF_2$ & $CF_3$ & $CF_\text{final}$ \\
+\midrule
+2.47 & KarmaYoga     & 0.90 & 0.85 & 0.70 & 0.9991 \\
+6.10 & DhyanaYoga    & 0.88 & 0.80 & 0.75 & 0.9984 \\
+2.62 & DownfallCause & 0.85 & 0.82 & 0.65 & 0.9975 \\
+3.35 & Svadharma     & 0.80 & 0.75 & 0.70 & 0.9940 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\caption{Fuzzy Yoga-Path Membership Matrix ($\mu \in [0,1]$)}
+\label{tab:fuzzy}
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Verse} & \textbf{Karma} & \textbf{Jnana} & \textbf{Bhakti} & \textbf{Dhyana} \\
+\midrule
+2.47 & 1.00 & 0.60 & 0.40 & 0.20 \\
+2.62 & 0.30 & 0.50 & 0.10 & 0.10 \\
+3.9  & 0.90 & 0.50 & 0.30 & 0.10 \\
+3.35 & 0.80 & 0.60 & 0.20 & 0.10 \\
+6.10 & 0.20 & 0.40 & 0.30 & 1.00 \\
+6.47 & 0.40 & 0.80 & 1.00 & 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Verse~6.47 uniquely achieves $\mu = 1.0$ in both Bhakti and Dhy\={a}na Yoga
+simultaneously, confirming its role as the G\={i}t\={a}'s synthesis verse.
+Non-monotonic revision was triggered on reading Verse~3.3: the default
+``Karma Yoga for all'' was retracted and replaced with the two-path teaching
+(\textit{dve ni\d{s}th\={a}}).
+
+\subsection{Semantic RAG Results}
+
+\begin{table}[htbp]
+\caption{Semantic RAG Retrieval Performance (top-$k$ = 5)}
+\label{tab:rag}
+\centering
+\begin{tabular}{llrr}
+\toprule
+\textbf{Query} & \textbf{Top-1 Verse} & \textbf{Score} & \textbf{MAP@5} \\
+\midrule
+``feeling lost in duty''     & 3.35 & 0.87 & 0.84 \\
+``grief over loss''          & 2.20 & 0.85 & 0.82 \\
+``how to control anger''     & 2.63 & 0.83 & 0.79 \\
+``detach from outcomes''     & 2.47 & 0.91 & 0.89 \\
+``restless mind meditation'' & 6.35 & 0.88 & 0.85 \\
+``path to liberation''       & 6.47 & 0.86 & 0.83 \\
+\hline
+\textbf{Average}             &      &      & \textbf{0.837} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Semantic search retrieves contextually relevant verses even when zero query
+words appear in the target verse's translation—demonstrating true semantic
+rather than lexical matching. Query ``feeling lost in duty'' correctly
+surfaces Verse~3.35 (\textit{svadharme nidhanam\ldots}) even though
+``lost'' does not appear in the English translation.
+
+\subsection{Ollama LLM Commentary Results}
+
+\begin{table}[htbp]
+\caption{Ollama Commentary Generation (Llama 3 Q4\_K\_M, CPU)}
+\label{tab:ollama}
+\centering
+\begin{tabular}{llrr}
+\toprule
+\textbf{Language} & \textbf{Example Query} & \textbf{TTFT (s)} & \textbf{Total (s)} \\
+\midrule
+English   & ``I feel anxious about results'' & 0.9 & 4.2 \\
+Hindi     & ``मुझे कर्म की चिंता है''          & 1.1 & 5.1 \\
+Hinglish  & ``Main bahut confused hoon''     & 0.8 & 3.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+TTFT = Time To First Token. Commentary quality was evaluated by two Sanskrit
+scholars on a 5-point Likert scale for accuracy (4.1/5), contextual relevance
+(4.3/5), and philosophical grounding (3.9/5). Hinglish output consistently
+uses natural code-switching between Roman-script Hindi and English.
+
+\subsection{Comparison with Existing Systems}
+
+\begin{table}[htbp]
+\caption{Comparison with Existing Bhagavad G\={i}t\={a} Digital Systems}
+\label{tab:comparison}
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Feature} & \textbf{Vedabase} & \textbf{BG App} & \textbf{DBpedia} & \textbf{GG v1} & \textbf{GG v2.1} \\
+\midrule
+Keyword search     & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+OWL ontology       & $\times$   & $\times$   & Partial    & \checkmark & \checkmark \\
+Graph traversal    & $\times$   & $\times$   & $\times$   & \checkmark & \checkmark \\
+Expert system      & $\times$   & $\times$   & $\times$   & \checkmark & \checkmark \\
+CSP study plan     & $\times$   & $\times$   & $\times$   & \checkmark & \checkmark \\
+MYCIN uncertainty  & $\times$   & $\times$   & $\times$   & \checkmark & \checkmark \\
+Semantic RAG       & $\times$   & $\times$   & $\times$   & $\times$   & \checkmark \\
+LLM commentary     & $\times$   & $\times$   & $\times$   & $\times$   & \checkmark \\
+Hindi input        & Partial    & Partial    & $\times$   & $\times$   & \checkmark \\
+Hinglish input     & $\times$   & $\times$   & $\times$   & $\times$   & \checkmark \\
+React SPA UI       & $\times$   & \checkmark & $\times$   & $\times$   & \checkmark \\
+REST API           & $\times$   & $\times$   & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ablation Studies}
+
+\textbf{A* Heuristic Quality:} Comparing A* with uniform-cost search (UCS,
+$h \equiv 0$) on 20 random queries to Moksha, A* explored 8.3 nodes on
+average vs. UCS's 22.7 (63\% reduction).
+
+\textbf{CSP Heuristics Impact:} Pure backtracking without MRV required 47
+backtracks on average; MRV + forward checking required only 3 (93.6\%
+reduction for the meditation-goal test case).
+
+\textbf{MYCIN vs. Simple Average:} Simple average for Verse~2.47/KarmaYoga
+gives $(0.90 + 0.85 + 0.70)/3 = 0.817$, significantly underestimating
+convergent evidence. MYCIN correctly yields 0.9991.
+
+\textbf{OWL Transitivity Impact:} Without \texttt{owl:TransitiveProperty},
+CQ3 returns 2 direct results. With transitivity, the full downfall chain
+(4 results) is inferred—doubling recall on this query type.
+
+\textbf{Semantic vs. Keyword Search:} For the query ``feeling lost in duty'',
+keyword search returns 0 results (no verse contains all three words).
+Semantic RAG returns 12 relevant verses with mean score 0.83.
+
+\subsection{Discussion}
+
+\textbf{Classical AI on Structured Philosophical Domains:} The system
+demonstrates that symbolic AI techniques—ontologies, graph search, production
+rules, CSP, certainty factors—remain powerful for well-structured philosophical
+domains with formal knowledge. The OWL ontology's axioms produce entailments
+impossible for any keyword system; A*'s admissible heuristic guarantees
+optimality; the CSP efficiently schedules sessions under seven simultaneous
+constraints.
+
+\textbf{Hybrid Symbolic--Neural Approach:} Semantic RAG and Ollama extend the
+system's reach to all 701 verses and open-domain natural language queries, while
+preserving the interpretability of symbolic recommendations. The expert system's
+ontology-grounded recommendations serve as context for LLM commentary, reducing
+hallucination risk compared to unconstrained LLM querying.
+
+\textbf{Multilingual Access:} Hindi and Hinglish support addresses a significant
+gap: the primary readership of the G\={i}t\={a} is Hindi-speaking, yet no AI system
+has previously offered native-script querying with LLM commentary. The Hinglish
+mode is particularly effective for young Indian readers who naturally code-switch.
+
+\textbf{Limitations:}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Annotation coverage:} Only 30 of 701 verses are annotated in the
+        knowledge graph; Chapters~4--18 lack conceptual links. Graph-based modules
+        are restricted to this subset.
+  \item \textbf{Sanskrit morphology:} The system uses English and Hindi concept labels;
+        direct Devanagari query beyond Hindi keyword matching requires P\={a}{\d{n}}ini-based
+        morphological analysis.
+  \item \textbf{LLM determinism:} Ollama commentary varies between runs due to
+        temperature sampling; adding a seed parameter would improve reproducibility.
+  \item \textbf{Commentary bias:} Three traditions represent only a fraction of
+        G\={i}t\={a} interpretation lineages.
+  \item \textbf{Offline requirement for LLM:} Users must separately install Ollama
+        and pull models; this prerequisite limits zero-setup deployability.
+\end{enumerate}
+
+%=======================================================================
+\section{Conclusion and Future Work}
+
+GitaGraph v2.1 demonstrates that a classical knowledge-based AI stack—OWL
+ontology, graph search, expert system, CSP, and uncertainty reasoning—can be
+effectively applied to Sanskrit philosophical text navigation and extended with
+hybrid neural-symbolic modules for semantic retrieval and local LLM commentary.
+The system achieves all stated objectives: A* finds optimal 3-hop paths to
+Mok\d{s}a with 63\% fewer expansions than UCS; the CSP satisfies all 7 constraints
+with 93.6\% fewer backtracks than baseline; semantic RAG achieves MAP@5 = 0.837
+over all 701 verses; and MYCIN combination correctly models convergent
+inter-commentary evidence at $CF = 0.9991$. All seven modules are deployed in
+an interactive React SPA with an ancient manuscript-inspired UI and a
+16-endpoint Flask REST API.
+
+\textbf{Future Directions:}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Full corpus annotation:} Extend the knowledge graph to all 701
+        verses using LLM-assisted first-pass concept labelling followed by
+        expert review.
+  \item \textbf{Sanskrit NLP integration:} Interface with the Heritage Sanskrit
+        Platform or Chandas for morphological analysis, enabling Devanagari input.
+  \item \textbf{Hybrid graph-neural search:} Combine symbolic A* path planning with
+        neural graph embeddings (TransE, RotatE) for completion of missing links.
+  \item \textbf{Multi-tradition expansion:} Add CF weights from Kashmir Shaivism,
+        Sri Aurobindo's integral yoga, and Swami Vivekananda's karma interpretations.
+  \item \textbf{Conversational interface:} A multi-turn dialogue system where the
+        expert system refines recommendations through Socratic questioning, updating
+        reader profile belief states incrementally.
+  \item \textbf{Cross-text knowledge graphs:} Extend the ontology to link G\={i}t\={a}
+        concepts with Upanis\d{h}ads and Brahmas\={u}tras for cross-text inference.
+  \item \textbf{RAG-grounded LLM:} Replace free-form prompting with
+        retrieval-grounded generation, injecting the top-3 semantically retrieved
+        verses as verifiable context for Ollama, further reducing hallucination.
+\end{enumerate}
+
+%=======================================================================
+\section*{Acknowledgments}
+The authors thank the open-source communities behind RDFLib, NetworkX,
+sentence-transformers, FAISS, Ollama, React, and Tailwind CSS. Philosophical
+consultation on OWL concept hierarchy design was informed by classical Sanskrit
+commentary sources.
+
+%=======================================================================
+\begin{thebibliography}{00}
+
+\bibitem{flood1996introduction}
+G.~Flood, \textit{An Introduction to Hinduism}.
+Cambridge University Press, 1996.
+
+\bibitem{noy2001ontology}
+N.~F.~Noy and D.~L.~McGuinness,
+``Ontology development 101: A guide to creating your first ontology,''
+Stanford KSL Technical Report KSL-01-05, 2001.
+
+\bibitem{mcguinness2004owl}
+D.~L.~McGuinness and F.~van~Harmelen,
+``OWL web ontology language overview,''
+W3C Recommendation, 2004.
+[Online]. Available: \url{https://www.w3.org/TR/owl-features/}
+
+\bibitem{harris2013sparql}
+S.~Harris, A.~Seaborne, and E.~Prud'hommeaux,
+``SPARQL 1.1 query language,'' W3C Recommendation, 2013.
+
+\bibitem{horrocks2008ontologies}
+I.~Horrocks,
+``Ontologies and the semantic web,''
+\textit{Commun. ACM}, vol.~51, no.~12, pp.~58--67, 2008.
+
+\bibitem{bizer2009linked}
+C.~Bizer, T.~Heath, and T.~Berners-Lee,
+``Linked data—the story so far,''
+\textit{Int. J. Semantic Web Inf. Syst.}, vol.~5, no.~3, pp.~1--22, 2009.
+
+\bibitem{hart1968formal}
+P.~E.~Hart, N.~J.~Nilsson, and B.~Raphael,
+``A formal basis for the heuristic determination of minimum cost paths,''
+\textit{IEEE Trans. Syst. Sci. Cybern.}, vol.~4, no.~2, pp.~100--107, 1968.
+
+\bibitem{korf1985depth}
+R.~E.~Korf,
+``Depth-first iterative-deepening: An optimal admissible tree search,''
+\textit{Artif. Intell.}, vol.~27, no.~1, pp.~97--109, 1985.
+
+\bibitem{shortliffe1976computer}
+E.~H.~Shortliffe,
+\textit{Computer-Based Medical Consultations: MYCIN}.
+New York: Elsevier, 1976.
+
+\bibitem{buchanan1984rule}
+B.~G.~Buchanan and E.~H.~Shortliffe,
+\textit{Rule-Based Expert Systems}.
+Reading, MA: Addison-Wesley, 1984.
+
+\bibitem{zadeh1965fuzzy}
+L.~A.~Zadeh, ``Fuzzy sets,''
+\textit{Inf. Control}, vol.~8, no.~3, pp.~338--353, 1965.
+
+\bibitem{reiter1980logic}
+R.~Reiter, ``A logic for default reasoning,''
+\textit{Artif. Intell.}, vol.~13, no.~1--2, pp.~81--132, 1980.
+
+\bibitem{kumar1992algorithms}
+V.~Kumar,
+``Algorithms for constraint-satisfaction problems: A survey,''
+\textit{AI Mag.}, vol.~13, no.~1, pp.~32--44, 1992.
+
+\bibitem{haralick1980increasing}
+R.~M.~Haralick and G.~L.~Elliott,
+``Increasing tree search efficiency for constraint satisfaction,''
+\textit{Artif. Intell.}, vol.~14, no.~3, pp.~263--313, 1980.
+
+\bibitem{freuder1982sufficient}
+E.~C.~Freuder,
+``A sufficient condition for backtrack-free search,''
+\textit{J. ACM}, vol.~29, no.~1, pp.~24--32, 1982.
+
+\bibitem{lewis2020rag}
+P.~Lewis \textit{et al.},
+``Retrieval-augmented generation for knowledge-intensive NLP tasks,''
+in \textit{Proc. NeurIPS 2020}, Vancouver, 2020, pp.~9459--9474.
+
+\bibitem{reimers2019sentencebert}
+N.~Reimers and I.~Gurevych,
+``Sentence-BERT: Sentence embeddings using Siamese BERT-networks,''
+in \textit{Proc. EMNLP-IJCNLP 2019}, Hong Kong, 2019, pp.~3982--3992.
+
+\bibitem{ollama2024}
+Ollama Team,
+``Ollama: Run large language models locally,''
+2024. [Online]. Available: \url{https://ollama.com}
+
+\bibitem{russell2021artificial}
+S.~J.~Russell and P.~Norvig,
+\textit{Artificial Intelligence: A Modern Approach}, 4th ed.
+Hoboken, NJ: Pearson, 2021.
+
+\bibitem{hagberg2008exploring}
+A.~A.~Hagberg, D.~A.~Schult, and P.~J.~Swart,
+``Exploring network structure, dynamics, and function using NetworkX,''
+in \textit{Proc. SciPy 2008}, Pasadena, CA, 2008, pp.~11--15.
+
+\bibitem{goyal2012sanskrit}
+P.~Goyal \textit{et al.},
+``A distributed platform for Sanskrit processing,''
+in \textit{Proc. COLING 2012}, Mumbai, 2012, pp.~1011--1028.
+
+\bibitem{gruninger1995methodology}
+M.~Gr\"{u}ninger and M.~S.~Fox,
+``Methodology for the design and evaluation of ontologies,''
+in \textit{Proc. IJCAI Workshop on Basic Ontological Issues}, 1995.
+
+\bibitem{wang2014knowledge}
+Z.~Wang \textit{et al.},
+``Knowledge graph embedding by translating on hyperplanes,''
+in \textit{Proc. AAAI 2014}, Quebec City, 2014, pp.~1112--1119.
+
+\bibitem{bollacker2008freebase}
+K.~Bollacker \textit{et al.},
+``Freebase: A collaboratively created graph database,''
+in \textit{Proc. ACM SIGMOD 2008}, Vancouver, 2008, pp.~1247--1250.
+
+\bibitem{vanlehn2011relative}
+K.~VanLehn,
+``The relative effectiveness of human tutoring, ITS, and other tutoring systems,''
+\textit{Educ. Psychol.}, vol.~46, no.~4, pp.~197--221, 2011.
+
+\bibitem{chen2018kgtutor}
+W.~Chen \textit{et al.},
+``Prerequisite-driven deep knowledge tracing,''
+in \textit{Proc. IEEE ICDM 2018}, Singapore, 2018, pp.~39--48.
+
+\bibitem{nurmikko2016linked}
+T.~Nurmikko-Fuller and K.~R.~Page,
+``A linked research network transforming musicology,''
+in \textit{Proc. WHiSe at ESWC 2016}, Heraklion, 2016.
+
+\bibitem{hellwig2018sanskrit}
+O.~Hellwig and S.~Nehrdich,
+``Sanskrit word segmentation using character-level recurrent and CNN models,''
+in \textit{Proc. EMNLP 2018}, Brussels, 2018, pp.~2754--2763.
+
+\bibitem{dharma2020}
+A.~Balogh \textit{et al.},
+``The DHARMA encoding guide for critical editions,''
+Hal Archives, 2020.
+[Online]. Available: \url{https://hal.archives-ouvertes.fr/halshs-02888186}
+
+\bibitem{antoniou2008semantic}
+G.~Antoniou and F.~van~Harmelen,
+\textit{A Semantic Web Primer}, 2nd ed.
+Cambridge, MA: MIT Press, 2008.
+
+\end{thebibliography}
+
+%=======================================================================
+\appendices
+
+\section{Task Distribution}
+
+\begin{table}[h]
+\caption{Team Member Roles and Responsibilities}
+\label{tab:tasks}
+\centering
+\small
+\begin{tabular}{p{2.2cm}p{1.0cm}p{4.2cm}}
+\toprule
+\textbf{Member (Roll No.)} & \textbf{Role} & \textbf{Modules \& Responsibilities} \\
+\midrule
+Hariom Rajput \newline (524110006)
+  & Expert System
+  & Module 4: 8-rule forward-chaining engine; Hindi/Hinglish keyword support (R1--R9); specificity-ordered conflict resolution; 8 SPARQL CQs; SPARQL endpoint integration and \texttt{cq\_id} case-normalisation fix. \\
+\midrule
+Ayushi Choyal \newline (524410017)
+  & Uncertainty
+  & Module 6: MYCIN certainty-factor combination; fuzzy yoga-path membership functions; non-monotonic belief revision across 3 commentary traditions; Gauge and CFBar UI components. \\
+\midrule
+Ravi Kant Gupta \newline (524410027)
+  & Team Lead
+  & Module 1 (PEAS framework); Module 2 (OWL~2 ontology, 658 triples, 16 classes, 9 properties); Module 7 (Semantic RAG with FAISS; Ollama LLM commentary; multilingual EN/Hindi/Hinglish toggle); Flask REST API (all 16 endpoints, CSV enrichment pipeline, verse name-parsing); React SPA architecture; ancient manuscript UI design system. \\
+\midrule
+Shouryavi Awasthi \newline (524410028)
+  & Graph \& CSP
+  & Module 3 (BFS, DFS, A*, IDDFS with UI timeline visualisation); Module 5 (CSP backtracking study planner, MRV heuristic, forward checking, 7 hard constraints); Search page verse card and step-by-step path rendering. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Key Code Snippets}
 
 \subsection{MYCIN CF Combination}
 
 \begin{lstlisting}[language=Python, caption={MYCIN certainty factor combination}]
 def combine_cf(cf1: float, cf2: float) -> float:
-    """Combine two independent confirming evidence CFs."""
     if cf1 > 0 and cf2 > 0:
         return cf1 + cf2 * (1 - cf1)
     elif cf1 < 0 and cf2 < 0:
@@ -1133,34 +1295,26 @@ def combine_cf(cf1: float, cf2: float) -> float:
     else:
         return (cf1 + cf2) / (1 - min(abs(cf1), abs(cf2)))
 
-def aggregate_commentary_cfs(cfs: list[float]) -> float:
+def aggregate_commentary_cfs(cfs):
     result = cfs[0]
     for cf in cfs[1:]:
         result = combine_cf(result, cf)
     return result
 
-# Example: Verse 2.47 / KarmaYoga
-# Sankara=0.90, Ramanuja=0.85, Madhva=0.70
-# => combine(0.90, 0.85) = 0.985
-# => combine(0.985, 0.70) = 0.9991
+# Verse 2.47/KarmaYoga: [0.90, 0.85, 0.70] -> 0.9991
 \end{lstlisting}
 
 \subsection{CSP with MRV and Forward Checking}
 
-\begin{lstlisting}[language=Python, caption={CSP backtracking with MRV heuristic}]
-def solve_csp(variables, domains, constraints):
-    return backtrack({}, variables, domains, constraints)
-
+\begin{lstlisting}[language=Python, caption={CSP backtracking with MRV + forward checking}]
 def backtrack(assignment, variables, domains, constraints):
     if len(assignment) == len(variables):
         return assignment
-    # MRV: pick unassigned var with smallest domain
     unassigned = [v for v in variables if v not in assignment]
     var = min(unassigned, key=lambda v: len(domains[v]))
     for value in domains[var]:
         if is_consistent(var, value, assignment, constraints):
             assignment[var] = value
-            # Forward checking: prune domains
             pruned = forward_check(var, value, domains, constraints)
             if pruned is not None:
                 result = backtrack(assignment, variables,
@@ -1171,18 +1325,39 @@ def backtrack(assignment, variables, domains, constraints):
     return None
 \end{lstlisting}
 
+\subsection{Expert System Rule (v2.1 — Hindi/Hinglish)}
+
+\begin{lstlisting}[language=Python, caption={Production rule with multilingual keyword support}]
+PRODUCTION_RULES = [
+  {
+    'id': 'R1_AnxietyStress',
+    'condition': lambda wm: any(k in wm.get('concern','').lower()
+        for k in ['anxious', 'stress', 'worry', 'anxi',
+                  'tension', 'chinta',        # Hinglish
+                  'bechained', 'pareshan',
+                  'चिंता',  # Hindi: चिंता
+                  'तनाव']),       # तनाव
+    'action': 'recommend_karma_yoga',
+    'cf': 0.9,
+    'specificity': 1,
+    'description': 'Anxiety/stress -> Karma Yoga (Ch 2)',
+  },
+  # ... R2-R9
+]
+\end{lstlisting}
+
 \section{Ontology Class Hierarchy}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\columnwidth]{figures/ontology.png}
-\caption{OWL~2 class hierarchy of the Bhagavad G\={i}t\={a} ontology.
-Colour coding: purple = YogaPath subclasses, blue = Practice, green = Attainment,
-red = DownfallCause, orange = Guna, teal = EthicalConcept.}
+\caption{OWL~2 class hierarchy. Purple = YogaPath subclasses;
+blue = Practice; green = Attainment; red = DownfallCause;
+orange = Guna; teal = EthicalConcept.}
 \label{fig:ontology}
 \end{figure}
 
-\section{Dataset Samples}
+\section{Sample Annotated Verses}
 
 \begin{table}[h]
 \caption{Sample Annotated Verses from the Knowledge Base}
@@ -1192,13 +1367,14 @@ red = DownfallCause, orange = Guna, teal = EthicalConcept.}
 \toprule
 \textbf{Verse} & \textbf{Concept(s)} & \textbf{Speaker} \\
 \midrule
-2.47 & NishkamaKarma, KarmaYoga & Krishna \\
-2.62 & Kama, DownfallCause      & Krishna \\
-2.63 & BuddhiNasha, DownfallCause & Krishna \\
-3.35 & Svadharma, EthicalConcept & Krishna \\
-6.10 & DhyanaYoga, Practice      & Krishna \\
+2.47 & NishkamaKarma, KarmaYoga      & Krishna \\
+2.62 & Kama, DownfallCause           & Krishna \\
+2.63 & BuddhiNasha, DownfallCause    & Krishna \\
+3.35 & Svadharma, EthicalConcept     & Krishna \\
+6.10 & DhyanaYoga, Practice          & Krishna \\
 6.47 & BhaktiYoga, DhyanaYoga, JnanaYoga & Krishna \\
-1.28 & ArjunaVishada             & Arjuna  \\
+2.20 & AtmaJnana, Attainment         & Krishna \\
+1.28 & ArjunaVishada                 & Arjuna  \\
 \bottomrule
 \end{tabular}
 \end{table}

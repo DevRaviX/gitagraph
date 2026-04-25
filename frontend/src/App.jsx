@@ -20,11 +20,13 @@ export default function App() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-bg-1">
-      {/* Ambient background blobs */}
+      {/* Candleflame ambient glows */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
-        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-gold/5 blur-3xl animate-aurora" />
-        <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-teal/5 blur-3xl animate-aurora [animation-delay:3s]" />
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 rounded-full bg-saffron/3 blur-3xl animate-aurora [animation-delay:6s]" />
+        <div className="absolute -top-24 -left-24 w-[28rem] h-[28rem] rounded-full bg-gold/[0.07] blur-[80px] animate-aurora" />
+        <div className="absolute -bottom-16 -right-16 w-80 h-80 rounded-full bg-saffron/[0.06] blur-[60px] animate-aurora [animation-delay:3s]" />
+        <div className="absolute top-1/3 right-1/4 w-56 h-56 rounded-full bg-gold/[0.04] blur-[50px] animate-aurora [animation-delay:5s]" />
+        {/* Vignette overlay — deepen the corners like aged parchment */}
+        <div className="absolute inset-0" style={{background:'radial-gradient(ellipse at center, transparent 45%, rgba(5,3,1,0.55) 100%)'}} />
       </div>
 
       {/* Desktop sidebar — always visible on md+ */}

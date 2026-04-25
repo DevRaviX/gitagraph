@@ -37,6 +37,7 @@ export const api = {
   progressGet:    (sid)        => req('GET',  `/progress/get?user_session_id=${sid||'default'}`),
   // IDDFS search
   iddfs:          (b)          => req('POST', '/iddfs',            b),
-  // Ollama commentary
+  // Ollama
+  ollamaStatus:   ()           => req('GET',  '/ollama_status'),
   contextualize:  (b)          => req('POST', '/contextualize',    b),
 }

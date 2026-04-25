@@ -218,9 +218,9 @@ export default function Planner() {
     const isDone = progressMap[`${chStr}:${vStr}`] ?? false
     const ch     = parseInt(chStr)
     const style  = isDone ? {} : {
-      borderColor: (CH_COLOR[ch] ?? '#2A2A42') + '66',
+      borderColor: (CH_COLOR[ch] ?? '#3D2E1E') + '66',
       color:        CH_COLOR[ch] ?? '#B0A090',
-      background:  (CH_COLOR[ch] ?? '#2A2A42') + '11',
+      background:  (CH_COLOR[ch] ?? '#3D2E1E') + '11',
     }
     const cls = `text-xs font-mono px-2 py-0.5 rounded border transition-all ${
       isDone

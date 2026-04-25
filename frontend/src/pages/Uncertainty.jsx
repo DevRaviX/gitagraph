@@ -162,7 +162,7 @@ function FuzzyPanel() {
                 <p className="label mb-2">Radar Chart</p>
                 <ResponsiveContainer width="100%" height={220}>
                   <RadarChart data={chartData}>
-                    <PolarGrid stroke="#2A2A42" />
+                    <PolarGrid stroke="#3D2E1E" />
                     <PolarAngleAxis dataKey="path" tick={{ fill: '#B0A090', fontSize: 11 }} />
                     <Radar dataKey="μ" stroke="#C9A84C" fill="#C9A84C" fillOpacity={0.25} strokeWidth={2} />
                   </RadarChart>

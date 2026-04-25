@@ -1,11 +1,98 @@
 import { useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search as SearchIcon, GitBranch, Zap, Layers, RefreshCw } from 'lucide-react'
+import { Search as SearchIcon, GitBranch, Zap, Layers, RefreshCw, ChevronDown } from 'lucide-react'
 import { api } from '../api'
 import { Card, CFBar, Badge, Button, EmptyState } from '../components/ui'
 import Tabs from '../components/ui/Tabs'
 import { PageHeader } from '../components/layout/PageTransition'
+
+function SearchVerseCard({ v, i, hopColor }) {
+  const [expanded, setExpanded] = useState(false)
+  const color = (hopColor && v.hop_depth != null ? hopColor[v.hop_depth] : null) || '#C9A84C'
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.04 }}
+      className="parchment-card hover:border-gold/30 transition-colors overflow-hidden"
+    >
+      {/* Header */}
+      <div className="px-4 pt-4 pb-3">
+        <div className="flex items-center gap-2 mb-2 flex-wrap">
+          <span className="font-cinzel font-bold text-gold text-base">{v.chapter}.{v.verse_number}</span>
+          {v.hop_depth != null && (
+            <span className="text-[11px] px-2 py-0.5 rounded-full font-mono border"
+              style={{ background: color + '22', color, borderColor: color + '44' }}>
+              {v.hop_depth === 0 ? 'direct match' : `${v.hop_depth} link${v.hop_depth > 1 ? 's' : ''} away`}
+            </span>
+          )}
+          {v.reached_via && (
+            <span className="text-[11px] px-2 py-0.5 rounded-full border border-border text-ink-3 font-mono">
+              via {v.reached_via.replace(/_inst$/, '').replace(/_/g, ' ')}
+            </span>
+          )}
+          {v.speaker && (
+            <span className={`text-[10px] px-1.5 py-0.5 rounded border font-semibold ${v.speaker === 'Krishna' ? 'border-teal/30 text-teal bg-teal/10' : 'border-saffron/30 text-saffron bg-saffron/10'}`}>
+              {v.speaker}
+            </span>
+          )}
+        </div>
+
+        {/* Sanskrit */}
+        {v.sa && <p className="text-[13px] font-dev text-gold/80 text-center whitespace-pre-line leading-loose mb-2">{v.sa}</p>}
+
+        {/* Divider */}
+        {v.sa && <div className="flex items-center gap-3 my-2">
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+          <div className="w-1 h-1 rounded-full bg-gold/35" />
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+        </div>}
+
+        {/* English */}
+        {v.en && <p className="text-sm text-ink-1 leading-relaxed">{v.en}</p>}
+
+        {/* Hindi */}
+        {v.hi && <p className="text-[13px] text-ink-2 leading-relaxed mt-1.5">{v.hi}</p>}
+
+        {/* Concepts */}
+        {v.shared_concepts?.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-2 pt-2 border-t border-border/50">
+            {v.shared_concepts.map(c => (
+              <span key={c} className="wax-chip">{c.replace(/_inst$/, '').replace(/_/g, ' ')}</span>
+            ))}
+          </div>
+        )}
+
+        {/* Expand toggle */}
+        {(v.transliteration || v.word_meanings) && (
+          <button onClick={() => setExpanded(e => !e)}
+            className="flex items-center gap-1 mt-2 text-[11px] text-ink-3 hover:text-gold transition-colors">
+            <motion.span animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
+              <ChevronDown size={12} />
+            </motion.span>
+            {expanded ? 'Less' : 'Transliteration & word meanings'}
+          </button>
+        )}
+      </div>
+
+      {/* Expandable section */}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+            <div className="px-4 pb-4 pt-2 border-t border-border/50 space-y-2">
+              {v.transliteration && (
+                <p className="text-[12px] italic text-ink-3 leading-relaxed">{v.transliteration}</p>
+              )}
+              {v.word_meanings && (
+                <p className="text-[11px] text-ink-3 leading-relaxed">{v.word_meanings}</p>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
 
 function BFSPanel({ concepts }) {
   const [concept, setConcept] = useState('')
@@ -26,11 +113,10 @@ function BFSPanel({ concepts }) {
             </select>
           </div>
           <div>
-            <label className="label mb-1 flex justify-between">
-              <span>Max Hops</span>
-              <span className="text-gold font-mono">{hops}</span>
-            </label>
-            <input type="range" min={1} max={3} value={hops} onChange={e => setHops(+e.target.value)} />
+            <label className="label mb-1 block">How many links away</label>
+            <input type="number" min={1} max={6} value={hops}
+              onChange={e => setHops(Math.max(1, Math.min(6, +e.target.value || 1)))}
+              className="w-full" />
           </div>
         </div>
         <div className="mt-4 flex justify-end">
@@ -42,33 +128,20 @@ function BFSPanel({ concepts }) {
 
       {data && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <p className="label mb-3">{data.verses?.length ?? 0} verses reachable within {hops} hop{hops > 1 ? 's' : ''}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {(data.verses ?? []).map((v, i) => (
-              <motion.div
-                key={v.id ?? i}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.04 }}
-                className="glass rounded-lg p-3 border border-border hover:border-border-bright transition-colors"
-              >
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="font-mono text-saffron text-sm">{v.id}</span>
-                  <span
-                    className="text-xs px-1.5 py-0.5 rounded-full font-mono"
-                    style={{ background: HOP_COLOR[v.hop_depth] + '22', color: HOP_COLOR[v.hop_depth] }}
-                  >
-                    hop {v.hop_depth}
-                  </span>
-                  {v.reached_via && <span className="chip">{v.reached_via}</span>}
-                </div>
-                <p className="text-xs text-ink-2 line-clamp-2">{v.translation}</p>
-              </motion.div>
+          <p className="label mb-3">
+            Found <span className="text-gold">{data.results?.length ?? 0}</span> verse{(data.results?.length ?? 0) !== 1 ? 's' : ''} connected to <span className="text-gold">{data.concept}</span> within <span className="text-teal">{data.hops}</span> link{data.hops > 1 ? 's' : ''} in the knowledge graph
+          </p>
+          {(data.results?.length ?? 0) === 0 && (
+            <p className="text-xs text-ink-3 mt-2">No verses found — try increasing Max Hops or selecting a different concept.</p>
+          )}
+          <div className="space-y-3 mt-3">
+            {(data.results ?? []).map((v, i) => (
+              <SearchVerseCard key={v.verse ?? i} v={v} i={i} hopColor={HOP_COLOR} />
             ))}
           </div>
         </motion.div>
       )}
-      {!data && !isPending && <EmptyState title="Select a concept and run BFS" description="Finds all verses reachable within k hops" />}
+      {!data && !isPending && <EmptyState title="Select a concept and run BFS" description="Finds all verses reachable within k links in the knowledge graph" />}
     </div>
   )
 }
@@ -96,28 +169,47 @@ function DFSPanel({ concepts }) {
 
       {data?.chain?.length > 0 && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
-          <p className="label">{data.chain.length}-step causal chain</p>
-          {data.chain.map((step, i) => (
+          <p className="label">{data.chain.length}-step causal chain via <span className="text-gold font-mono">leadsTo</span></p>
+          {(data.annotated ?? data.chain.map(n => ({ node: n, category: '', definition: '', taught_by_verses: [] }))).map((step, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.08 }}
               className="flex gap-4"
             >
               <div className="flex flex-col items-center">
-                <div className="w-7 h-7 rounded-full bg-gold-faint border border-gold-dim flex items-center justify-center text-xs font-mono text-gold font-bold shrink-0">
+                <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0"
+                  style={{ background: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.35)', color: '#C9A84C' }}>
                   {i + 1}
                 </div>
-                {i < data.chain.length - 1 && <div className="flex-1 w-px bg-border mt-1 mb-0 min-h-4" />}
+                {i < data.chain.length - 1 && <div className="flex-1 w-px mt-1 mb-0 min-h-4" style={{ background: 'rgba(61,46,30,0.9)' }} />}
               </div>
-              <div className="glass rounded-xl p-3 border border-border flex-1 mb-3">
-                <div className="flex items-center gap-2 mb-1">
+              <div className="parchment-card p-3 flex-1 mb-3">
+                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                   <span className="font-semibold text-ink-1 text-sm">{step.node}</span>
-                  {step.type && <Badge variant="gold">{step.type}</Badge>}
+                  {step.category && (
+                    <Badge variant={step.category === 'DownfallCause' ? 'crimson' : 'gold'}>
+                      {step.category}
+                    </Badge>
+                  )}
                 </div>
-                {step.definition && <p className="text-xs text-ink-2">{step.definition}</p>}
-                {step.verse && <p className="text-xs text-gold-dim mt-1 font-mono">→ {step.verse}</p>}
+                {step.definition && (
+                  <p className="text-xs text-ink-2 leading-relaxed mb-2">{step.definition}</p>
+                )}
+                {step.taught_by_verses?.length > 0 && (
+                  <div className="pt-2 border-t border-border/50 space-y-2">
+                    <span className="text-[10px] text-ink-3">Taught by:</span>
+                    {step.taught_by_verses.map((v, j) => (
+                      <SearchVerseCard key={v.key ?? j} v={v} i={j} hopColor={null} />
+                    ))}
+                  </div>
+                )}
+                {i < data.chain.length - 1 && (
+                  <p className="text-[10px] text-ink-3 mt-2">
+                    <span className="text-gold">leadsTo</span> {data.chain[i + 1]}
+                  </p>
+                )}
               </div>
             </motion.div>
           ))}
@@ -158,29 +250,97 @@ function AStarPanel({ concepts }) {
         </div>
       </Card>
 
-      {data?.path && (
+      {data && !data.path?.length && (
+        <Card hover={false}>
+          <div className="space-y-2">
+            <p className="text-sm font-semibold text-crimson">No path exists from <span className="font-mono">{start}</span> to <span className="font-mono">{goal}</span></p>
+            <p className="text-xs text-ink-2 leading-relaxed">
+              Downfall concepts like <span className="text-crimson font-mono">Kama</span>, <span className="text-crimson font-mono">Krodha</span>, and <span className="text-crimson font-mono">Moha</span> lead toward destruction, not liberation. There is no <em>leadsTo</em> path from this concept to {goal}.
+            </p>
+            <p className="text-xs text-ink-3">
+              Start from a practice instead:
+              {['NishkamaKarma','Abhyasa','Vairagya','DhyanaYoga','Sthitaprajna'].map(s => (
+                <button key={s} onClick={() => setStart(s)}
+                  className="ml-1.5 px-1.5 py-0.5 rounded border border-gold/30 text-gold text-[10px] font-mono hover:bg-gold/10 transition-colors">
+                  {s}
+                </button>
+              ))}
+            </p>
+          </div>
+        </Card>
+      )}
+      {data?.path?.length > 0 && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
-          {/* Path visualisation */}
+
+          {/* Step-by-step path with definitions */}
           <Card hover={false}>
-            <p className="label mb-3">Optimal Path — {data.path.length - 1} hops</p>
-            <div className="flex flex-wrap items-center gap-2">
-              {data.path.map((node, i) => (
-                <span key={i} className="flex items-center gap-2">
-                  <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold border ${
-                    i === 0 ? 'border-saffron/50 text-saffron bg-saffron/10' :
-                    i === data.path.length - 1 ? 'border-teal/50 text-teal bg-teal/10' :
-                    'border-border text-ink-1 bg-bg-4'
-                  }`}>{node}</span>
-                  {i < data.path.length - 1 && <span className="text-gold text-lg">→</span>}
-                </span>
+            {(() => {
+              const steps = data.path.length - 1
+              const label = steps === 0 ? 'Already at goal'
+                : steps === 1 ? `Direct path — ${data.path[0]} leads straight to ${data.path[1]}`
+                : `Path found — ${steps} concept${steps !== 1 ? 's' : ''} to cross to reach ${data.path[data.path.length - 1]}`
+              return <p className="label mb-4">{label}</p>
+            })()}
+            <div className="space-y-3">
+              {(data.path_details?.length ? data.path_details : data.path.map(n => ({ name: n, category: '', definition: '', verses: [] }))).map((step, i) => (
+                <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }}>
+                  <div className="flex gap-3">
+                    {/* Timeline line */}
+                    <div className="flex flex-col items-center">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 border ${
+                        i === 0 ? 'bg-saffron/15 border-saffron/50 text-saffron' :
+                        i === data.path.length - 1 ? 'bg-teal/15 border-teal/50 text-teal' :
+                        'bg-gold-faint border-gold-dim text-gold'
+                      }`}>{i + 1}</div>
+                      {i < data.path.length - 1 && <div className="flex-1 w-px mt-1 min-h-4" style={{ background: 'rgba(61,46,30,0.9)' }} />}
+                    </div>
+
+                    {/* Node card */}
+                    <div className="flex-1 parchment-card p-3 mb-3">
+                      <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                        <span className="font-semibold text-sm text-ink-1">{step.name}</span>
+                        {step.category && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-border text-ink-3 font-mono">
+                            {step.category}
+                          </span>
+                        )}
+                        {i === 0 && <span className="text-[10px] text-saffron font-mono">START</span>}
+                        {i === data.path.length - 1 && <span className="text-[10px] text-teal font-mono">GOAL</span>}
+                      </div>
+
+                      {step.definition && (
+                        <p className="text-xs text-ink-2 leading-relaxed mb-2">{step.definition}</p>
+                      )}
+
+                      {step.verses?.length > 0 && (
+                        <div className="pt-2 border-t border-border/50 space-y-2">
+                          <span className="text-[10px] text-ink-3">Taught by:</span>
+                          {step.verses.map((v, j) => (
+                            <SearchVerseCard key={v.key ?? j} v={v} i={j} hopColor={null} />
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Edge label to next */}
+                      {i < data.path.length - 1 && (
+                        <p className="text-[10px] text-ink-3 mt-2 flex items-center gap-1">
+                          <span className="text-gold">leadsTo</span> {data.path[i + 1]}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </Card>
 
-          {/* f-value trace */}
+          {/* f-value trace table */}
           {data.trace?.length > 0 && (
             <Card hover={false}>
               <p className="label mb-3">f(n) = g(n) + h(n) Expansion Trace</p>
+              {data.admissibility_note && (
+                <p className="text-[11px] text-ink-3 mb-3 leading-relaxed">{data.admissibility_note}</p>
+              )}
               <div className="overflow-x-auto">
                 <table className="w-full text-xs">
                   <thead>
@@ -192,8 +352,13 @@ function AStarPanel({ concepts }) {
                   </thead>
                   <tbody>
                     {data.trace.map((row, i) => (
-                      <tr key={i} className="border-b border-border/50 hover:bg-bg-3 transition-colors">
-                        <td className="py-2 pr-4 font-medium text-ink-1">{row.node}</td>
+                      <tr key={i} className={`border-b border-border/50 hover:bg-bg-3 transition-colors ${
+                        data.path?.includes(row.node) ? 'bg-gold/5' : ''
+                      }`}>
+                        <td className="py-2 pr-4 font-medium text-ink-1">
+                          {row.node}
+                          {data.path?.includes(row.node) && <span className="ml-1.5 text-gold text-[9px]">✓ path</span>}
+                        </td>
                         <td className="py-2 pr-4 font-mono text-teal">{row.g}</td>
                         <td className="py-2 pr-4 font-mono text-gold">{row.h}</td>
                         <td className="py-2 pr-4 font-mono text-saffron font-semibold">{row.f}</td>
@@ -237,11 +402,10 @@ function IDDFSPanel({ concepts }) {
             </select>
           </div>
           <div>
-            <label className="label mb-1 flex justify-between">
-              <span>Max Depth</span>
-              <span className="text-gold font-mono">{maxDepth}</span>
-            </label>
-            <input type="range" min={2} max={10} value={maxDepth} onChange={e => setMaxDepth(+e.target.value)} />
+            <label className="label mb-1 block">Search Limit (steps)</label>
+            <input type="number" min={2} max={12} value={maxDepth}
+              onChange={e => setMaxDepth(Math.max(2, Math.min(12, +e.target.value || 2)))}
+              className="w-full" />
           </div>
         </div>
         <div className="mt-4 flex justify-end">
@@ -256,11 +420,11 @@ function IDDFSPanel({ concepts }) {
           {/* Summary */}
           <div className="grid grid-cols-3 gap-3">
             {[
-              { label: 'Path Length', val: data.path?.length ?? '—', color: 'text-gold' },
-              { label: 'Found at Depth', val: data.depth_found ?? '—', color: 'text-teal' },
-              { label: 'Nodes Explored', val: data.nodes_explored ?? '—', color: 'text-saffron' },
+              { label: 'Concepts in Path', val: data.path?.length ?? '—', color: 'text-gold' },
+              { label: 'Depth When Found', val: data.depth_found ?? '—', color: 'text-teal' },
+              { label: 'Total Nodes Visited', val: data.nodes_explored ?? '—', color: 'text-saffron' },
             ].map(({ label, val, color }) => (
-              <div key={label} className="glass rounded-xl border border-border p-3 text-center">
+              <div key={label} className="parchment-card p-3 text-center">
                 <p className={`text-xl font-mono font-bold ${color}`}>{val}</p>
                 <p className="text-[10px] text-ink-3 mt-0.5">{label}</p>
               </div>
@@ -269,17 +433,47 @@ function IDDFSPanel({ concepts }) {
 
           {/* Path */}
           <Card hover={false}>
-            <p className="label mb-3">Path Found — iterative deepening (depth {data.depth_found})</p>
-            <div className="flex flex-wrap items-center gap-2">
-              {(data.path ?? []).map((node, i) => (
-                <span key={i} className="flex items-center gap-2">
-                  <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold border ${
-                    i === 0 ? 'border-saffron/50 text-saffron bg-saffron/10' :
-                    i === (data.path.length - 1) ? 'border-teal/50 text-teal bg-teal/10' :
-                    'border-border text-ink-1 bg-bg-4'
-                  }`}>{node}</span>
-                  {i < data.path.length - 1 && <span className="text-gold">→</span>}
-                </span>
+            <p className="label mb-4">Path found at depth {data.depth_found} — {data.path?.length - 1} step{data.path?.length - 1 !== 1 ? 's' : ''} from <span className="text-gold">{data.path?.[0]}</span> to <span className="text-teal">{data.path?.[data.path.length - 1]}</span></p>
+            <div className="space-y-3">
+              {(data.path_details?.length ? data.path_details : (data.path ?? []).map(n => ({ name: n, category: '', definition: '', verses: [] }))).map((step, i) => (
+                <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }}>
+                  <div className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 border ${
+                        i === 0 ? 'bg-saffron/15 border-saffron/50 text-saffron' :
+                        i === data.path.length - 1 ? 'bg-teal/15 border-teal/50 text-teal' :
+                        'bg-gold-faint border-gold-dim text-gold'
+                      }`}>{i + 1}</div>
+                      {i < data.path.length - 1 && <div className="flex-1 w-px mt-1 min-h-4" style={{ background: 'rgba(61,46,30,0.9)' }} />}
+                    </div>
+                    <div className="flex-1 parchment-card p-3 mb-3">
+                      <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                        <span className="font-semibold text-sm text-ink-1">{step.name}</span>
+                        {step.category && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-border text-ink-3 font-mono">{step.category}</span>
+                        )}
+                        {i === 0 && <span className="text-[10px] text-saffron font-mono">START</span>}
+                        {i === data.path.length - 1 && <span className="text-[10px] text-teal font-mono">GOAL</span>}
+                      </div>
+                      {step.definition && (
+                        <p className="text-xs text-ink-2 leading-relaxed mb-2">{step.definition}</p>
+                      )}
+                      {step.verses?.length > 0 && (
+                        <div className="pt-2 border-t border-border/50 space-y-2">
+                          <span className="text-[10px] text-ink-3">Taught by:</span>
+                          {step.verses.map((v, j) => (
+                            <SearchVerseCard key={v.key ?? j} v={v} i={j} hopColor={null} />
+                          ))}
+                        </div>
+                      )}
+                      {i < data.path.length - 1 && (
+                        <p className="text-[10px] text-ink-3 mt-2 flex items-center gap-1">
+                          <span className="text-gold">leadsTo</span> {data.path[i + 1]}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </Card>
@@ -310,7 +504,21 @@ function IDDFSPanel({ concepts }) {
 
       {data && !data.found && (
         <Card hover={false}>
-          <p className="text-sm text-crimson">No path found from <span className="font-mono">{start}</span> to <span className="font-mono">{goal}</span> within depth {maxDepth}. Try increasing max depth.</p>
+          <div className="space-y-2">
+            <p className="text-sm font-semibold text-crimson">No path exists from <span className="font-mono">{start}</span> to <span className="font-mono">{goal}</span></p>
+            <p className="text-xs text-ink-2 leading-relaxed">
+              Not all concepts lead toward {goal}. Some concepts like <span className="text-crimson font-mono">Kama</span>, <span className="text-crimson font-mono">Krodha</span>, and <span className="text-crimson font-mono">Moha</span> are downfall causes — they lead <em>away</em> from liberation, not toward it. Increasing the search limit will not help.
+            </p>
+            <p className="text-xs text-ink-3 mt-1">
+              Try starting from a practice or attainment concept instead:
+              {['NishkamaKarma','Abhyasa','Vairagya','DhyanaYoga','Sthitaprajna'].map(s => (
+                <button key={s} onClick={() => setStart(s)}
+                  className="ml-1.5 px-1.5 py-0.5 rounded border border-gold/30 text-gold text-[10px] font-mono hover:bg-gold/10 transition-colors">
+                  {s}
+                </button>
+              ))}
+            </p>
+          </div>
         </Card>
       )}
       {!data && !isPending && <EmptyState title="Select start/goal and run IDDFS" description="Iterative deepening — memory-efficient depth-first with optimal path guarantee" />}
@@ -323,7 +531,7 @@ export default function Search() {
   const cs = concepts?.concepts ?? concepts
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-6 md:p-8 max-w-4xl mx-auto">
       <PageHeader
         title="Graph Search"
         subtitle="BFS · DFS · A* · IDDFS over the philosophical knowledge graph"

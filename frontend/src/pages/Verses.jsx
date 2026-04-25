@@ -6,11 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   BookOpen, Search, Filter, ChevronDown, Type, Play, Pause,
   RotateCcw, StopCircle, Sparkles, Pin, PinOff, X,
-  Bot, Clock, Columns2,
+  Bot, Clock, Columns2, Crown, Feather,
 } from 'lucide-react'
 import { api } from '../api'
 import { Badge, Skeleton } from '../components/ui'
-import { PageHeader } from '../components/layout/PageTransition'
 
 const CHAPTERS = Array.from({ length: 18 }, (_, i) => i + 1)
 const LANG_OPTIONS = [
@@ -38,6 +37,36 @@ function parseWordMeanings(raw) {
       return { word: token.slice(0, i).trim(), meaning: token.slice(i).trim() }
     }).filter(Boolean)
   return { pairs, commentary }
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function getHighlightTerms(query) {
+  return [...new Set(
+    (query || '')
+      .toLowerCase()
+      .split(/[\s,.;:!?/()[\]{}"'`-]+/)
+      .map(term => term.trim())
+      .filter(term => term.length > 2)
+  )]
+}
+
+function renderHighlightedText(text, query) {
+  if (!text) return null
+  const terms = getHighlightTerms(query)
+  if (!terms.length) return text
+
+  const pattern = new RegExp(`(${terms.map(escapeRegExp).join('|')})`, 'gi')
+  const parts = text.split(pattern)
+
+  return parts.map((part, index) => {
+    const isHit = terms.some(term => part.toLowerCase() === term)
+    return isHit
+      ? <mark key={`${part}-${index}`} className="verse-highlight">{part}</mark>
+      : <span key={`${part}-${index}`}>{part}</span>
+  })
 }
 
 // ── Search history helpers ────────────────────────────────────────────────────
@@ -95,26 +124,35 @@ function AudioButton({ chapter, verse }) {
 }
 
 // ── Word meanings ─────────────────────────────────────────────────────────────
-function WordMeaningsBlock({ raw }) {
+function WordMeaningsBlock({ raw, highlightQuery }) {
   const { pairs, commentary } = parseWordMeanings(raw)
-  if (!pairs.length && !commentary) return <p className="text-sm text-ink-2 leading-relaxed">{raw}</p>
+  if (!pairs.length && !commentary) {
+    return (
+      <div className="leaf-note leaf-note-commentary">
+        <p className="leaf-note__label">Court Annotation</p>
+        <p className="text-sm text-ink-2 leading-relaxed">{renderHighlightedText(raw, highlightQuery)}</p>
+      </div>
+    )
+  }
+
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {pairs.length > 0 && (
-        <div className="flex flex-wrap gap-x-5 gap-y-2">
+        <div className="scribe-grid">
           {pairs.map(({ word, meaning }, i) => (
-            <span key={i} className="text-[12.5px] leading-relaxed">
-              <span className="font-dev text-[13px] text-gold/80 font-semibold">{word}</span>
-              <span className="text-ink-3 mx-1">—</span>
-              <span className="font-playfair text-ink-2 italic">{meaning}</span>
-            </span>
+            <div key={i} className="scribe-entry">
+              <p className="scribe-entry__word">{word}</p>
+              <p className="scribe-entry__meaning">{renderHighlightedText(meaning, highlightQuery)}</p>
+            </div>
           ))}
         </div>
       )}
       {commentary && (
-        <div className="pt-2.5 border-t border-white/6">
-          <p className="text-[10px] font-semibold text-ink-3 uppercase tracking-wider mb-1.5">Commentary</p>
-          <p className="font-playfair text-[12.5px] text-ink-2/80 italic leading-relaxed">{commentary}</p>
+        <div className="leaf-note leaf-note-commentary">
+          <p className="leaf-note__label">Scribe Commentary</p>
+          <p className="font-playfair text-[13px] text-ink-2/90 italic leading-relaxed">
+            {renderHighlightedText(commentary, highlightQuery)}
+          </p>
         </div>
       )}
     </div>
@@ -133,13 +171,13 @@ function ContextualizePanel({ verse }) {
   })
 
   return (
-    <div className="border-t border-white/6 pt-4 space-y-3">
-      <p className="text-[10px] font-semibold text-ink-3 uppercase tracking-wider flex items-center gap-1.5">
+    <div className="oracle-panel space-y-3">
+      <p className="text-[10px] font-semibold text-ink-3 uppercase tracking-[0.28em] flex items-center gap-1.5">
         <Bot size={11} className="text-teal" /> Ollama Commentary
       </p>
       <div className="flex gap-2">
         <input
-          className="flex-1 text-xs"
+          className="manuscript-input flex-1 text-xs"
           placeholder="Your situation or question… (press Enter)"
           value={userQuery}
           onChange={e => { setUserQuery(e.target.value); if (data) reset() }}
@@ -148,7 +186,7 @@ function ContextualizePanel({ verse }) {
         <button
           onClick={() => userQuery.trim() && mutate(userQuery.trim())}
           disabled={isPending || !userQuery.trim()}
-          className="px-3 py-1.5 rounded-lg bg-teal/20 border border-teal/40 text-teal text-xs hover:bg-teal/30 transition-colors disabled:opacity-40"
+          className="px-3 py-1.5 rounded-xl bg-teal/12 border border-teal/35 text-teal text-xs hover:bg-teal/20 transition-colors disabled:opacity-40"
         >
           {isPending ? '…' : 'Ask'}
         </button>
@@ -158,7 +196,7 @@ function ContextualizePanel({ verse }) {
       )}
       {data?.commentary && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-          className="text-[12.5px] font-playfair text-ink-2 leading-relaxed whitespace-pre-wrap bg-bg-1/50 rounded-lg p-3 border border-teal/20">
+          className="leaf-note leaf-note-commentary text-[12.5px] font-playfair text-ink-2 leading-relaxed whitespace-pre-wrap">
           {data.commentary}
           <p className="text-[10px] text-ink-3 mt-2 font-mono">via {data.model}</p>
         </motion.div>
@@ -168,26 +206,34 @@ function ContextualizePanel({ verse }) {
 }
 
 // ── Verse card ────────────────────────────────────────────────────────────────
-function VerseCard({ v, langs, showTranslit, onPin, isPinned, compact = false }) {
+function VerseCard({ v, langs, showTranslit, onPin, isPinned, compact = false, highlightQuery }) {
   const [expanded, setExpanded]           = useState(false)
   const [showContextualize, setShowCtx]   = useState(false)
 
   return (
     <div
-      className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-        isPinned ? 'border-gold/40' : 'border-border hover:border-gold/20'
+      className={`verse-card-monarch rounded-[28px] border transition-all duration-300 overflow-hidden ${
+        isPinned ? 'border-gold/45 shadow-[0_16px_60px_rgba(201,168,76,0.18)]' : 'border-[#4b3b22] hover:border-gold/30'
       }`}
-      style={{ background: 'linear-gradient(160deg, #1C1C2E 0%, #13131D 100%)' }}
     >
+      <span className="raven-sigil raven-sigil-left" />
+      <span className="raven-sigil raven-sigil-right" />
+
       {/* Top bar */}
-      <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-white/5">
+      <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-[rgba(201,168,76,0.12)]">
         <div className="flex items-center gap-2.5 flex-wrap">
           {!compact && <AudioButton chapter={v.chapter} verse={v.verse} />}
-          <span className="font-cinzel text-[15px] font-bold text-gold tracking-wide">
-            {v.chapter}.{v.verse}
+          <span className="w-8 h-8 rounded-full border border-gold/20 bg-[rgba(38,28,15,0.72)] flex items-center justify-center text-gold shadow-[0_0_24px_rgba(201,168,76,0.14)]">
+            <Crown size={14} />
           </span>
+          <div>
+            <span className="font-cinzel text-[15px] font-bold text-gold tracking-[0.18em]">
+              {v.chapter}.{v.verse}
+            </span>
+            <p className="text-[10px] uppercase tracking-[0.24em] text-[#b9a78a]">Royal Archive Leaf</p>
+          </div>
           {v.ai_corpus && (
-            <span className="text-[10px] px-2 py-0.5 rounded-full border border-gold/25 text-gold/60 font-mono">AI Corpus</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full border border-gold/25 text-gold/75 font-mono bg-[rgba(201,168,76,0.08)]">AI Corpus</span>
           )}
           {v.speaker && (
             <Badge variant={v.speaker === 'Krishna' ? 'teal' : 'saffron'} className="text-[10px]">{v.speaker}</Badge>
@@ -219,14 +265,18 @@ function VerseCard({ v, langs, showTranslit, onPin, isPinned, compact = false })
       </div>
 
       {/* Body */}
-      <div className="px-6 pt-5 pb-4 space-y-4">
+      <div className="px-5 md:px-6 pt-5 pb-5 space-y-4 relative z-[1]">
         {langs.sa && v.sa && (
-          <p className="verse-sanskrit text-[15px] whitespace-pre-line text-center px-4">{v.sa}</p>
+          <div className="manuscript-sheet">
+            <p className="verse-sanskrit text-[15px] whitespace-pre-line text-center px-2">{v.sa}</p>
+          </div>
         )}
         <AnimatePresence>
           {showTranslit && v.transliteration && (
             <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
-              className="verse-transliteration text-[12.5px] text-center text-ink-3/80 px-6">{v.transliteration}</motion.p>
+              className="verse-transliteration transliteration-strip text-[12.5px] text-center px-6">
+              {renderHighlightedText(v.transliteration, highlightQuery)}
+            </motion.p>
           )}
         </AnimatePresence>
         {langs.sa && v.sa && (langs.en || langs.hi) && (
@@ -236,27 +286,41 @@ function VerseCard({ v, langs, showTranslit, onPin, isPinned, compact = false })
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
           </div>
         )}
-        {langs.en && v.en && <p className="verse-english text-[13.5px] text-left">{v.en}</p>}
-        {langs.hi && v.hi && <p className="verse-hindi text-[13px] text-left">{v.hi}</p>}
+        {(langs.en || langs.hi) && (
+          <div className={`grid gap-3 ${langs.en && langs.hi ? 'xl:grid-cols-[1.15fr_0.95fr]' : 'grid-cols-1'}`}>
+            {langs.en && v.en && (
+              <div className="leaf-note leaf-note-meaning">
+                <p className="leaf-note__label">Meaning Rendered</p>
+                <p className="verse-english drop-cap text-left">{renderHighlightedText(v.en, highlightQuery)}</p>
+              </div>
+            )}
+            {langs.hi && v.hi && (
+              <div className="leaf-note leaf-note-reflection">
+                <p className="leaf-note__label">Hindi Reflection</p>
+                <p className="verse-hindi text-left">{renderHighlightedText(v.hi, highlightQuery)}</p>
+              </div>
+            )}
+          </div>
+        )}
         {v.concepts?.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 pt-1">
-            {v.concepts.map(c => <span key={c} className="chip chip-gold text-[10px]">{c}</span>)}
+          <div className="flex flex-wrap gap-2 pt-1">
+            {v.concepts.map(c => <span key={c} className="concept-seal text-[10px]">{c}</span>)}
           </div>
         )}
         {v.word_meanings && !compact && (
           <>
             <button onClick={() => setExpanded(e => !e)}
-              className="flex items-center gap-1.5 text-[11px] text-ink-2/60 hover:text-gold/80 transition-colors">
+              className="scribe-toggle">
               <motion.span animate={{ rotate: expanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
                 <ChevronDown size={12} />
               </motion.span>
-              Word meanings
+              Glossary leaf and commentary
             </button>
             <AnimatePresence>
               {expanded && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                  <div className="border-t border-white/6 pt-4">
-                    <WordMeaningsBlock raw={v.word_meanings} />
+                  <div className="border-t border-[rgba(201,168,76,0.12)] pt-4">
+                    <WordMeaningsBlock raw={v.word_meanings} highlightQuery={highlightQuery} />
                   </div>
                 </motion.div>
               )}
@@ -281,7 +345,7 @@ function ComparisonPanel({ pinned, onUnpin, langs }) {
   if (pinned.length < 1) return null
   return (
     <div className="fixed bottom-4 right-4 z-50 w-[90vw] max-w-4xl">
-      <div className="glass-gold rounded-2xl border border-gold/30 p-4 shadow-card">
+      <div className="comparison-panel-monarch rounded-[24px] border border-gold/30 p-4 shadow-card">
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-semibold text-gold flex items-center gap-2">
             <Columns2 size={14} /> Verse Comparison ({pinned.length}/3 pinned)
@@ -307,7 +371,7 @@ function ComparisonPanel({ pinned, onUnpin, langs }) {
 }
 
 // ── Virtual list ──────────────────────────────────────────────────────────────
-function VirtualVerseList({ verses, langs, showTranslit, pinnedKeys, onPin }) {
+function VirtualVerseList({ verses, langs, showTranslit, pinnedKeys, onPin, highlightQuery }) {
   const parentRef = useRef(null)
 
   const rowVirtualizer = useVirtualizer({
@@ -321,8 +385,8 @@ function VirtualVerseList({ verses, langs, showTranslit, pinnedKeys, onPin }) {
   return (
     <div
       ref={parentRef}
-      className="overflow-y-auto"
-      style={{ height: 'calc(100vh - 380px)', minHeight: '400px' }}
+      className="overflow-y-auto royal-scroll pr-1"
+      style={{ height: 'clamp(420px, calc(100vh - 520px), 68vh)' }}
     >
       <div style={{ height: rowVirtualizer.getTotalSize(), position: 'relative' }}>
         {rowVirtualizer.getVirtualItems().map(virtualRow => {
@@ -341,6 +405,7 @@ function VirtualVerseList({ verses, langs, showTranslit, pinnedKeys, onPin }) {
                 showTranslit={showTranslit}
                 onPin={onPin}
                 isPinned={pinnedKeys.has(key)}
+                highlightQuery={highlightQuery}
               />
             </div>
           )
@@ -404,6 +469,7 @@ export default function Verses() {
   const verses = searchMode === 'semantic'
     ? (semanticData?.results ?? [])
     : (data?.verses ?? [])
+  const highlightQuery = searchMode === 'keyword' ? dq : ''
 
   const pinnedKeys = new Set(pinned.map(v => `${v.chapter}-${v.verse}`))
 
@@ -417,16 +483,53 @@ export default function Verses() {
   }
 
   return (
-    <div className="p-8 max-w-3xl mx-auto">
-      <PageHeader
-        title="Verse Browser"
-        subtitle="Search 701 verses across 18 chapters of the Bhagavad Gītā"
-        module="MODULE 2 — Corpus"
-        icon={BookOpen}
-      />
+    <div className="verse-sanctum px-4 py-6 md:px-8 md:py-8 max-w-6xl mx-auto">
+      <div className="verse-hero mb-6">
+        <span className="raven-sigil raven-sigil-left hidden md:block" />
+        <span className="raven-sigil raven-sigil-right hidden md:block" />
+        <div className="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-6">
+          <div className="max-w-3xl">
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              <span className="royal-chip"><BookOpen size={12} /> MODULE 2 — Corpus</span>
+              <span className="royal-chip royal-chip-muted"><Feather size={12} /> Raven Court Reading Room</span>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="hidden sm:flex w-12 h-12 shrink-0 rounded-2xl border border-gold/20 bg-[rgba(27,19,10,0.68)] items-center justify-center text-gold shadow-[0_0_32px_rgba(201,168,76,0.14)]">
+                <Crown size={22} />
+              </div>
+              <div>
+                <h1 className="verse-hero__title">The Monarch&rsquo;s Verse Chamber</h1>
+                <p className="verse-hero__subtitle">
+                  Read each verse like an illuminated leaf from a royal archive:
+                  ravens at the margins, ancient manuscript styling, and highlighted meaning notes that draw the eye to what matters most.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 xl:min-w-[320px]">
+            <div className="royal-stat">
+              <span className="royal-stat__label">Verses Displayed</span>
+              <span className="royal-stat__value">{verses.length}</span>
+            </div>
+            <div className="royal-stat">
+              <span className="royal-stat__label">Reading Mode</span>
+              <span className="royal-stat__value royal-stat__value--small">{searchMode === 'semantic' ? 'AI Court Search' : 'Keyword Search'}</span>
+            </div>
+            <div className="royal-stat">
+              <span className="royal-stat__label">Chapter Scope</span>
+              <span className="royal-stat__value royal-stat__value--small">{ch ? `Chapter ${ch}` : 'All Chapters'}</span>
+            </div>
+            <div className="royal-stat">
+              <span className="royal-stat__label">Pinned Leaves</span>
+              <span className="royal-stat__value">{pinned.length}/3</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Controls */}
-      <div className="rounded-2xl border border-border bg-bg-2 p-4 mb-6 space-y-3">
+      <div className="verse-control-panel rounded-[28px] p-4 md:p-5 mb-6 space-y-4">
         <div className="flex flex-wrap gap-3 items-end">
           <div className="flex-1 min-w-44">
             <label className="label mb-1 block">Search</label>
@@ -436,7 +539,7 @@ export default function Verses() {
                 : <Search   size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3 pointer-events-none" />
               }
               <input
-                className="pl-8"
+                className="manuscript-input pl-8"
                 placeholder={searchMode === 'semantic' ? 'Describe your situation or question…' : 'karma, yoga, dharma…'}
                 value={q}
                 onChange={e => handleSearch(e.target.value)}
@@ -450,8 +553,8 @@ export default function Verses() {
               <button
                 key={key}
                 onClick={() => setSearchMode(key)}
-                className={`flex items-center gap-1.5 px-3 py-1 rounded text-[11px] font-medium transition-all ${
-                  searchMode === key ? 'bg-gold text-bg-1' : 'text-ink-2 hover:text-ink-1'
+                className={`manuscript-mode-toggle flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-medium transition-all ${
+                  searchMode === key ? 'manuscript-mode-toggle--active' : 'text-ink-2 hover:text-ink-1'
                 }`}
               >
                 <Icon size={10} />
@@ -462,7 +565,7 @@ export default function Verses() {
           {searchMode === 'keyword' && (
             <div className="w-36">
               <label className="label mb-1 block">Chapter</label>
-              <select value={ch} onChange={e => setCh(e.target.value)}>
+              <select className="manuscript-input" value={ch} onChange={e => setCh(e.target.value)}>
                 <option value="">All Chapters</option>
                 {CHAPTERS.map(c => <option key={c} value={c}>Chapter {c}</option>)}
               </select>
@@ -478,7 +581,7 @@ export default function Verses() {
               <button
                 key={h}
                 onClick={() => handleSearch(h)}
-                className="text-[10px] px-2 py-0.5 rounded-full border border-border text-ink-3 hover:border-gold/40 hover:text-gold/80 transition-colors font-mono"
+                className="royal-history-chip"
               >
                 {h}
               </button>
@@ -499,9 +602,9 @@ export default function Verses() {
             <button
               key={key}
               onClick={() => toggle(key)}
-              className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
+              className={`manuscript-toggle flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
                 langs[key]
-                  ? 'border-gold/50 bg-gold/10 text-gold shadow-[0_0_10px_#C9A84C18]'
+                  ? 'manuscript-toggle--active'
                   : 'border-border text-ink-2 hover:text-ink-1 hover:border-border-bright'
               }`}
             >
@@ -519,9 +622,9 @@ export default function Verses() {
           ))}
           <button
             onClick={() => setShowTranslit(t => !t)}
-            className={`ml-auto flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
+            className={`manuscript-toggle ml-auto flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
               showTranslit
-                ? 'border-teal/50 bg-teal/10 text-teal'
+                ? 'border-teal/50 bg-teal/10 text-teal shadow-[0_0_18px_rgba(26,188,156,0.12)]'
                 : 'border-border/80 text-ink-2 hover:text-ink-1 hover:border-border-bright'
             }`}
           >
@@ -533,6 +636,9 @@ export default function Verses() {
         <div className="flex items-center gap-2 text-[11px] text-ink-3 pt-0.5">
           <Filter size={10} />
           {isFetchingAny ? 'Loading…' : `${verses.length} verse${verses.length !== 1 ? 's' : ''} shown${searchMode === 'semantic' ? ' (AI ranked)' : ''}`}
+          {highlightQuery.trim() && (
+            <span className="ml-2 text-gold/80">Highlighted for “{highlightQuery.trim()}”</span>
+          )}
           {pinned.length > 0 && (
             <span className="ml-auto text-gold flex items-center gap-1">
               <Pin size={10} /> {pinned.length} pinned
@@ -545,7 +651,7 @@ export default function Verses() {
       {isFetchingAny && !verses.length ? (
         <div className="space-y-4">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="rounded-2xl border border-border p-6 space-y-4" style={{ background: 'linear-gradient(160deg,#1C1C2E,#13131D)' }}>
+            <div key={i} className="rounded-[28px] border border-[#4b3b22] p-6 space-y-4 bg-[linear-gradient(145deg,rgba(33,24,14,0.95),rgba(12,10,10,0.94))]">
               <Skeleton className="h-5 w-2/3 mx-auto" />
               <div className="h-px bg-border/50" />
               <Skeleton className="h-4 w-full" />
@@ -560,9 +666,12 @@ export default function Verses() {
           showTranslit={showTranslit}
           pinnedKeys={pinnedKeys}
           onPin={handlePin}
+          highlightQuery={highlightQuery}
         />
       ) : (
-        <div className="text-center py-16 text-ink-3 text-sm">No verses found</div>
+        <div className="verses-empty-state text-center py-16 text-ink-3 text-sm">
+          No verses found in the archive
+        </div>
       )}
 
       {/* Comparison panel */}

@@ -97,6 +97,59 @@ def get_gita_data():
         _gita_data = rows
     return _gita_data
 
+# ── CSV enrichment helpers ────────────────────────────────────────────────────
+def _build_csv_map(csv_rows):
+    """Return dict keyed by (chapter_str, verse_str) → CSV row."""
+    return {(r["Chapter"], r["Verse"]): r for r in csv_rows}
+
+def _strip_prefix(text):
+    text = re.sub(r'^[\d]+\.[\d]+\.?\s*', '', (text or '').strip())
+    return re.sub(r'^।।[\d]+\.[\d]+।।', '', text).strip()
+
+def _verse_name_to_ch_vs(name):
+    """Parse 'Verse_2_47' → ('2', '47'), else (None, None)."""
+    parts = str(name).split("_")
+    if len(parts) == 3 and parts[0] == "Verse":
+        return parts[1], parts[2]
+    return None, None
+
+def _enrich_verse(v, csv_map, chapter_key="chapter", verse_key="verse_number"):
+    """Merge CSV fields (sa/hi/en/transliteration/word_meanings) into a verse dict."""
+    ch = str(v.get(chapter_key, ""))
+    vs = str(v.get(verse_key, ""))
+    row = csv_map.get((ch, vs), {})
+
+    # Fallback: parse chapter/verse from node name like "Verse_2_47"
+    if not row:
+        vname = v.get("verse", v.get("key", ""))
+        fc, fv = _verse_name_to_ch_vs(vname)
+        if fc and fv:
+            row = csv_map.get((fc, fv), {})
+
+    return {
+        **v,
+        "sa":              row.get("Shloka", ""),
+        "hi":              _strip_prefix(row.get("HinMeaning", "")),
+        "en":              _strip_prefix(row.get("EngMeaning", v.get("translation", v.get("en", "")))),
+        "transliteration": row.get("Transliteration", ""),
+        "word_meanings":   row.get("WordMeaning", ""),
+    }
+
+def _enrich_concept_verses(verse_list, csv_map):
+    """Given a list of {key, chapter, verse, translation} dicts, enrich each."""
+    out = []
+    for v in verse_list:
+        # Prefer verse_number (integer) over verse (which may be full name "Verse_2_47")
+        base = {
+            "chapter":      v.get("chapter", ""),
+            "verse_number": v.get("verse_number", v.get("verse", "")),
+            "translation":  v.get("translation", ""),
+            "key":          v.get("key", ""),
+            "verse":        v.get("verse", v.get("key", "")),  # keep for name-based fallback
+        }
+        out.append(_enrich_verse(base, csv_map, "chapter", "verse_number"))
+    return out
+
 # ── Serve SPA ─────────────────────────────────────────────────────────────────
 @app.route("/")
 def index():
@@ -197,22 +250,34 @@ def verses():
 @app.route("/api/bfs", methods=["POST"])
 def bfs():
     from modules.search_agent import bfs_reading_list
-    kg = get_kg()
-    body = request.json or {}
-    concept = body.get("concept","NishkamaKarma")
-    hops = int(body.get("hops", 2))
+    kg  = get_kg()
+    csv = get_gita_data()
+    body    = request.json or {}
+    concept = body.get("concept", "NishkamaKarma")
+    hops    = int(body.get("hops", 2))
     results = bfs_reading_list(concept, kg, hops)
-    return jsonify({"results": results, "count": len(results), "concept": concept, "hops": hops})
+
+    csv_map = _build_csv_map(get_gita_data())
+    enriched = [_enrich_verse(v, csv_map) for v in results]
+    return jsonify({"results": enriched, "count": len(enriched), "concept": concept, "hops": hops})
 
 # ── DFS ───────────────────────────────────────────────────────────────────────
 @app.route("/api/dfs", methods=["POST"])
 def dfs():
     from modules.search_agent import dfs_chain
-    kg = get_kg()
-    body = request.json or {}
-    start = body.get("start","Kama")
-    result = dfs_chain(start, kg, "leadsTo")
-    return jsonify(result)
+    kg      = get_kg()
+    body    = request.json or {}
+    start   = body.get("start", "Kama")
+    result  = dfs_chain(start, kg, "leadsTo")
+    csv_map = _build_csv_map(get_gita_data())
+
+    # Enrich each annotated step's taught_by_verses with full CSV data
+    annotated = result.get("annotated", [])
+    for step in annotated:
+        step["taught_by_verses"] = _enrich_concept_verses(
+            step.get("taught_by_verses", []), csv_map
+        )
+    return jsonify({**result, "annotated": annotated})
 
 # ── A* ────────────────────────────────────────────────────────────────────────
 @app.route("/api/astar", methods=["POST"])
@@ -223,7 +288,40 @@ def astar():
     start = body.get("start","Vairagya")
     goal = body.get("goal","Moksha")
     result = astar_to_moksha(start, kg, goal)
-    return jsonify({**result, "complexity": COMPLEXITY_TABLE})
+
+    csv_map = _build_csv_map(get_gita_data())
+
+    # Enrich path with node details + full verse data
+    path_details = []
+    for name in result.get("path", []):
+        node = kg.nodes.get(name)
+        raw_verses = []
+        for vkey in kg.verses_teaching(name):
+            vn = kg.nodes.get(vkey)
+            if vn:
+                raw_verses.append({
+                    "key":          vkey,
+                    "chapter":      vn.chapter_number,
+                    "verse_number": vn.verse_number,
+                    "translation":  vn.translation or "",
+                })
+        path_details.append({
+            "name":       name,
+            "category":   node.category if node else "",
+            "definition": (node.definition or "") if node else "",
+            "verses":     _enrich_concept_verses(raw_verses, csv_map),
+        })
+
+    # Normalise f_values: accept both list-of-tuples and list-of-lists
+    f_values = result.get("f_values", [])
+    trace = [
+        {"node": r[0], "g": r[1], "h": r[2], "f": r[3]}
+        if isinstance(r, (list, tuple)) else r
+        for r in f_values
+    ]
+
+    return jsonify({**result, "path_details": path_details, "trace": trace,
+                    "complexity": COMPLEXITY_TABLE})
 
 # ── CONCEPT LIST ──────────────────────────────────────────────────────────────
 @app.route("/api/concepts")
@@ -237,15 +335,22 @@ def concepts():
 def sparql_cq(cq_id):
     from modules.expert_system import SPARQL_QUERIES
     kg = get_kg()
-    if cq_id not in SPARQL_QUERIES:
-        return jsonify({"error": "Unknown CQ"}), 404
-    cq = SPARQL_QUERIES[cq_id]
+    # Accept both "cq1" and "CQ1" formats
+    key = cq_id.upper().replace("CQ", "CQ")
+    if key not in SPARQL_QUERIES:
+        key = cq_id  # try as-is
+    if key not in SPARQL_QUERIES:
+        return jsonify({"error": f"Unknown CQ: {cq_id}"}), 404
+    cq = SPARQL_QUERIES[key]
     try:
         rows = kg.sparql(cq["query"])
+        headers = list(rows[0].keys()) if rows else []
+        row_values = [[r.get(h, "") for h in headers] for r in rows]
         return jsonify({"question": cq["question"], "technique": cq["technique"],
-                        "query": cq["query"], "rows": rows, "count": len(rows)})
+                        "query": cq["query"], "headers": headers,
+                        "rows": row_values, "count": len(rows)})
     except Exception as e:
-        return jsonify({"error": str(e), "query": cq["query"], "rows": []})
+        return jsonify({"error": str(e), "query": cq["query"], "rows": [], "headers": []})
 
 # ── EXPERT SYSTEM INFER ───────────────────────────────────────────────────────
 @app.route("/api/infer", methods=["POST"])
@@ -256,18 +361,49 @@ def infer():
     es = ExpertSystem(kg)
     result = es.infer(concern=body.get("concern",""), goal=body.get("goal",""),
                       stage=body.get("stage","beginner"), nature=body.get("nature","active"))
+
+    csv_map = _build_csv_map(get_gita_data())
+
+    # Normalise fired_rules to [name, cf, description] triples
+    rules_by_name = {r.name: r for r in PRODUCTION_RULES}
+    fired_rules_out = []
+    for item in result["fired_rules"]:
+        name = item[0] if isinstance(item, (list, tuple)) else item
+        rule = rules_by_name.get(name)
+        fired_rules_out.append([name, rule.cf if rule else 0.0, rule.description if rule else ""])
+
     rules_info = [{
         "name": r.name, "description": r.description,
         "specificity": r.specificity, "cf": r.cf,
-        "fired": r.name in [f for f,_ in result["fired_rules"]]
+        "fired": r.name in [f[0] for f in fired_rules_out]
     } for r in sorted(PRODUCTION_RULES, key=lambda x: -x.specificity)]
+
+    # Enrich start_verse with full CSV data
+    start_verse = result["start_verse"]
+    if start_verse:
+        vname = start_verse.get("verse", "")
+        fc, fv = _verse_name_to_ch_vs(vname)
+        row = csv_map.get((fc or str(start_verse.get("chapter","")),
+                           fv or str(start_verse.get("verse_number",""))), {})
+        start_verse = {
+            **start_verse,
+            "sa":              row.get("Shloka", ""),
+            "hi":              _strip_prefix(row.get("HinMeaning", "")),
+            "en":              _strip_prefix(row.get("EngMeaning", start_verse.get("translation",""))),
+            "transliteration": row.get("Transliteration", ""),
+            "word_meanings":   row.get("WordMeaning", ""),
+        }
+
+    # Enrich recommended_verses
+    enriched_verses = _enrich_concept_verses(result["recommended_verses"][:5], csv_map)
+
     return jsonify({
-        "fired_rules": result["fired_rules"],
+        "fired_rules": fired_rules_out,
         "rules_info": rules_info,
         "recommend_concept": result["recommend_concept"],
-        "start_verse": result["start_verse"],
+        "start_verse": start_verse,
         "confidence": result["confidence"],
-        "recommended_verses": result["recommended_verses"][:3],
+        "recommended_verses": enriched_verses,
     })
 
 # ── EXPERT SYSTEM PROFILES ────────────────────────────────────────────────────
@@ -374,6 +510,7 @@ def semantic_search():
     scores = embeddings @ q_vec
     top_k_idx = scores.argsort()[::-1][:k]
     kg = get_kg()
+    csv_map = _build_csv_map(get_gita_data())
     results = []
     for i in top_k_idx:
         entry = index[i]
@@ -381,12 +518,16 @@ def semantic_search():
         concepts = []
         if vkey in kg.nodes:
             concepts = list(kg.neighbours_by_edge(vkey, "teaches"))
-        results.append({
+        base = {
             **entry,
             "score": float(scores[i]),
             "ai_corpus": vkey in kg.nodes,
             "concepts": [c.replace("_inst","").replace("_"," ") for c in concepts],
-        })
+            "key": vkey,  # keep original key for name-based CSV fallback
+        }
+        # verse_key="verse" → entry["verse"] is the verse number string e.g. "47"
+        enriched = _enrich_verse(base, csv_map, chapter_key="chapter", verse_key="verse")
+        results.append(enriched)
     return jsonify({"query": q, "results": results, "count": len(results)})
 
 # ── PLANS (SQLite) ────────────────────────────────────────────────────────────
@@ -490,10 +631,43 @@ def iddfs():
             break
 
     if found_path:
+        csv_map = _build_csv_map(get_gita_data())
+        path_details = []
+        for name in found_path:
+            node = kg.nodes.get(name)
+            raw_verses = []
+            for vkey in kg.verses_teaching(name):
+                vn = kg.nodes.get(vkey)
+                if vn:
+                    raw_verses.append({
+                        "key":          vkey,
+                        "chapter":      vn.chapter_number,
+                        "verse_number": vn.verse_number,
+                        "translation":  vn.translation or "",
+                    })
+            path_details.append({
+                "name":       name,
+                "category":   node.category if node else "",
+                "definition": (node.definition or "") if node else "",
+                "verses":     _enrich_concept_verses(raw_verses, csv_map),
+            })
         return jsonify({"found": True, "path": found_path, "depth_found": found_depth,
-                        "nodes_explored": total_explored, "iterations": iterations})
+                        "nodes_explored": total_explored, "iterations": iterations,
+                        "path_details": path_details})
     return jsonify({"found": False, "path": [], "depth_searched": max_dep,
                     "nodes_explored": total_explored, "iterations": iterations})
+
+# ── OLLAMA STATUS ─────────────────────────────────────────────────────────────
+@app.route("/api/ollama_status")
+def ollama_status():
+    import requests as _req
+    try:
+        r = _req.get("http://localhost:11434/api/tags", timeout=3)
+        r.raise_for_status()
+        models = [m["name"] for m in r.json().get("models", [])]
+        return jsonify({"running": True, "models": models})
+    except Exception:
+        return jsonify({"running": False, "models": []})
 
 # ── OLLAMA CONTEXTUALIZE ───────────────────────────────────────────────────────
 @app.route("/api/contextualize", methods=["POST"])
@@ -502,22 +676,40 @@ def contextualize():
     body       = request.json or {}
     verse_ref  = body.get("verse_ref", "")
     english    = body.get("english", "")
+    sanskrit   = body.get("sanskrit", "")
     user_query = body.get("user_query", "general study")
-    model      = body.get("model", "llama3.2")
+    concept    = body.get("concept", "")
+    model      = body.get("model", "llama3")
+    lang       = body.get("lang", "en")   # "en" | "hi" | "hinglish"
+
+    LANG_INSTRUCTION = {
+        "en":       "Respond entirely in clear, warm English.",
+        "hi":       "पूरा उत्तर सरल और स्पष्ट हिंदी में दें। English words का प्रयोग न करें।",
+        "hinglish": "Respond in Hinglish — a natural mix of Hindi and English as spoken in everyday conversation in India. Use Devanagari only for key Sanskrit/Hindi words.",
+    }
+    lang_instr = LANG_INSTRUCTION.get(lang, LANG_INSTRUCTION["en"])
+
+    sa_line      = f"\nSanskrit: {sanskrit[:200]}" if sanskrit else ""
+    concept_line = f"\nCore concept: {concept}" if concept else ""
     prompt = (
-        f"You are a compassionate Bhagavad Gītā scholar. "
-        f"Verse {verse_ref}: \"{english[:300]}\"\n\n"
-        f"Explain in 3 short paragraphs how this verse applies to: \"{user_query}\".\n"
-        f"Be warm, practical, and grounded. Keep each paragraph under 60 words."
+        f"You are a compassionate Bhagavad Gītā scholar and life guide.\n"
+        f"{lang_instr}\n\n"
+        f"Verse {verse_ref}:{sa_line}\nEnglish: \"{english[:400]}\"{concept_line}\n\n"
+        f"The seeker says: \"{user_query}\"\n\n"
+        f"Write 3 short paragraphs:\n"
+        f"1. What this verse is teaching (in simple words)\n"
+        f"2. How it directly applies to the seeker's situation\n"
+        f"3. One practical step the seeker can take today\n\n"
+        f"Be warm, grounded, and specific. Each paragraph under 70 words. No bullet points."
     )
     try:
         res = _req.post(
             "http://localhost:11434/api/generate",
             json={"model": model, "prompt": prompt, "stream": False},
-            timeout=90,
+            timeout=120,
         )
         res.raise_for_status()
-        commentary = res.json().get("response", "")
+        commentary = res.json().get("response", "").strip()
         return jsonify({"commentary": commentary, "verse_ref": verse_ref, "model": model})
     except _req.exceptions.ConnectionError:
         return jsonify({"error": "Ollama not running. Start with: ollama serve"}), 503

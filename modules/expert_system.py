@@ -53,7 +53,13 @@ PRODUCTION_RULES = [
         description="Reader anxious about results → recommend Nishkama Karma",
         specificity=1, cf=0.92,
         condition=lambda wm: (
-            any(k in wm.concern.lower() for k in ["anxiety", "anxious", "result", "outcome", "fruit", "worry"])
+            any(k in wm.concern.lower() for k in [
+                # English
+                "anxiety", "anxious", "result", "outcome", "fruit", "worry",
+                # Hindi / Hinglish
+                "chinta", "tension", "pareshaan", "pareshan", "phal", "nateeja",
+                "darr", "डर", "चिंता", "परेशान", "फल", "nischint",
+            ])
         ),
         action=lambda wm: setattr(wm, "recommend_concept", "NishkamaKarma"),
     ),
@@ -62,7 +68,13 @@ PRODUCTION_RULES = [
         description="Reader seeks peace/equanimity → recommend Sthitaprajna",
         specificity=1, cf=0.85,
         condition=lambda wm: (
-            any(k in wm.goal.lower() for k in ["peace", "equanimity", "calm", "tranquil", "stillness", "steady"])
+            any(k in wm.goal.lower() for k in [
+                # English
+                "peace", "equanimity", "calm", "tranquil", "stillness", "steady",
+                # Hindi / Hinglish
+                "shanti", "sukoon", "sukun", "chain", "shaanti", "स्थिरता",
+                "शांति", "सुकून", "aaram", "sthirta",
+            ])
         ),
         action=lambda wm: setattr(wm, "recommend_concept", "Sthitaprajna"),
     ),
@@ -83,7 +95,13 @@ PRODUCTION_RULES = [
         description="Reader deals with anger/desire → recommend Kama/Krodha chain",
         specificity=2, cf=0.90,
         condition=lambda wm: (
-            any(k in wm.concern.lower() for k in ["anger", "desire", "lust", "rage", "craving"])
+            any(k in wm.concern.lower() for k in [
+                # English
+                "anger", "desire", "lust", "rage", "craving",
+                # Hindi / Hinglish
+                "gussa", "krodh", "kaam", "ichha", "lobh", "lalach",
+                "क्रोध", "गुस्सा", "इच्छा", "काम", "naaraaz", "naraaz",
+            ])
         ),
         action=lambda wm: (
             setattr(wm, "recommend_concept", "Kama"),
@@ -96,7 +114,13 @@ PRODUCTION_RULES = [
         specificity=2, cf=0.95,
         condition=lambda wm: (
             any(k in (wm.goal + wm.concern).lower()
-                for k in ["meditat", "focus", "mind", "dhyana", "concentration", "restless"])
+                for k in [
+                    # English
+                    "meditat", "focus", "mind", "dhyana", "concentration", "restless",
+                    # Hindi / Hinglish
+                    "dhyan", "mann", "man", "ekagr", "chanchal", "chanchalta",
+                    "ध्यान", "मन", "एकाग्र", "restlessness", "mann nahi lagta",
+                ])
         ),
         action=lambda wm: (
             setattr(wm, "recommend_chapter", "Chapter_6"),
@@ -111,7 +135,14 @@ PRODUCTION_RULES = [
         specificity=2, cf=0.88,
         condition=lambda wm: (
             any(k in (wm.goal + wm.concern).lower()
-                for k in ["duty", "dharma", "svadharma", "confused", "renounce", "action or"])
+                for k in [
+                    # English
+                    "duty", "dharma", "svadharma", "confused", "renounce", "action or",
+                    # Hindi / Hinglish
+                    "kartavya", "farz", "confusion", "samajh nahi", "kya karu",
+                    "kya karoon", "tyag", "karm", "karma karna",
+                    "कर्तव्य", "फर्ज", "त्याग", "धर्म",
+                ])
         ),
         action=lambda wm: (
             setattr(wm, "recommend_concept", "Svadharma"),
@@ -136,11 +167,37 @@ PRODUCTION_RULES = [
         specificity=2, cf=0.88,
         condition=lambda wm: (
             wm.stage.lower() == "advanced" and
-            any(k in wm.goal.lower() for k in ["liberation", "moksha", "ultimate", "self"])
+            any(k in wm.goal.lower() for k in [
+                # English
+                "liberation", "moksha", "ultimate", "self",
+                # Hindi / Hinglish
+                "mukti", "moksh", "aatma", "gyan", "gyaan", "atma gyan",
+                "मोक्ष", "मुक्ति", "आत्मज्ञान",
+            ])
         ),
         action=lambda wm: (
             setattr(wm, "recommend_concept", "Moksha"),
             setattr(wm, "start_verse", "Verse_6_47")
+        ),
+    ),
+    Rule(
+        name="R9_GriefSorrow",
+        description="Reader experiencing grief/sorrow → recommend Atma Jnana, Verse_2_20",
+        specificity=2, cf=0.87,
+        condition=lambda wm: (
+            any(k in (wm.goal + wm.concern).lower()
+                for k in [
+                    # English
+                    "grief", "sorrow", "sad", "loss", "death", "mourn",
+                    # Hindi / Hinglish
+                    "dukh", "dard", "dukhi", "udaas", "udaseen", "shok",
+                    "rona", "aansu", "dukh hua", "takleef",
+                    "दुख", "दर्द", "उदास", "शोक",
+                ])
+        ),
+        action=lambda wm: (
+            setattr(wm, "recommend_concept", "AtmaJnana"),
+            setattr(wm, "start_verse", "Verse_2_20")
         ),
     ),
 ]

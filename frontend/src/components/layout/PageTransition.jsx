@@ -25,12 +25,18 @@ export default function PageTransition({ children }) {
 export function PageHeader({ title, subtitle, module, icon: Icon }) {
   return (
     <div className="mb-8">
-      <div className="flex items-start justify-between">
+      <div className="flex items-start justify-between gap-4">
         <div>
           {module && (
-            <span className="inline-block text-[10px] font-mono font-semibold
-                             text-gold border border-gold-dim bg-gold-faint
-                             px-2 py-0.5 rounded mb-2">
+            <span className="inline-block mb-2 font-cinzel font-semibold uppercase tracking-[0.2em]"
+              style={{
+                fontSize: '0.6rem',
+                color: 'rgba(138,110,42,0.9)',
+                border: '1px solid rgba(138,110,42,0.35)',
+                background: 'rgba(201,168,76,0.07)',
+                padding: '0.2rem 0.65rem',
+                borderRadius: 6,
+              }}>
               {module}
             </span>
           )}
@@ -38,17 +44,24 @@ export function PageHeader({ title, subtitle, module, icon: Icon }) {
             {title}
           </h2>
           {subtitle && (
-            <p className="text-ink-2 text-sm mt-1.5">{subtitle}</p>
+            <p className="font-fell mt-1.5" style={{ color: '#C4A97A', fontSize: '0.92rem', lineHeight: 1.6 }}>
+              {subtitle}
+            </p>
           )}
         </div>
         {Icon && (
-          <div className="w-10 h-10 rounded-xl bg-gold-faint border border-gold-dim
-                          flex items-center justify-center shrink-0">
-            <Icon size={18} className="text-gold" />
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+            style={{
+              background: 'rgba(201,168,76,0.08)',
+              border: '1px solid rgba(201,168,76,0.28)',
+              boxShadow: '0 0 16px rgba(201,168,76,0.10)',
+            }}>
+            <Icon size={18} style={{ color: '#C9A84C' }} />
           </div>
         )}
       </div>
-      <div className="mt-4 h-px bg-gradient-to-r from-gold-dim via-gold/40 to-transparent" />
+      {/* Knotwork rule divider */}
+      <div className="mt-5 knotwork-rule"><span>✦</span></div>
     </div>
   )
 }
