@@ -2,6 +2,9 @@
 expert_system.py — Digital Bhaṣya  Module 4
 Production Rule Expert System + SPARQL Queries.
 
+Author: Hariom Rajput (@Hariomrajput7049)
+Module: Expert System (Rule-based reasoning, Forward Chaining, SPARQL CQs)
+
 Implements:
   ExpertSystem class with forward-chaining rule engine
   SPARQL_QUERIES: dict of all 8 Competency Question queries
