@@ -24,6 +24,7 @@
 \citation{reiter1980logic}
 \citation{lewis2020rag}
 \citation{reimers2019sentencebert}
+\citation{ollama2024}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {I-C}}Contributions}{2}{subsection.1.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {II}Related Work}{2}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Knowledge Representation for Ancient Texts}{2}{subsection.2.1}\protected@file@percent }
@@ -32,84 +33,99 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-D}}Expert Systems and Production Rules}{2}{subsection.2.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-E}}Constraint Satisfaction and Study Planning}{2}{subsection.2.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-F}}Uncertainty and Fuzzy Reasoning}{2}{subsection.2.6}\protected@file@percent }
-\citation{ollama2024}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-G}}Retrieval-Augmented Generation}{2}{subsection.2.7}\protected@file@percent }
 \citation{vanlehn2011relative}
 \citation{chen2018kgtutor}
 \citation{kumar1992algorithms}
 \citation{dharma2020}
 \citation{hellwig2018sanskrit}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-G}}Retrieval-Augmented Generation}{3}{subsection.2.7}\protected@file@percent }
+\citation{dharma2020}
+\citation{goyal2012sanskrit}
+\citation{chen2018kgtutor}
+\citation{kumar1992algorithms}
+\citation{shortliffe1976computer}
+\citation{zadeh1965fuzzy}
+\citation{lewis2020rag}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-H}}Local LLM Deployment}{3}{subsection.2.8}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-I}}AI in Education and Personalized Learning}{3}{subsection.2.9}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-J}}Computational Philology}{3}{subsection.2.10}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-K}}Gap Analysis}{3}{subsection.2.11}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {III}System Design and Methodology}{3}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Overall Architecture}{3}{subsection.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces GitaGraph v2.1 system architecture. All modules share a single \texttt  {GitaKnowledgeGraph} instance. The React SPA communicates with the Flask REST API over HTTP; the API dispatches to symbolic modules (OWL/SPARQL, graph algorithms, expert system, CSP, uncertainty) and to the hybrid layer (FAISS semantic search, Ollama LLM).}}{3}{figure.1}\protected@file@percent }
-\newlabel{fig:architecture}{{1}{3}{GitaGraph v2.1 system architecture. All modules share a single \texttt {GitaKnowledgeGraph} instance. The React SPA communicates with the Flask REST API over HTTP; the API dispatches to symbolic modules (OWL/SPARQL, graph algorithms, expert system, CSP, uncertainty) and to the hybrid layer (FAISS semantic search, Ollama LLM)}{figure.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Datasets}{3}{subsection.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-B}1}Primary Corpus}{3}{subsubsection.3.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Dataset and Knowledge Base Statistics}}{3}{table.1}\protected@file@percent }
+\newlabel{tab:dataset}{{I}{3}{Dataset and Knowledge Base Statistics}{table.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-B}2}Knowledge Base}{3}{subsubsection.3.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces GitaGraph v2.1 system architecture. All modules share a single \texttt  {GitaKnowledgeGraph} instance. The React SPA communicates with the Flask REST API over HTTP; the API dispatches to symbolic modules (OWL/SPARQL, graph algorithms, expert system, CSP, uncertainty) and to the hybrid layer (FAISS semantic search, Ollama LLM).}}{4}{figure.1}\protected@file@percent }
+\newlabel{fig:architecture}{{1}{4}{GitaGraph v2.1 system architecture. All modules share a single \texttt {GitaKnowledgeGraph} instance. The React SPA communicates with the Flask REST API over HTTP; the API dispatches to symbolic modules (OWL/SPARQL, graph algorithms, expert system, CSP, uncertainty) and to the hybrid layer (FAISS semantic search, Ollama LLM)}{figure.1}{}}
+\citation{hart1968formal}
 \citation{korf1985depth}
-\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Dataset and Knowledge Base Statistics}}{4}{table.1}\protected@file@percent }
-\newlabel{tab:dataset}{{I}{4}{Dataset and Knowledge Base Statistics}{table.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-B}2}Knowledge Base}{4}{subsubsection.3.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Technology Stack}{4}{subsection.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Module Descriptions}{4}{subsection.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}1}OWL 2 Ontology with Special Axioms (Module 2)}{4}{subsubsection.3.4.1}\protected@file@percent }
-\newlabel{eq:chain}{{1}{4}{OWL 2 Ontology with Special Axioms (Module 2)}{equation.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Technology Stack — GitaGraph v2.1}}{4}{table.2}\protected@file@percent }
-\newlabel{tab:tech}{{II}{4}{Technology Stack — GitaGraph v2.1}{table.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}2}Graph Search Algorithms (Module 3)}{4}{subsubsection.3.4.2}\protected@file@percent }
-\newlabel{eq:heuristic}{{2}{4}{Graph Search Algorithms (Module 3)}{equation.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}3}Forward-Chaining Expert System (Module 4)}{4}{subsubsection.3.4.3}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}CQ3: Desire downfall chain via transitivity}{5}{lstlisting.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Technology Stack}{5}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Module Descriptions}{5}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}1}OWL 2 Ontology with Special Axioms (Module 2)}{5}{subsubsection.3.4.1}\protected@file@percent }
+\newlabel{eq:chain}{{1}{5}{OWL 2 Ontology with Special Axioms (Module 2)}{equation.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}2}Graph Search Algorithms (Module 3)}{5}{subsubsection.3.4.2}\protected@file@percent }
+\newlabel{eq:heuristic}{{2}{5}{Graph Search Algorithms (Module 3)}{equation.2}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Forward-Chaining Expert System Inference}}{5}{algorithm.1}\protected@file@percent }
+\newlabel{alg:expert}{{1}{5}{Forward-Chaining Expert System (Module 4)}{algorithm.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}3}Forward-Chaining Expert System (Module 4)}{5}{subsubsection.3.4.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}4}CSP Study Planner (Module 5)}{5}{subsubsection.3.4.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}5}Uncertainty Handler (Module 6)}{5}{subsubsection.3.4.5}\protected@file@percent }
 \newlabel{eq:mycin}{{3}{5}{Uncertainty Handler (Module 6)}{equation.3}{}}
-\newlabel{eq:fuzzy}{{4}{5}{Uncertainty Handler (Module 6)}{equation.4}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}6}Semantic RAG Layer (Module 7)}{5}{subsubsection.3.4.6}\protected@file@percent }
-\newlabel{eq:cosine}{{5}{5}{Semantic RAG Layer (Module 7)}{equation.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}7}Ollama LLM Commentary (Module 7 — cont.)}{5}{subsubsection.3.4.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Implementation Details}{5}{subsection.3.5}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Core module interfaces}{5}{lstlisting.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}1}Module Structure}{5}{lstlisting.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}2}CSV Enrichment Pipeline}{6}{subsubsection.3.5.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Flask REST API Endpoints — v2.1}}{6}{table.3}\protected@file@percent }
-\newlabel{tab:api}{{III}{6}{Flask REST API Endpoints — v2.1}{table.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}3}REST API Endpoints}{6}{table.3}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}A* search with philosophical heuristic}{6}{lstlisting.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}4}A* Implementation}{6}{lstlisting.3}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}Semantic search: encode, index, retrieve}{6}{lstlisting.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}5}Semantic RAG Query Pipeline}{6}{lstlisting.4}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}Ollama contextual commentary generation}{6}{lstlisting.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}6}Ollama Commentary Pipeline}{6}{lstlisting.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Results and Findings}{7}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Experimental Setup}{7}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Graph Search Results}{7}{subsection.4.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Graph Search Algorithm Performance}}{7}{table.4}\protected@file@percent }
-\newlabel{tab:search}{{IV}{7}{Graph Search Algorithm Performance}{table.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces Expert System Rule Firings on Sample Reader Profiles}}{7}{table.5}\protected@file@percent }
-\newlabel{tab:expert}{{V}{7}{Expert System Rule Firings on Sample Reader Profiles}{table.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Expert System Results}{7}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}CSP Study Planner Results}{7}{subsection.4.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces Sample 5-Session Meditation Study Plan (CSP Output)}}{7}{table.6}\protected@file@percent }
-\newlabel{tab:csp}{{VI}{7}{Sample 5-Session Meditation Study Plan (CSP Output)}{table.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}Uncertainty Handler Results}{7}{subsection.4.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces MYCIN Certainty Factor Aggregation (3 Traditions)}}{7}{table.7}\protected@file@percent }
-\newlabel{tab:mycin}{{VII}{7}{MYCIN Certainty Factor Aggregation (3 Traditions)}{table.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {VIII}{\ignorespaces Fuzzy Yoga-Path Membership Matrix ($\mu \in [0,1]$)}}{7}{table.8}\protected@file@percent }
-\newlabel{tab:fuzzy}{{VIII}{7}{Fuzzy Yoga-Path Membership Matrix ($\mu \in [0,1]$)}{table.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-F}}Semantic RAG Results}{8}{subsection.4.6}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {IX}{\ignorespaces Semantic RAG Retrieval Performance (top-$k$ = 5)}}{8}{table.9}\protected@file@percent }
-\newlabel{tab:rag}{{IX}{8}{Semantic RAG Retrieval Performance (top-$k$ = 5)}{table.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-G}}Ollama LLM Commentary Results}{8}{subsection.4.7}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {X}{\ignorespaces Ollama Commentary Generation (Llama 3 Q4\_K\_M, CPU)}}{8}{table.10}\protected@file@percent }
-\newlabel{tab:ollama}{{X}{8}{Ollama Commentary Generation (Llama 3 Q4\_K\_M, CPU)}{table.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-H}}Comparison with Existing Systems}{8}{subsection.4.8}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {XI}{\ignorespaces Comparison with Existing Bhagavad G\={i}t\={a} Digital Systems}}{8}{table.11}\protected@file@percent }
-\newlabel{tab:comparison}{{XI}{8}{Comparison with Existing Bhagavad G\={i}t\={a} Digital Systems}{table.11}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-I}}Ablation Studies}{8}{subsection.4.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-J}}Discussion}{8}{subsection.4.10}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Technology Stack — GitaGraph v2.1}}{6}{table.2}\protected@file@percent }
+\newlabel{tab:tech}{{II}{6}{Technology Stack — GitaGraph v2.1}{table.2}{}}
+\newlabel{lst:sparql}{{1}{6}{CQ3: Desire downfall chain via transitivity}{lstlisting.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}CQ3: Desire downfall chain via transitivity}{6}{lstlisting.1}\protected@file@percent }
+\newlabel{eq:fuzzy}{{4}{6}{Uncertainty Handler (Module 6)}{equation.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}6}Semantic RAG Layer (Module 7)}{6}{subsubsection.3.4.6}\protected@file@percent }
+\newlabel{eq:cosine}{{5}{6}{Semantic RAG Layer (Module 7)}{equation.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-D}7}Ollama LLM Commentary (Module 7 — cont.)}{6}{subsubsection.3.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Implementation Details}{7}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}1}Module Structure}{7}{lstnumber.2.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}2}CSV Enrichment Pipeline}{7}{subsubsection.3.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Flask REST API Endpoints — v2.1}}{7}{table.3}\protected@file@percent }
+\newlabel{tab:api}{{III}{7}{Flask REST API Endpoints — v2.1}{table.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}3}REST API Endpoints}{7}{table.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}4}A* Implementation}{7}{lstnumber.3.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}5}Semantic RAG Query Pipeline}{7}{lstnumber.4.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-E}6}Ollama Commentary Pipeline}{7}{lstnumber.5.21}\protected@file@percent }
+\newlabel{lst:modules}{{2}{8}{Core module interfaces}{lstlisting.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Core module interfaces}{8}{lstlisting.2}\protected@file@percent }
+\newlabel{lst:astar}{{3}{8}{A* search with philosophical heuristic}{lstlisting.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}A* search with philosophical heuristic}{8}{lstlisting.3}\protected@file@percent }
+\newlabel{lst:rag}{{4}{9}{Semantic search: encode, index, retrieve}{lstlisting.4}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}Semantic search: encode, index, retrieve}{9}{lstlisting.4}\protected@file@percent }
+\newlabel{lst:ollama}{{5}{9}{Ollama contextual commentary generation}{lstlisting.5}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}Ollama contextual commentary generation}{9}{lstlisting.5}\protected@file@percent }
+\citation{shortliffe1976computer}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Results and Findings}{10}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Experimental Setup}{10}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Graph Search Results}{10}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Expert System Results}{10}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}CSP Study Planner Results}{10}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}Uncertainty Handler Results}{10}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-F}}Semantic RAG Results}{10}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-G}}Ollama LLM Commentary Results}{10}{subsection.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-H}}Comparison with Existing Systems}{10}{subsection.4.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-I}}Ablation Studies}{10}{subsection.4.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Graph Search Algorithm Performance}}{11}{table.4}\protected@file@percent }
+\newlabel{tab:search}{{IV}{11}{Graph Search Algorithm Performance}{table.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces Expert System Rule Firings on Sample Reader Profiles}}{11}{table.5}\protected@file@percent }
+\newlabel{tab:expert}{{V}{11}{Expert System Rule Firings on Sample Reader Profiles}{table.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces Sample 5-Session Meditation Study Plan (CSP Output)}}{11}{table.6}\protected@file@percent }
+\newlabel{tab:csp}{{VI}{11}{Sample 5-Session Meditation Study Plan (CSP Output)}{table.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces MYCIN Certainty Factor Aggregation (3 Traditions)}}{11}{table.7}\protected@file@percent }
+\newlabel{tab:mycin}{{VII}{11}{MYCIN Certainty Factor Aggregation (3 Traditions)}{table.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {VIII}{\ignorespaces Fuzzy Yoga-Path Membership Matrix ($\mu \in [0,1]$)}}{11}{table.8}\protected@file@percent }
+\newlabel{tab:fuzzy}{{VIII}{11}{Fuzzy Yoga-Path Membership Matrix ($\mu \in [0,1]$)}{table.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {IX}{\ignorespaces Semantic RAG Retrieval Performance (top-$k$ = 5)}}{11}{table.9}\protected@file@percent }
+\newlabel{tab:rag}{{IX}{11}{Semantic RAG Retrieval Performance (top-$k$ = 5)}{table.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {X}{\ignorespaces Ollama Commentary Generation (Llama 3 Q4\_K\_M, CPU)}}{11}{table.10}\protected@file@percent }
+\newlabel{tab:ollama}{{X}{11}{Ollama Commentary Generation (Llama 3 Q4\_K\_M, CPU)}{table.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-J}}Discussion}{11}{subsection.4.10}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {XI}{\ignorespaces Comparison with Existing Bhagavad G\={i}t\={a} Digital Systems}}{12}{table.11}\protected@file@percent }
+\newlabel{tab:comparison}{{XI}{12}{Comparison with Existing Bhagavad G\={i}t\={a} Digital Systems}{table.11}{}}
 \bibcite{flood1996introduction}{1}
 \bibcite{noy2001ontology}{2}
 \bibcite{mcguinness2004owl}{3}
@@ -128,34 +144,31 @@
 \bibcite{lewis2020rag}{16}
 \bibcite{reimers2019sentencebert}{17}
 \bibcite{ollama2024}{18}
-\bibcite{russell2021artificial}{19}
-\bibcite{hagberg2008exploring}{20}
-\bibcite{goyal2012sanskrit}{21}
-\bibcite{gruninger1995methodology}{22}
-\bibcite{wang2014knowledge}{23}
-\bibcite{bollacker2008freebase}{24}
-\bibcite{vanlehn2011relative}{25}
-\bibcite{chen2018kgtutor}{26}
-\bibcite{nurmikko2016linked}{27}
-\bibcite{hellwig2018sanskrit}{28}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusion and Future Work}{9}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{References}{9}{section*.2}\protected@file@percent }
-\bibcite{dharma2020}{29}
-\bibcite{antoniou2008semantic}{30}
-\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  A: Task Distribution}{10}{section*.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {XII}{\ignorespaces Team Member Roles and Responsibilities}}{10}{table.12}\protected@file@percent }
-\newlabel{tab:tasks}{{XII}{10}{Team Member Roles and Responsibilities}{table.12}{}}
-\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  B: Key Code Snippets}{10}{section*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {B-A}}MYCIN CF Combination}{10}{subsection.Appendix.B.1}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}MYCIN certainty factor combination}{10}{lstlisting.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {B-B}}CSP with MRV and Forward Checking}{10}{subsection.Appendix.B.2}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}CSP backtracking with MRV + forward checking}{10}{lstlisting.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {B-C}}Expert System Rule (v2.1 — Hindi/Hinglish)}{10}{subsection.Appendix.B.3}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {8}Production rule with multilingual keyword support}{10}{lstlisting.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  C: Ontology Class Hierarchy}{10}{section*.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  D: Sample Annotated Verses}{10}{section*.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces OWL~2 class hierarchy. Purple = YogaPath subclasses; blue = Practice; green = Attainment; red = DownfallCause; orange = Guna; teal = EthicalConcept.}}{11}{figure.2}\protected@file@percent }
-\newlabel{fig:ontology}{{2}{11}{OWL~2 class hierarchy. Purple = YogaPath subclasses; blue = Practice; green = Attainment; red = DownfallCause; orange = Guna; teal = EthicalConcept}{figure.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {XIII}{\ignorespaces Sample Annotated Verses from the Knowledge Base}}{11}{table.13}\protected@file@percent }
-\newlabel{tab:samples}{{XIII}{11}{Sample Annotated Verses from the Knowledge Base}{table.13}{}}
-\gdef \@abspage@last{11}
+\bibcite{goyal2012sanskrit}{19}
+\bibcite{wang2014knowledge}{20}
+\bibcite{vanlehn2011relative}{21}
+\bibcite{chen2018kgtutor}{22}
+\bibcite{hellwig2018sanskrit}{23}
+\bibcite{dharma2020}{24}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusion and Future Work}{13}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{13}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  A: Task Distribution}{13}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  B: Key Code Snippets}{13}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {B-A}}MYCIN CF Combination}{13}{subsection.Appendix.B.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {B-B}}CSP with MRV and Forward Checking}{13}{subsection.Appendix.B.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {B-C}}Expert System Rule (v2.1 — Hindi/Hinglish)}{13}{subsection.Appendix.B.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  C: Ontology Class Hierarchy}{13}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  D: Sample Annotated Verses}{13}{section*.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {XII}{\ignorespaces Team Member Roles and Responsibilities}}{14}{table.12}\protected@file@percent }
+\newlabel{tab:tasks}{{XII}{14}{Team Member Roles and Responsibilities}{table.12}{}}
+\newlabel{lst:mycin}{{6}{14}{MYCIN certainty factor combination}{lstlisting.6}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}MYCIN certainty factor combination}{14}{lstlisting.6}\protected@file@percent }
+\newlabel{lst:csp}{{7}{14}{CSP backtracking with MRV + forward checking}{lstlisting.7}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}CSP backtracking with MRV + forward checking}{14}{lstlisting.7}\protected@file@percent }
+\newlabel{lst:rule}{{8}{15}{Production rule with multilingual keyword support}{lstlisting.8}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {8}Production rule with multilingual keyword support}{15}{lstlisting.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces OWL~2 class hierarchy. Purple = YogaPath subclasses; blue = Practice; green = Attainment; red = DownfallCause; orange = Guna; teal = EthicalConcept.}}{15}{figure.2}\protected@file@percent }
+\newlabel{fig:ontology}{{2}{15}{OWL~2 class hierarchy. Purple = YogaPath subclasses; blue = Practice; green = Attainment; red = DownfallCause; orange = Guna; teal = EthicalConcept}{figure.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {XIII}{\ignorespaces Sample Annotated Verses from the Knowledge Base}}{15}{table.13}\protected@file@percent }
+\newlabel{tab:samples}{{XIII}{15}{Sample Annotated Verses from the Knowledge Base}{table.13}{}}
+\gdef \@abspage@last{15}
