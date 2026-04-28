@@ -42,3 +42,9 @@ frontend/dist/
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
