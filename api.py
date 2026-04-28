@@ -729,5 +729,8 @@ def contextualize():
         return jsonify({"error": str(e)}), 503
 
 if __name__ == "__main__":
-    print("🪷 Digital Bhaṣya API starting at http://localhost:8080")
-    app.run(debug=True, port=8080, host="127.0.0.1")
+    host = os.environ.get("FLASK_RUN_HOST", "127.0.0.1")
+    port = int(os.environ.get("GITAGRAPH_API_PORT", "8080"))
+    debug = os.environ.get("GITAGRAPH_DEBUG", "1") == "1"
+    print(f"🪷 Digital Bhaṣya API starting at http://{host}:{port}")
+    app.run(debug=debug, port=port, host=host, use_reloader=debug)

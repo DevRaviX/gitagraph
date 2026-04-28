@@ -39,6 +39,49 @@ The **Digital Bhaṣya 2.0** frontend is a React 18 SPA served by a Flask REST A
 | **M6 — Uncertainty** | MYCIN CFs · Fuzzy logic · NMR | 3 commentary traditions |
 | **M7 — Semantic RAG + LLM** | sentence-transformers + NumPy cosine search + Ollama | 701 verses · EN/Hindi/Hinglish commentary |
 
+## Run in 60 Seconds
+
+```bash
+pip install -r requirements.txt
+python run.py --api-only
+```
+
+Then verify the backend:
+
+```bash
+curl http://127.0.0.1:8080/api/stats
+```
+
+For the React UI:
+
+```bash
+cd frontend && npm install
+cd ..
+python run.py
+```
+
+Open `http://127.0.0.1:3000`. The API runs on `http://127.0.0.1:8080`.
+
+## Core Execution Path
+
+```text
+Reader query -> Flask API -> shared knowledge graph -> reasoning module
+             -> verse evidence enrichment -> JSON response -> React UI
+```
+
+The brain of the system is intentionally split by reasoning task:
+
+| Question | Entry point | Core module |
+|---|---|---|
+| "What should I read for my concern?" | `POST /api/infer` | `modules/expert_system.py` |
+| "Which verses are near this concept?" | `POST /api/bfs` | `modules/search_agent.py` |
+| "How does this concept lead to Moksha?" | `POST /api/astar` | `modules/search_agent.py` |
+| "Can you make a study plan?" | `POST /api/plan` | `modules/study_planner.py` |
+| "How certain is this interpretation?" | `POST /api/cf` | `modules/uncertainty_handler.py` |
+| "Find semantically similar verses." | `GET /api/semantic_search` | `embeddings/` + `api.py` |
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the full pipeline, reasoning traces, and curl examples.
+
 ---
 
 ## Architecture
@@ -212,7 +255,18 @@ Verse 2.47 × KarmaYoga:
 
 ## Quick Start
 
-### 1 — Backend
+### Option A — One-command local launcher
+
+```bash
+pip install -r requirements.txt
+python run.py
+```
+
+`run.py` starts the Flask API and, when `frontend/node_modules` exists, the Vite frontend. Use `python run.py --api-only` for backend-only testing.
+
+### Option B — Run services manually
+
+#### 1 — Backend
 
 ```bash
 pip install -r requirements.txt
@@ -220,7 +274,7 @@ python api.py
 # Flask API at http://127.0.0.1:8080
 ```
 
-### 2 — Frontend
+#### 2 — Frontend
 
 ```bash
 cd frontend
@@ -230,14 +284,14 @@ npm run dev
 # All /api/* proxied to :8080
 ```
 
-### 3 — Semantic Search (recommended)
+#### 3 — Semantic Search (recommended)
 
 ```bash
 # One-time: generates 384-dim embeddings for all 701 verses (~90 MB model)
 python generate_embeddings.py
 ```
 
-### 4 — Ollama Commentary (optional)
+#### 4 — Ollama Commentary (optional)
 
 ```bash
 # Install Ollama: https://ollama.com
@@ -245,7 +299,7 @@ ollama pull llama3.2    # ~2 GB, one-time
 ollama serve            # http://localhost:11434
 ```
 
-### 5 — Audio Recitation (optional, ~3.3 GB)
+#### 5 — Audio Recitation (optional, ~3.3 GB)
 
 ```bash
 python download_audio.py
@@ -280,8 +334,10 @@ python download_audio.py
 
 ```
 GitaGraph/
+├── run.py                   — One-command local launcher for API + React UI
 ├── api.py                    — Flask REST API · port 8080 · 16 endpoints
 ├── app.py                    — Legacy Streamlit UI
+├── ARCHITECTURE.md           — Pipeline map, module ownership, curl examples
 ├── generate_embeddings.py    — Builds verse_embeddings.npy (384-dim, 701 verses)
 ├── download_audio.py         — HuggingFace audio downloader (resume-safe)
 ├── expand_ontology.py        — LLM-assisted TTL expansion (--dry-run flag)
