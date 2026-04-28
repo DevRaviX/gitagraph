@@ -23,11 +23,13 @@ missfont.log
 dist/
 build/
 
-# Audio dataset (~3.3 GB) — run download_audio.py to regenerate
+# Audio dataset (~3.3 GB) — run backend/scripts/download_audio.py to regenerate
 audio_cache/
+Data/audio_cache/
 
 # SQLite user data — local state only
 user_data.db
+Data/runtime/*.db
 
 # Node modules
 frontend/node_modules/

@@ -639,14 +639,14 @@ The Streamlit app has 8 pages, each backed by one or more modules:
 
 ## 9. Dataset
 
-### 9.1 `Bhagwad_Gita.csv`
+### 9.1 `Data/corpus/Bhagwad_Gita.csv`
 
 - **Rows:** 701 (all 18 chapters, 700 verses + header)
 - **Columns:** ID, Chapter, Verse, Shloka (Sanskrit), Transliteration, HinMeaning, EngMeaning, WordMeaning
 - **Source:** Public domain Gītā text
 - **Usage in GitaGraph:** Verse Browser page (all 701 verses searchable); AI corpus uses 30 verses from Ch2/3/6 encoded in the TTL ontology
 
-### 9.2 `knowledge_base/gita_ontology.ttl`
+### 9.2 `Data/ontology/gita_ontology.ttl`
 
 - **Format:** RDF Turtle (`.ttl`)
 - **Triples:** 658

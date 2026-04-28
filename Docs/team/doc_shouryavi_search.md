@@ -1,7 +1,7 @@
 # 📘 Shouryavi — Graph Search (BFS/DFS/A*/IDDFS) & CSP Study Planner
 
 > **Role:** Search & Planning Developer  
-> **Modules owned:** `modules/search_agent.py` · `modules/study_planner.py`  
+> **Modules owned:** `backend/modules/search_agent.py` · `backend/modules/study_planner.py`  
 > **AI Concepts:** BFS · DFS · A* · IDDFS · Heuristic Search · CSP · Backtracking · MRV · Forward Checking · LCV
 
 ---

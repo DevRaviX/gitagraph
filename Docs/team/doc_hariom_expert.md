@@ -1,7 +1,7 @@
 # 📘 HariOm — Expert System, Production Rules, Forward Chaining & SPARQL
 
 > **Role:** Expert System Developer  
-> **Module owned:** `modules/expert_system.py`  
+> **Module owned:** `backend/modules/expert_system.py`  
 > **AI Concepts:** Production Rules · Forward Chaining · Conflict Resolution · Specificity · SPARQL · Competency Questions
 
 ---

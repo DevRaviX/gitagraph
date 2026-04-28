@@ -1,7 +1,7 @@
 # 📘 Ayushi — Uncertainty Handling: MYCIN CFs, Fuzzy Logic & Belief Revision
 
 > **Role:** Uncertainty & Non-Monotonic Reasoning Developer  
-> **Module owned:** `modules/uncertainty_handler.py`  
+> **Module owned:** `backend/modules/uncertainty_handler.py`  
 > **AI Concepts:** MYCIN Certainty Factors · Fuzzy Logic · Membership Functions · Defuzzification · Belief Revision · Non-Monotonic Reasoning
 
 ---

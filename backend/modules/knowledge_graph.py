@@ -13,8 +13,8 @@ from rdflib import Graph as RDFGraph, Namespace, RDF, RDFS, OWL, URIRef, Literal
 from rdflib.namespace import XSD
 
 GITA = Namespace("http://example.org/gita#")
-TTL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                        "knowledge_base", "gita_ontology.ttl")
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+TTL_PATH = os.path.join(PROJECT_ROOT, "Data", "ontology", "gita_ontology.ttl")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Category heuristic for A* (distance to Moksha)

@@ -10,7 +10,8 @@ from huggingface_hub import list_repo_files, hf_hub_url
 
 REPO_ID   = "JDhruv14/Bhagavad-Gita_Audio"
 REPO_TYPE = "dataset"
-SAVE_DIR  = os.path.join(os.path.dirname(__file__), "audio_cache")
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SAVE_DIR  = os.path.join(PROJECT_ROOT, "Data", "audio_cache")
 
 def fmt_size(n):
     for unit in ("B", "KB", "MB", "GB"):

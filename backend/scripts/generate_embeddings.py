@@ -2,11 +2,11 @@
 generate_embeddings.py — One-time script to pre-compute verse embeddings.
 
 Run:
-    python generate_embeddings.py
+    python backend/scripts/generate_embeddings.py
 
 Outputs:
-    embeddings/verse_embeddings.npy  — float32 array, shape (N, 384), L2-normalised
-    embeddings/verse_index.json      — list of verse metadata dicts
+    Data/embeddings/verse_embeddings.npy  — float32 array, shape (N, 384), L2-normalised
+    Data/embeddings/verse_index.json      — list of verse metadata dicts
 
 The embeddings use all-MiniLM-L6-v2 (90 MB, downloads automatically on first run).
 Because embeddings are L2-normalised, cosine similarity = dot product at query time.
@@ -16,9 +16,9 @@ import os, json, csv, re
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
-ROOT     = os.path.dirname(os.path.abspath(__file__))
-CSV_PATH = os.path.join(ROOT, "Bhagwad_Gita.csv")
-OUT_DIR  = os.path.join(ROOT, "embeddings")
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+CSV_PATH = os.path.join(PROJECT_ROOT, "Data", "corpus", "Bhagwad_Gita.csv")
+OUT_DIR  = os.path.join(PROJECT_ROOT, "Data", "embeddings")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 MODEL_NAME = "all-MiniLM-L6-v2"

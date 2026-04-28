@@ -83,7 +83,7 @@ GitaGraph v2.1 follows a three-tier layered architecture:
 └───────────────────────┬─────────────────────────────────────┘
                         │ HTTP  /api/*
 ┌───────────────────────▼─────────────────────────────────────┐
-│  Layer 2 — Flask REST API  (api.py · port 8080)             │
+│  Layer 2 — Flask REST API  (backend/api.py · port 8080)             │
 │  16 endpoints · CSV enrichment · Pandas · PyArrow audio     │
 └───┬───────────┬──────────┬──────────┬──────────┬────────────┘
     │           │          │          │          │
@@ -93,7 +93,7 @@ GitaGraph v2.1 follows a three-tier layered architecture:
 ┌───▼───────────▼──────────▼──────────▼──────────▼────────────┐
 │  Layer 1 — GitaKnowledgeGraph singleton                     │
 │  RDFLib Graph (SPARQL) + NetworkX DiGraph + CSV map         │
-│  gita_ontology.ttl · Bhagwad_Gita.csv · embeddings/*.npy   │
+│  gita_ontology.ttl · Data/corpus/Bhagwad_Gita.csv · Data/embeddings/*.npy   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -313,7 +313,7 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
-embeddings = np.load('embeddings/gita_embeddings.npy')
+embeddings = np.load('Data/embeddings/verse_embeddings.npy')
 
 def semantic_search(query: str, top_k: int = 12):
     q_vec = model.encode([query], normalize_embeddings=True)[0]

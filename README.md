@@ -69,18 +69,73 @@ Reader query -> Flask API -> shared knowledge graph -> reasoning module
              -> verse evidence enrichment -> JSON response -> React UI
 ```
 
-The brain of the system is intentionally split by reasoning task:
+## What This System Actually Does
+
+**Input:** a reader's concern or question  
+**Output:** relevant Bhagavad Gītā verses, the inferred concept, confidence, and a reasoning trace
+
+Pipeline:
+
+1. Map concern to concept with expert rules.
+2. Retrieve supporting verses with graph search and semantic RAG.
+3. Explain the path through ontology-backed reasoning.
+
+Use `POST /api/solve` for the end-to-end AI answer. The lower-level endpoints are kept visible so reviewers can inspect each reasoning module independently:
 
 | Question | Entry point | Core module |
 |---|---|---|
-| "What should I read for my concern?" | `POST /api/infer` | `modules/expert_system.py` |
-| "Which verses are near this concept?" | `POST /api/bfs` | `modules/search_agent.py` |
-| "How does this concept lead to Moksha?" | `POST /api/astar` | `modules/search_agent.py` |
-| "Can you make a study plan?" | `POST /api/plan` | `modules/study_planner.py` |
-| "How certain is this interpretation?" | `POST /api/cf` | `modules/uncertainty_handler.py` |
-| "Find semantically similar verses." | `GET /api/semantic_search` | `embeddings/` + `api.py` |
+| "Give me one complete answer." | `POST /api/solve` | `backend/modules/query_pipeline.py` |
+| "What should I read for my concern?" | `POST /api/infer` | `backend/modules/expert_system.py` |
+| "Which verses are near this concept?" | `POST /api/bfs` | `backend/modules/search_agent.py` |
+| "How does this concept lead to Moksha?" | `POST /api/astar` | `backend/modules/search_agent.py` |
+| "Can you make a study plan?" | `POST /api/plan` | `backend/modules/study_planner.py` |
+| "How certain is this interpretation?" | `POST /api/cf` | `backend/modules/uncertainty_handler.py` |
+| "Find semantically similar verses." | `GET /api/semantic_search` | `Data/embeddings/` + `backend/api.py` |
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the full pipeline, reasoning traces, and curl examples.
+See [Docs/guides/ARCHITECTURE.md](Docs/guides/ARCHITECTURE.md) for the full pipeline and [Docs/guides/EXAMPLES.md](Docs/guides/EXAMPLES.md) for three end-to-end qualitative outputs.
+
+## End-to-End Example
+
+```bash
+curl -s -X POST http://127.0.0.1:8080/api/solve \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query":"I feel anxious about the results of my work",
+    "goal":"peace",
+    "stage":"beginner",
+    "nature":"active",
+    "include_semantic":false
+  }'
+```
+
+Expected reasoning:
+
+```text
+Concern -> R1_AnxietyResults -> NishkamaKarma
+Beginner + NishkamaKarma -> R3_BeginnerNishkama -> Verse_2_47
+Graph BFS -> nearby supporting verses such as 2.48, 3.9, and 3.19
+```
+
+Shortened response shape:
+
+```json
+{
+  "recommend_concept": "NishkamaKarma",
+  "confidence": 0.95,
+  "reasoning_steps": [
+    {"step": "map_concern_to_concept", "result": "NishkamaKarma"},
+    {"step": "select_start_verse", "result": "Verse_2_47"}
+  ],
+  "evidence": [
+    {
+      "key": "Verse_2_47",
+      "chapter": "2",
+      "verse_number": "47",
+      "sources": ["expert_start", "graph_bfs"]
+    }
+  ]
+}
+```
 
 ---
 
@@ -91,7 +146,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the full pipeline, reasoning traces, 
 graph TD
     subgraph INPUT["INPUT LAYER"]
         U["Reader Query\nConcern · Goal · Stage"]
-        CSV["Bhagwad_Gita.csv\n701 verses · 18 chapters"]
+        CSV["Data/corpus/Bhagwad_Gita.csv\n701 verses · 18 chapters"]
     end
     subgraph KB["M2 — KNOWLEDGE BASE"]
         TTL["gita_ontology.ttl\nOWL 2 · 658 triples"]
@@ -120,8 +175,8 @@ graph TD
         EMBS["sentence-transformers\nall-MiniLM-L6-v2 · 384-dim"]
         OLLAMA["Ollama · Llama 3\nEN / Hindi / Hinglish"]
     end
-    subgraph API["FLASK REST API · api.py · :8080"]
-        EP["16 Endpoints"]
+    subgraph API["FLASK REST API · backend/api.py · :8080"]
+        EP["17 Endpoints"]
     end
     subgraph UI["REACT SPA — Digital Bhaṣya 2.0"]
         PAGES["8 Pages · Ancient manuscript UI"]
@@ -270,7 +325,7 @@ python run.py
 
 ```bash
 pip install -r requirements.txt
-python api.py
+python backend/api.py
 # Flask API at http://127.0.0.1:8080
 ```
 
@@ -288,7 +343,7 @@ npm run dev
 
 ```bash
 # One-time: generates 384-dim embeddings for all 701 verses (~90 MB model)
-python generate_embeddings.py
+python backend/scripts/generate_embeddings.py
 ```
 
 #### 4 — Ollama Commentary (optional)
@@ -302,7 +357,7 @@ ollama serve            # http://localhost:11434
 #### 5 — Audio Recitation (optional, ~3.3 GB)
 
 ```bash
-python download_audio.py
+python backend/scripts/download_audio.py
 # Downloads 18 parquet shards from JDhruv14/Bhagavad-Gita_Audio
 ```
 
@@ -325,7 +380,7 @@ python download_audio.py
 | Data fetching | TanStack React Query | v5 |
 | Graph viz | D3.js | 7 |
 | Typography | Cinzel · EB Garamond · Noto Serif Devanagari | Google Fonts |
-| Data | Bhagwad_Gita.csv | 701 verses · 18 chapters |
+| Data | `Data/corpus/Bhagwad_Gita.csv` | 701 verses · 18 chapters |
 | Audio | HuggingFace parquet (JDhruv14/Bhagavad-Gita_Audio) | ~3.3 GB |
 
 ---
@@ -334,43 +389,49 @@ python download_audio.py
 
 ```
 GitaGraph/
-├── run.py                   — One-command local launcher for API + React UI
-├── api.py                    — Flask REST API · port 8080 · 16 endpoints
-├── app.py                    — Legacy Streamlit UI
-├── ARCHITECTURE.md           — Pipeline map, module ownership, curl examples
-├── generate_embeddings.py    — Builds verse_embeddings.npy (384-dim, 701 verses)
-├── download_audio.py         — HuggingFace audio downloader (resume-safe)
-├── expand_ontology.py        — LLM-assisted TTL expansion (--dry-run flag)
-├── Bhagwad_Gita.csv          — 701 verses · 8 columns · Sanskrit/Hindi/English
+├── run.py                    — One-command local launcher for API + React UI
 ├── requirements.txt
+├── README.md
 │
-├── knowledge_base/
-│   └── gita_ontology.ttl     — OWL 2 · 874 lines · 658 triples
+├── backend/
+│   ├── api.py                — Flask REST API · port 8080 · 17 endpoints
+│   ├── modules/
+│   │   ├── knowledge_graph.py
+│   │   ├── query_pipeline.py — Unified query → reasoning → evidence brain
+│   │   ├── search_agent.py
+│   │   ├── expert_system.py
+│   │   ├── study_planner.py
+│   │   └── uncertainty_handler.py
+│   └── scripts/
+│       ├── generate_embeddings.py
+│       ├── download_audio.py
+│       └── expand_ontology.py
 │
-├── modules/
-│   ├── knowledge_graph.py    — GitaNode + GitaKnowledgeGraph
-│   ├── search_agent.py       — BFS · DFS · A* · IDDFS
-│   ├── expert_system.py      — 9 rules · 8 SPARQL CQs · Hindi/Hinglish
-│   ├── study_planner.py      — CSP backtracking · MRV · forward checking
-│   └── uncertainty_handler.py — MYCIN · Fuzzy · NonMonotonicEngine
+├── Data/
+│   ├── corpus/
+│   │   └── Bhagwad_Gita.csv  — 701 verses · Sanskrit/Hindi/English
+│   ├── ontology/
+│   │   └── gita_ontology.ttl — OWL 2 · 658 triples
+│   └── embeddings/
+│       ├── verse_embeddings.npy
+│       └── verse_index.json
 │
-├── embeddings/
-│   ├── verse_embeddings.npy  — float32 · shape (701, 384) · L2-normalised
-│   └── verse_index.json      — 701 entries: key, chapter, verse, en/hi/sa
+├── frontend/                 — React 18 SPA
+│   ├── src/
+│   │   ├── pages/            — Home · Verses · Graph · Search · Ask
+│   │   │                       Planner · Uncertainty · Expert
+│   │   ├── components/ui/    — Badge · Button · Card · CFBar · Gauge
+│   │   │                       MetricCard · Tabs · EmptyState
+│   │   └── components/layout/ — Sidebar · PageTransition
+│   ├── tailwind.config.js
+│   └── src/index.css
 │
-├── GitaGraph_Report.tex      — IEEE paper source (XeLaTeX)
-├── GitaGraph_Report.pdf      — Compiled 11-page IEEE paper
-├── GitaGraph_Report.md       — Markdown version of the paper
-│
-└── frontend/                 — React 18 SPA
-    ├── src/
-    │   ├── pages/            — Home · Verses · Graph · Search · Ask
-    │   │                       Planner · Uncertainty · Expert
-    │   ├── components/ui/    — Badge · Button · Card · CFBar · Gauge
-    │   │                       MetricCard · Tabs · EmptyState
-    │   └── components/layout/ — Sidebar · PageTransition
-    ├── tailwind.config.js    — Gold/saffron/teal/crimson palette · Cinzel font
-    └── src/index.css         — Parchment cards · wax-chip · shimmer-text
+└── Docs/
+    ├── guides/               — Architecture, examples, full docs, viva
+    ├── reports/              — IEEE paper source/PDF
+    ├── figures/              — Architecture and ontology diagrams
+    ├── team/                 — Individual module notes
+    └── archive/              — Older project notes
 ```
 
 ---

@@ -20,6 +20,7 @@ export const api = {
   dfs:            (b)          => req('POST', '/dfs',              b),
   astar:          (b)          => req('POST', '/astar',            b),
   infer:          (b)          => req('POST', '/infer',            b),
+  solve:          (b)          => req('POST', '/solve',            b),
   profiles:       ()           => req('GET',  '/profiles'),
   plan:           (b)          => req('POST', '/plan',             b),
   cf:             (b)          => req('POST', '/cf',               b),

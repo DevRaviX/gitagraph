@@ -321,7 +321,7 @@ GitaGraph v2.1 follows a three-tier layered architecture:
 
 \begin{figure*}[htbp]
 \centering
-\includegraphics[width=\textwidth]{figures/arch.png}
+\includegraphics[width=\textwidth]{../figures/arch.png}
 \caption{GitaGraph v2.1 system architecture. All modules share a single
 \texttt{GitaKnowledgeGraph} instance. The React SPA communicates with the
 Flask REST API over HTTP; the API dispatches to symbolic modules (OWL/SPARQL,
@@ -336,7 +336,7 @@ a \texttt{networkx.DiGraph} for graph algorithms. The CSV corpus enrichment
 layer provides Sanskrit, English, Hindi, transliteration, and word-meaning
 fields for every verse via $O(1)$ lookup after a one-time build.
 
-\textbf{Layer 2 — Flask REST API:} \texttt{api.py} instantiates the knowledge
+\textbf{Layer 2 — Flask REST API:} \texttt{backend/api.py} instantiates the knowledge
 graph once at startup and exposes 16 endpoints. Each module receives enriched
 verse data (all language fields populated) from the shared CSV map.
 
@@ -363,7 +363,7 @@ Hindi translation, word meanings, speaker attribution (Krishna / Arjuna).
   \item Graph ingestion: Annotated verses loaded as OWL individuals.
   \item Embedding generation: All 701 verse English translations encoded with
         sentence-transformer \texttt{all-MiniLM-L6-v2} and stored in a FAISS
-        \texttt{IndexFlatIP} index (\texttt{embeddings/gita\_embeddings.npy}).
+        \texttt{IndexFlatIP} index (\texttt{Data/embeddings/verse\_embeddings.npy}).
 \end{enumerate}
 
 \begin{table}[htbp]
@@ -605,7 +605,7 @@ over all 701 verses, removing the restriction to 30 annotated verses.
 \textbf{Embedding Generation:} At startup (or via \texttt{generate\_embeddings.py}),
 each verse's English translation is encoded with
 \texttt{sentence-transformers/all-MiniLM-L6-v2} (384-dimensional vectors).
-The resulting matrix is stored as \texttt{embeddings/gita\_embeddings.npy}.
+The resulting matrix is stored as \texttt{Data/embeddings/verse\_embeddings.npy}.
 
 \textbf{Indexing:} Vectors are loaded into a FAISS \texttt{IndexFlatIP}
 (inner product with normalized vectors = cosine similarity). The index
@@ -656,7 +656,7 @@ enabling the UI to display a live Wifi/WifiOff badge and a model selector.
 
 \begin{figure*}[tbp]
 \begin{lstlisting}[language=Python, caption={Core module interfaces}, label={lst:modules}]
-# modules/knowledge_graph.py
+# backend/modules/knowledge_graph.py
 class GitaKnowledgeGraph:
     def __init__(self, ttl_path, csv_path):
         self.rdf_graph = rdflib.Graph().parse(ttl_path)
@@ -667,23 +667,23 @@ class GitaKnowledgeGraph:
     def get_nx_graph(self): ...
     def enrich_verse(self, ch, vs): ...
 
-# modules/search_agent.py
+# backend/modules/search_agent.py
 class SearchAgent:
     def bfs(self, start, max_hops) -> list
     def dfs(self, start) -> dict          # annotated chain
     def astar(self, start, goal) -> dict  # path + f-values
     def iddfs(self, start, goal, max_depth) -> dict
 
-# modules/expert_system.py — v2.1
+# backend/modules/expert_system.py — v2.1
 class ExpertSystem:
     def infer(self, concern, goal, stage, nature, lang) -> dict
     # Rules R1–R9; each LHS lambda accepts EN/Hindi/Hinglish
 
-# modules/study_planner.py
+# backend/modules/study_planner.py
 class StudyPlanner:
     def solve_csp(self, reader_goal) -> list[tuple]
 
-# api.py — semantic RAG helpers
+# backend/api.py — semantic RAG helpers
 def _build_csv_map(path) -> dict          # {(ch,vs): row}
 def _enrich_verse(ch, vs) -> dict         # adds sa/hi/en/...
 def _verse_name_to_ch_vs(name) -> tuple   # "Verse_2_47" -> ("2","47")
@@ -772,7 +772,7 @@ from sentence_transformers import SentenceTransformer
 import faiss, numpy as np
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
-embeddings = np.load('embeddings/gita_embeddings.npy')
+embeddings = np.load('Data/embeddings/verse_embeddings.npy')
 faiss.normalize_L2(embeddings)
 index = faiss.IndexFlatIP(384)
 index.add(embeddings)
@@ -1389,7 +1389,7 @@ PRODUCTION_RULES = [
     'specificity': 1,
     'description': 'Anxiety/stress -> Karma Yoga (Ch 2)',
   },
-  # ... R2-R9 (full list in source: modules/expert_system.py)
+  # ... R2-R9 (full list in source: backend/modules/expert_system.py)
 ]
 \end{lstlisting}
 \end{figure*}
@@ -1398,7 +1398,7 @@ PRODUCTION_RULES = [
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\columnwidth]{figures/ontology.png}
+\includegraphics[width=\columnwidth]{../figures/ontology.png}
 \caption{OWL~2 class hierarchy. Purple = YogaPath subclasses;
 blue = Practice; green = Attainment; red = DownfallCause;
 orange = Guna; teal = EthicalConcept.}

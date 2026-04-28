@@ -13,7 +13,6 @@ SPARQLWrapper>=2.0.0
 networkx>=3.3
 
 # Data
-pandas>=2.2.0
 numpy>=1.26.0
 
 # Audio dataset (parquet)
@@ -30,7 +29,3 @@ sentence-transformers>=3.0.0
 requests>=2.31.0
 tqdm>=4.66.0
 huggingface_hub>=0.24.0
-
-# Legacy Streamlit UI
-streamlit>=1.35.0
-plotly>=5.22.0

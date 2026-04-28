@@ -1,7 +1,7 @@
 """
 api.py — Digital Bhaṣya Flask REST API
 Serves the static SPA and exposes all AI modules as JSON endpoints.
-Run: python api.py
+Run: python backend/api.py
 
 Author: Ravi Kant Gupta (@DevRaviX)
 Module: Core Architecture & Full-Stack Integration
@@ -11,12 +11,18 @@ import os, sys, json, csv, io, sqlite3, datetime, re
 from flask import Flask, jsonify, request, send_from_directory, Response
 from functools import lru_cache
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+BACKEND_ROOT = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(BACKEND_ROOT)
+DATA_ROOT = os.path.join(PROJECT_ROOT, "Data")
+FRONTEND_DIST = os.path.join(PROJECT_ROOT, "frontend", "dist")
 
-app = Flask(__name__, static_folder="static", static_url_path="")
+sys.path.insert(0, BACKEND_ROOT)
+
+app = Flask(__name__, static_folder=FRONTEND_DIST, static_url_path="")
 
 # ── SQLite user state ─────────────────────────────────────────────────────────
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "user_data.db")
+DB_PATH = os.path.join(DATA_ROOT, "runtime", "user_data.db")
+os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
@@ -60,7 +66,7 @@ def get_embeddings():
     global _embeddings, _emb_index
     if _embeddings is None:
         import numpy as np
-        emb_dir = os.path.join(os.path.dirname(__file__), "embeddings")
+        emb_dir = os.path.join(DATA_ROOT, "embeddings")
         _embeddings = np.load(os.path.join(emb_dir, "verse_embeddings.npy"))
         with open(os.path.join(emb_dir, "verse_index.json"), encoding="utf-8") as f:
             _emb_index = json.load(f)
@@ -70,10 +76,10 @@ def get_audio_ds():
     global _audio_ds
     if _audio_ds is None:
         import glob as _glob, pyarrow.parquet as pq, pyarrow as pa
-        local_cache = os.path.join(os.path.dirname(__file__), "audio_cache")
+        local_cache = os.path.join(DATA_ROOT, "audio_cache")
         parquet_files = sorted(_glob.glob(os.path.join(local_cache, "*.parquet")))
         if not parquet_files:
-            raise FileNotFoundError("Run download_audio.py first to cache the dataset.")
+            raise FileNotFoundError("Run python backend/scripts/download_audio.py first to cache the dataset.")
         # Read all parquet files and concat — avoid datasets audio decoder
         tables = [pq.read_table(f) for f in parquet_files]
         table = pa.concat_tables(tables)
@@ -92,13 +98,45 @@ def get_kg():
 def get_gita_data():
     global _gita_data
     if _gita_data is None:
-        path = os.path.join(os.path.dirname(__file__), "Bhagwad_Gita.csv")
+        path = os.path.join(DATA_ROOT, "corpus", "Bhagwad_Gita.csv")
         rows = []
         with open(path, encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 rows.append(row)
         _gita_data = rows
     return _gita_data
+
+def run_semantic_search(q, k=10):
+    global _st_model
+    import numpy as np
+    q = (q or "").strip()
+    if not q:
+        return []
+    embeddings, index = get_embeddings()
+    if _st_model is None:
+        from sentence_transformers import SentenceTransformer
+        _st_model = SentenceTransformer("all-MiniLM-L6-v2", local_files_only=True)
+    q_vec = _st_model.encode([q], normalize_embeddings=True)[0]
+    scores = embeddings @ q_vec
+    top_k_idx = scores.argsort()[::-1][:k]
+    kg = get_kg()
+    csv_map = _build_csv_map(get_gita_data())
+    results = []
+    for i in top_k_idx:
+        entry = index[i]
+        vkey = entry["key"]
+        concepts = []
+        if vkey in kg.nodes:
+            concepts = list(kg.neighbours_by_edge(vkey, "teaches"))
+        base = {
+            **entry,
+            "score": float(scores[i]),
+            "ai_corpus": vkey in kg.nodes,
+            "concepts": [c.replace("_inst","").replace("_"," ") for c in concepts],
+            "key": vkey,
+        }
+        results.append(_enrich_verse(base, csv_map, chapter_key="chapter", verse_key="verse"))
+    return results
 
 # ── CSV enrichment helpers ────────────────────────────────────────────────────
 def _build_csv_map(csv_rows):
@@ -156,7 +194,22 @@ def _enrich_concept_verses(verse_list, csv_map):
 # ── Serve SPA ─────────────────────────────────────────────────────────────────
 @app.route("/")
 def index():
-    return send_from_directory("static", "index.html")
+    if os.path.exists(os.path.join(FRONTEND_DIST, "index.html")):
+        return send_from_directory(FRONTEND_DIST, "index.html")
+    return jsonify({
+        "service": "GitaGraph API",
+        "status": "running",
+        "frontend": "Run `cd frontend && npm run build` to serve the React app here, or use `npm run dev` during development.",
+    })
+
+@app.route("/<path:path>")
+def spa_fallback(path):
+    requested = os.path.join(FRONTEND_DIST, path)
+    if os.path.exists(requested) and os.path.isfile(requested):
+        return send_from_directory(FRONTEND_DIST, path)
+    if os.path.exists(os.path.join(FRONTEND_DIST, "index.html")):
+        return send_from_directory(FRONTEND_DIST, "index.html")
+    return jsonify({"error": "Frontend build not found. Run `cd frontend && npm run build`."}), 404
 
 # ── HOME STATS ────────────────────────────────────────────────────────────────
 @app.route("/api/stats")
@@ -409,6 +462,39 @@ def infer():
         "recommended_verses": enriched_verses,
     })
 
+# ── UNIFIED QUERY PIPELINE ───────────────────────────────────────────────────
+@app.route("/api/solve", methods=["POST"])
+def solve():
+    from modules.query_pipeline import solve_query
+    body = request.json or {}
+    query = body.get("query", body.get("concern", "")).strip()
+    if not query:
+        return jsonify({"error": "query is required"}), 400
+
+    semantic_results = []
+    semantic_error = None
+    if body.get("include_semantic", True):
+        try:
+            semantic_results = run_semantic_search(query, int(body.get("k", 5)))
+        except Exception as e:
+            semantic_error = str(e)
+
+    result = solve_query(
+        query=query,
+        goal=body.get("goal", ""),
+        stage=body.get("stage", "beginner"),
+        nature=body.get("nature", "active"),
+        kg=get_kg(),
+        csv_rows=get_gita_data(),
+        semantic_results=semantic_results,
+    )
+    if semantic_error:
+        result["semantic_warning"] = (
+            "Semantic RAG unavailable; answer uses expert rules and graph search."
+        )
+        result["semantic_detail"] = semantic_error
+    return jsonify(result)
+
 # ── EXPERT SYSTEM PROFILES ────────────────────────────────────────────────────
 @app.route("/api/profiles")
 def profiles():
@@ -496,50 +582,19 @@ def audio(chapter, verse):
 # ── SEMANTIC SEARCH ───────────────────────────────────────────────────────────
 @app.route("/api/semantic_search")
 def semantic_search():
-    global _st_model
-    import numpy as np
     q = request.args.get("q", "").strip()
     k = int(request.args.get("k", 10))
     if not q:
         return jsonify({"error": "q is required"}), 400
     try:
-        embeddings, index = get_embeddings()
+        results = run_semantic_search(q, k)
     except FileNotFoundError:
-        return jsonify({"error": "Embeddings not found. Run generate_embeddings.py first."}), 503
-    if _st_model is None:
-        try:
-            from sentence_transformers import SentenceTransformer
-            _st_model = SentenceTransformer("all-MiniLM-L6-v2", local_files_only=True)
-        except Exception as e:
-            return jsonify({
-                "error": "Semantic search model is not available locally. Run generate_embeddings.py once with network access, or pre-cache all-MiniLM-L6-v2.",
-                "detail": str(e),
-            }), 503
-    try:
-        q_vec = _st_model.encode([q], normalize_embeddings=True)[0]
+        return jsonify({"error": "Embeddings not found. Run python backend/scripts/generate_embeddings.py first."}), 503
     except Exception as e:
-        return jsonify({"error": "Could not encode semantic search query.", "detail": str(e)}), 503
-    scores = embeddings @ q_vec
-    top_k_idx = scores.argsort()[::-1][:k]
-    kg = get_kg()
-    csv_map = _build_csv_map(get_gita_data())
-    results = []
-    for i in top_k_idx:
-        entry = index[i]
-        vkey = entry["key"]
-        concepts = []
-        if vkey in kg.nodes:
-            concepts = list(kg.neighbours_by_edge(vkey, "teaches"))
-        base = {
-            **entry,
-            "score": float(scores[i]),
-            "ai_corpus": vkey in kg.nodes,
-            "concepts": [c.replace("_inst","").replace("_"," ") for c in concepts],
-            "key": vkey,  # keep original key for name-based CSV fallback
-        }
-        # verse_key="verse" → entry["verse"] is the verse number string e.g. "47"
-        enriched = _enrich_verse(base, csv_map, chapter_key="chapter", verse_key="verse")
-        results.append(enriched)
+        return jsonify({
+            "error": "Semantic search model is not available locally. Run python backend/scripts/generate_embeddings.py once with network access, or pre-cache all-MiniLM-L6-v2.",
+            "detail": str(e),
+        }), 503
     return jsonify({"query": q, "results": results, "count": len(results)})
 
 # ── PLANS (SQLite) ────────────────────────────────────────────────────────────

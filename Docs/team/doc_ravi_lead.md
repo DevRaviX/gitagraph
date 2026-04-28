@@ -1,7 +1,7 @@
 # 📘 Ravi (Team Lead) — Knowledge Representation, OWL Ontology, RDF, System Architecture & Frontend
 
 > **Role:** Team Lead — Knowledge Base Design, System Integration, API Architecture, Frontend  
-> **Modules owned:** `modules/knowledge_graph.py` · `api.py` · `static/` (entire frontend)  
+> **Modules owned:** `backend/modules/knowledge_graph.py` · `backend/api.py` · `frontend/src/` (entire frontend)  
 > **AI Concepts:** RDF/OWL · SPARQL · Knowledge Representation · Agent Architecture · PEAS
 
 ---
@@ -15,9 +15,9 @@ Ontology (TTL file)
        ↓
 GitaKnowledgeGraph (loads RDF, builds NetworkX graph)
        ↓
-api.py (Flask — exposes KG + all modules as REST endpoints)
+backend/api.py (Flask — exposes KG + all modules as REST endpoints)
        ↓
-static/index.html + utils.js + pages/*.js (SPA frontend)
+frontend/src/ (React SPA source)
 ```
 
 ---
@@ -94,7 +94,7 @@ This is why SPARQL CQ3 fails without a full OWL reasoner (Fuseki + HermiT) — p
 
 ---
 
-## 3. Code Walkthrough — `modules/knowledge_graph.py`
+## 3. Code Walkthrough — `backend/modules/knowledge_graph.py`
 
 ### 3.1 Loading the Ontology
 
@@ -102,7 +102,7 @@ This is why SPARQL CQ3 fails without a full OWL reasoner (Fuseki + HermiT) — p
 class GitaKnowledgeGraph:
     def __init__(self):
         self.rdf = RDFGraph()
-        self.rdf.parse("knowledge_base/gita_ontology.ttl", format="turtle")
+        self.rdf.parse("Data/ontology/gita_ontology.ttl", format="turtle")
         self.nx  = nx.DiGraph()   # NetworkX directed graph (for algorithms)
         self.nodes = {}           # name → KGNode objects
         self._build_from_rdf()
@@ -176,7 +176,7 @@ This retrieves all verses that teach a yoga path — in one query.
 
 ---
 
-## 4. Code Walkthrough — `api.py` (Flask REST API)
+## 4. Code Walkthrough — `backend/api.py` (Flask REST API)
 
 ### 4.1 Architecture Pattern
 
@@ -202,7 +202,7 @@ def index():
     return send_from_directory("static", "index.html")
 ```
 
-Flask serves the entire frontend from the `static/` folder. The browser loads `index.html`, which then fetches data from `/api/*` endpoints via JavaScript `fetch()`.
+During development, Vite serves the React SPA from `frontend/src/` and proxies `/api/*` calls to Flask. For production previews, Flask serves the compiled `frontend/dist/index.html` build.
 
 ### 4.3 The Graph Data Endpoint
 
@@ -255,7 +255,7 @@ frontend/src/
     layout/         ← Sidebar · PageTransition
 ```
 
-The React SPA is built with Vite (`npm run build`), which produces `frontend/dist/`. The Flask API serves `static/index.html` from the production build. During development, Vite proxies all `/api/*` requests to `http://localhost:8080`.
+The React SPA is built with Vite (`npm run build`), which produces `frontend/dist/`. The Flask API serves `frontend/dist/index.html` from the production build. During development, Vite proxies all `/api/*` requests to `http://localhost:8080`.
 
 **Key Libraries:**
 - **TanStack Query v5** — caching, `useMutation`, `placeholderData` for smooth UX
@@ -281,7 +281,7 @@ Edges from high-CF verses (Verse_2_47: CF=0.9991) appear visually thicker, encod
 ### 5.3 Semantic RAG Search
 
 ```python
-# api.py — /api/semantic_search
+# backend/api.py — /api/semantic_search
 q_vec = _st_model.encode([q], normalize_embeddings=True)[0]  # 384-dim
 scores = embeddings @ q_vec   # dot product = cosine sim (normalised)
 top_k_idx = scores.argsort()[::-1][:k]
@@ -292,7 +292,7 @@ All 701 verse embeddings are pre-computed (`generate_embeddings.py`) and loaded 
 ### 5.4 Ollama Local Commentary
 
 ```python
-# api.py — /api/contextualize
+# backend/api.py — /api/contextualize
 res = requests.post("http://localhost:11434/api/generate",
     json={"model": "llama3.2", "prompt": prompt, "stream": False},
     timeout=90)

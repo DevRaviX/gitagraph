@@ -22,6 +22,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 FRONTEND = ROOT / "frontend"
+BACKEND = ROOT / "backend"
+DATA = ROOT / "Data"
 
 
 def parse_args() -> argparse.Namespace:
@@ -44,8 +46,8 @@ def parse_args() -> argparse.Namespace:
 
 def check_required_files() -> list[str]:
     required = [
-        ROOT / "Bhagwad_Gita.csv",
-        ROOT / "knowledge_base" / "gita_ontology.ttl",
+        DATA / "corpus" / "Bhagwad_Gita.csv",
+        DATA / "ontology" / "gita_ontology.ttl",
         ROOT / "requirements.txt",
     ]
     return [str(path.relative_to(ROOT)) for path in required if not path.exists()]
@@ -67,7 +69,7 @@ def start_api(args: argparse.Namespace) -> subprocess.Popen:
     env["GITAGRAPH_API_PORT"] = str(args.api_port)
     env["GITAGRAPH_DEBUG"] = "0"
     return subprocess.Popen(
-        [sys.executable, "api.py"],
+        [sys.executable, "backend/api.py"],
         cwd=ROOT,
         env=env,
     )

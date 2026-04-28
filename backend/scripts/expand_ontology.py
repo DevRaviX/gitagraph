@@ -3,7 +3,7 @@ expand_ontology.py — Use Claude Haiku to generate RDF Turtle triples for the
 671 Bhagavad Gītā verses not yet in the 30-verse AI corpus.
 
 Usage:
-    ANTHROPIC_API_KEY=sk-... python expand_ontology.py [options]
+    ANTHROPIC_API_KEY=sk-... python backend/scripts/expand_ontology.py [options]
 
 Options:
     --batch N      Verses per API call (default: 10)
@@ -24,9 +24,9 @@ After running, restart the Flask server so get_kg() reloads the updated TTL.
 import os, sys, csv, re, time, argparse, json
 from pathlib import Path
 
-ROOT     = Path(__file__).parent
-TTL_PATH = ROOT / "knowledge_base" / "gita_ontology.ttl"
-CSV_PATH = ROOT / "Bhagwad_Gita.csv"
+ROOT     = Path(__file__).resolve().parents[2]
+TTL_PATH = ROOT / "Data" / "ontology" / "gita_ontology.ttl"
+CSV_PATH = ROOT / "Data" / "corpus" / "Bhagwad_Gita.csv"
 
 # ── Known concept instances in the ontology ───────────────────────────────────
 KNOWN_CONCEPTS = [

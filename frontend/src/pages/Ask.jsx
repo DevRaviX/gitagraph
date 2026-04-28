@@ -912,7 +912,7 @@ function SemanticPanel() {
       {isError && (
         <div className="parchment-card p-4">
           <p style={{ fontSize: '0.88rem', color: '#B03020' }}>
-            Semantic search unavailable. Run <code className="font-mono text-xs">python generate_embeddings.py</code> to enable it.
+            Semantic search unavailable. Run <code className="font-mono text-xs">python backend/scripts/generate_embeddings.py</code> to enable it.
           </p>
         </div>
       )}
