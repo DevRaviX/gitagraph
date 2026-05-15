@@ -728,7 +728,10 @@ Tested against 4 reader profiles:
 | Endpoint | Method | Description |
 |---|---|---|
 | `/api/semantic_search` | GET | Cosine similarity search over 701 verse embeddings. Params: `q`, `k` |
+| `/api/solve` | POST | Unified query pipeline. Body: `query`, `goal`, `stage`, `nature`, `include_semantic` |
 | `/api/contextualize` | POST | Ollama local-LLM commentary. Body: `verse_ref`, `english`, `user_query`, `model` |
+| `/api/ollama_status` | GET | Local Ollama health check. Returns `running` and `models` |
+| `/api/audio/<chapter>/<verse>` | GET | Optional audio recitation. Requires `Data/audio_cache/*.parquet` |
 | `/api/iddfs` | POST | Iterative deepening DFS with per-depth iteration trace. Body: `start`, `goal`, `max_depth` |
 | `/api/plans/save` | POST | Persist generated study plan to SQLite. Body: `session_id`, `goal`, `plan` |
 | `/api/plans/list` | GET | List saved plans for a session. Param: `session_id` |

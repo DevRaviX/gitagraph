@@ -73,7 +73,7 @@ PRODUCTION_RULES = [
         description="Reader seeks peace/equanimity → recommend Sthitaprajna",
         specificity=1, cf=0.85,
         condition=lambda wm: (
-            any(k in wm.goal.lower() for k in [
+            any(k in (wm.goal + " " + wm.concern).lower() for k in [
                 # English
                 "peace", "equanimity", "calm", "tranquil", "stillness", "steady",
                 # Hindi / Hinglish
@@ -168,13 +168,13 @@ PRODUCTION_RULES = [
     ),
     Rule(
         name="R8_AdvancedMoksha",
-        description="Advanced reader → trace full progression to Moksha via A*",
+        description="Advanced reader seeking liberation → trace full progression to Moksha",
         specificity=2, cf=0.88,
         condition=lambda wm: (
             wm.stage.lower() == "advanced" and
-            any(k in wm.goal.lower() for k in [
+            any(k in (wm.goal + " " + wm.concern).lower() for k in [
                 # English
-                "liberation", "moksha", "ultimate", "self",
+                "liberation", "moksha", "ultimate", "self-realization", "self realization",
                 # Hindi / Hinglish
                 "mukti", "moksh", "aatma", "gyan", "gyaan", "atma gyan",
                 "मोक्ष", "मुक्ति", "आत्मज्ञान",
@@ -183,6 +183,28 @@ PRODUCTION_RULES = [
         action=lambda wm: (
             setattr(wm, "recommend_concept", "Moksha"),
             setattr(wm, "start_verse", "Verse_6_47")
+        ),
+    ),
+    Rule(
+        name="R10_WellbeingQualityOfLife",
+        description="Reader seeks happiness/wellbeing/life improvement → recommend Sthitaprajna",
+        specificity=1, cf=0.80,
+        condition=lambda wm: (
+            any(k in (wm.goal + " " + wm.concern).lower() for k in [
+                # English
+                "quality of life", "wellbeing", "well-being", "well being",
+                "happiness", "happy", "joyful", "joy", "improve", "better",
+                "fulfil", "fulfill", "purpose", "meaning", "flourish",
+                "content", "satisfaction", "thrive", "healthy mind",
+                # Hindi / Hinglish
+                "khushi", "anand", "sukh", "behtar", "zindagi",
+                "jeevan", "jeewan", "खुशी", "आनंद", "सुख", "बेहतर",
+            ])
+        ),
+        action=lambda wm: (
+            setattr(wm, "recommend_concept", "Sthitaprajna"),
+            setattr(wm, "start_verse", "Verse_2_55"),
+            setattr(wm, "confidence", 0.80)
         ),
     ),
     Rule(
@@ -203,6 +225,141 @@ PRODUCTION_RULES = [
         action=lambda wm: (
             setattr(wm, "recommend_concept", "AtmaJnana"),
             setattr(wm, "start_verse", "Verse_2_20")
+        ),
+    ),
+    Rule(
+        name="R11_Loneliness",
+        description="Reader feels lonely or isolated → recommend self-reliance, Verse_6_5",
+        specificity=2, cf=0.85,
+        condition=lambda wm: (
+            any(k in (wm.concern + " " + wm.goal).lower() for k in [
+                # English
+                "lonely", "loneliness", "alone", "isolated", "no one understands",
+                "friendless", "abandoned", "solitary", "disconnected", "no friends",
+                # Hindi / Hinglish
+                "akela", "akele", "akelapan", "koi nahi", "tanhaai", "tanha",
+                "koi nahi samjha", "koi saath nahi",
+                "अकेला", "अकेलापन", "तन्हाई",
+            ])
+        ),
+        action=lambda wm: (
+            setattr(wm, "recommend_concept", "DhyanaYoga_inst"),
+            setattr(wm, "start_verse", "Verse_6_5"),
+            setattr(wm, "confidence", 0.85),
+        ),
+    ),
+    Rule(
+        name="R12_FearOfDeath",
+        description="Reader fears death or mortality → recommend Atma Jnana, Verse_2_20",
+        specificity=2, cf=0.88,
+        condition=lambda wm: (
+            any(k in (wm.concern + " " + wm.goal).lower() for k in [
+                # English
+                "fear of death", "afraid to die", "death anxiety", "mortality",
+                "scared of death", "terrified of dying", "dread of death",
+                # Hindi / Hinglish (individual searchable tokens)
+                "maut", "mrityu", "marne", "marna", "mar jaana",
+                "मृत्यु", "मौत", "मरना",
+            ]) and any(k in (wm.concern + " " + wm.goal).lower() for k in [
+                "death", "die", "dying", "dead", "darr", "darr lagta", "bhay",
+                "fear", "maut", "mrityu", "scared", "terrif", "dread",
+                "मृत्यु", "मौत", "डर", "भय",
+            ])
+        ),
+        action=lambda wm: (
+            setattr(wm, "recommend_concept", "AtmaJnana"),
+            setattr(wm, "start_verse", "Verse_2_20"),
+            setattr(wm, "confidence", 0.88),
+        ),
+    ),
+    Rule(
+        name="R13_PurposeOfLife",
+        description="Reader seeks life purpose or meaning → recommend Svadharma, Verse_3_35",
+        specificity=1, cf=0.83,
+        condition=lambda wm: (
+            any(k in (wm.concern + " " + wm.goal).lower() for k in [
+                # English
+                "purpose of life", "meaning of life", "what is the point",
+                "why am i here", "life goal", "lost in life", "meaningless",
+                "what should i do with my life", "direction in life",
+                # Hindi / Hinglish
+                "zindagi ka maqsad", "jeewan ka uddeshya", "purpose kya hai",
+                "kya karne aya hoon", "maqsad", "kyu jee raha hoon",
+                "life mein direction nahi",
+                "जीवन का उद्देश्य", "उद्देश्य", "मकसद",
+            ])
+        ),
+        action=lambda wm: (
+            setattr(wm, "recommend_concept", "Svadharma"),
+            setattr(wm, "start_verse", "Verse_3_35"),
+            setattr(wm, "confidence", 0.83),
+        ),
+    ),
+    Rule(
+        name="R14_Jealousy",
+        description="Reader feels jealous or envious → recommend Nishkama Karma, Verse_2_47",
+        specificity=2, cf=0.82,
+        condition=lambda wm: (
+            any(k in (wm.concern + " " + wm.goal).lower() for k in [
+                # English
+                "jealous", "jealousy", "envy", "envious", "covet",
+                "resent", "resentment", "others are doing better",
+                "why not me", "unfair comparison",
+                # Hindi / Hinglish
+                "jalan", "irshya", "doosre aage hain", "kisi se jalan",
+                "uski tarakki dekh ke bura lagta",
+                "ईर्ष्या", "जलन",
+            ])
+        ),
+        action=lambda wm: (
+            setattr(wm, "recommend_concept", "NishkamaKarma"),
+            setattr(wm, "start_verse", "Verse_2_47"),
+            setattr(wm, "confidence", 0.82),
+        ),
+    ),
+    Rule(
+        name="R15_FamilyConflict",
+        description="Reader has family conflict or relationship struggle → recommend Svadharma, Verse_3_35",
+        specificity=2, cf=0.80,
+        condition=lambda wm: (
+            any(k in (wm.concern + " " + wm.goal).lower() for k in [
+                # English
+                "family conflict", "family fight", "family problem",
+                "relationship", "parents", "spouse", "siblings",
+                "in-laws", "domestic issue", "family issues",
+                # Hindi / Hinglish
+                "ghar mein jhagda", "family mein problem", "pariwar",
+                "maa baap se takraar", "rishtedaar se ladai",
+                "ghar ka jhagda", "parivaar mein larai",
+                "पारिवारिक झगड़ा", "घर में झगड़ा",
+            ])
+        ),
+        action=lambda wm: (
+            setattr(wm, "recommend_concept", "Svadharma"),
+            setattr(wm, "start_verse", "Verse_3_35"),
+            setattr(wm, "confidence", 0.80),
+        ),
+    ),
+    Rule(
+        name="R16_Failure",
+        description="Reader experiences failure or despair → recommend Sthitaprajna, Verse_2_55",
+        specificity=2, cf=0.84,
+        condition=lambda wm: (
+            any(k in (wm.concern + " " + wm.goal).lower() for k in [
+                # English
+                "failure", "failed", "hopeless", "give up", "no hope",
+                "defeated", "lost everything", "despair", "helpless",
+                "nothing is working", "i quit",
+                # Hindi / Hinglish
+                "haar gaya", "haar", "niraash", "nirasha", "umeed nahi",
+                "sab kuch khatam", "kuch nahi bacha", "haar maan liya",
+                "हार", "निराश", "हार गया", "उम्मीद नहीं",
+            ])
+        ),
+        action=lambda wm: (
+            setattr(wm, "recommend_concept", "Sthitaprajna"),
+            setattr(wm, "start_verse", "Verse_2_55"),
+            setattr(wm, "confidence", 0.84),
         ),
     ),
 ]
@@ -536,11 +693,68 @@ WHERE {
 }
 """,
     },
+
+    "CQ9": {
+        "question": "Which philosophical concepts contrast with each other? (tests contrastsWith symmetric property)",
+        "technique": "SPARQL + owl:SymmetricProperty (contrastsWith)",
+        "query": PREFIX + """
+SELECT ?cName ?oppName WHERE {
+  ?c a gita:PhilosophicalConcept ;
+     gita:conceptName ?cName ;
+     gita:contrastsWith ?opp .
+  ?opp gita:conceptName ?oppName .
+}
+ORDER BY ?cName
+""",
+    },
+
+    "CQ10": {
+        "question": "Which concepts eventually lead to Samadhi via the transitive leadsTo chain?",
+        "technique": "SPARQL + owl:TransitiveProperty (leadsTo+)",
+        "query": PREFIX + """
+SELECT ?conceptName ?definition WHERE {
+  ?c gita:conceptName ?conceptName ;
+     gita:leadsTo+ gita:Samadhi .
+  OPTIONAL { ?c gita:definitionEn ?definition }
+}
+ORDER BY ?conceptName
+""",
+    },
+
+    "CQ11": {
+        "question": "Which verses teach Nishkama Karma, ordered by chapter and verse number?",
+        "technique": "SPARQL + class filtering + ORDER BY",
+        "query": PREFIX + """
+SELECT ?id ?translation ?certainty WHERE {
+  ?v a gita:Verse ;
+     gita:teaches gita:NishkamaKarma ;
+     gita:translationEn ?translation ;
+     gita:certaintyScore ?certainty ;
+     gita:verseNumber ?n ;
+     gita:belongsToChapter ?ch .
+  ?ch gita:chapterNumber ?chn .
+  BIND(CONCAT(STR(?chn), ".", STR(?n)) AS ?id)
+}
+ORDER BY ?chn ?n
+""",
+    },
+
+    "CQ12": {
+        "question": "Which yoga paths lead directly to Moksha in one hop?",
+        "technique": "SPARQL + class-based filtering (YogaPath) + leadsTo",
+        "query": PREFIX + """
+SELECT ?pathName WHERE {
+  ?path a gita:YogaPath ;
+        gita:conceptName ?pathName ;
+        gita:leadsTo gita:Moksha .
+}
+""",
+    },
 }
 
 
 def run_all_cqs(kg: GitaKnowledgeGraph) -> dict:
-    """Execute all 8 SPARQL CQs against the RDF graph. Returns results keyed by CQ id."""
+    """Execute all 12 SPARQL CQs against the RDF graph. Returns results keyed by CQ id."""
     results = {}
     for cq_id, cq_data in SPARQL_QUERIES.items():
         if cq_id == "CQ_CONSTRUCT":

@@ -30,6 +30,18 @@ The central integration file is `backend/api.py`. The shared graph model is `bac
 | Data | `Data/corpus/Bhagwad_Gita.csv`, `Data/ontology/gita_ontology.ttl` | Full verse corpus and curated ontology |
 | UI | `frontend/src/` | React pages for graph, search, ask, planner, uncertainty, expert system |
 
+## Runtime Integrations
+
+| Integration | Required files/service | Status behavior |
+|---|---|---|
+| Backend API | `backend/api.py`, `Data/corpus/`, `Data/ontology/` | Required. `/api/stats` should return `200`. |
+| Frontend UI | `frontend/src/`, `frontend/package.json` | `npm run dev` serves the app; `npm run build` creates `frontend/dist/`. |
+| Semantic RAG | `Data/embeddings/verse_embeddings.npy`, `Data/embeddings/verse_index.json` | Optional but present in this repo. Regenerate via `backend/scripts/generate_embeddings.py`. |
+| Audio recitation | `Data/audio_cache/*.parquet` | Optional. `/api/audio/<chapter>/<verse>` returns an error until audio shards are downloaded. |
+| Ollama commentary | Local Ollama server on `localhost:11434` | Optional. `/api/ollama_status` reports online/offline state. |
+
+See [RUNTIME.md](RUNTIME.md) for tested commands and current local status.
+
 ## Query to Answer Flow
 
 ### Unified solve pipeline

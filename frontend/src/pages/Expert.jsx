@@ -141,14 +141,16 @@ function ProfilesPanel() {
 }
 
 const RULES = [
-  { id: 'R1', condition: 'concern = stress AND stage = beginner',     action: 'recommend Karma-Yoga (Ch 2)',        cf: 0.90, specificity: 3, concepts: ['KarmaYoga', 'Equanimity'] },
-  { id: 'R2', condition: 'concern = purpose AND nature = active',     action: 'recommend Nishkama-Karma (Ch 3)',    cf: 0.85, specificity: 2, concepts: ['NishkamaKarma'] },
-  { id: 'R3', condition: 'concern = meditation AND stage = intermediate', action: 'recommend Dhyana-Yoga (Ch 6)', cf: 0.88, specificity: 2, concepts: ['Dhyana', 'Samadhi'] },
-  { id: 'R4', condition: 'goal = liberation AND nature = devotional',  action: 'recommend Bhakti-Yoga path',        cf: 0.92, specificity: 2, concepts: ['BhaktiYoga', 'Moksha'] },
-  { id: 'R5', condition: 'concern = wisdom AND stage = advanced',      action: 'recommend Jnana-Yoga (Ch 4)',       cf: 0.87, specificity: 2, concepts: ['JnanaYoga', 'AtmaJnana'] },
-  { id: 'R6', condition: 'concern = desire AND nature = contemplative', action: 'recommend ChittaShuddhi path',     cf: 0.75, specificity: 2, concepts: ['ChittaShuddhi', 'Viveka'] },
-  { id: 'R7', condition: 'stage = beginner (default)',                 action: 'recommend Ch 2 overview',           cf: 0.65, specificity: 1, concepts: ['SthitaPrajna'] },
-  { id: 'R8', condition: 'goal = inner-peace (any stage)',             action: 'recommend Equanimity verses',       cf: 0.78, specificity: 1, concepts: ['Equanimity', 'Shanti'] },
+  { id: 'R3', condition: 'stage = beginner AND inferred concept = NishkamaKarma', action: 'Start at Verse 2.47 — the foundational Karma Yoga verse', cf: 0.95, specificity: 3, concepts: ['NishkamaKarma'] },
+  { id: 'R7', condition: 'nature = contemplative AND Verse 3.3 already read',     action: 'Recommend Jnana Yoga path (philosophical study)',          cf: 0.82, specificity: 3, concepts: ['JnanaYoga'] },
+  { id: 'R4', condition: 'concern contains: anger / desire / craving / lust',     action: 'Trace Kāma → Krodha downfall chain (Verse 2.62)',          cf: 0.90, specificity: 2, concepts: ['Kama', 'Krodha'] },
+  { id: 'R5', condition: 'concern/goal contains: meditation / focus / restless mind', action: 'Recommend Dhyāna Yoga, Chapter 6 (Verse 6.10)',        cf: 0.95, specificity: 2, concepts: ['DhyanaYoga'] },
+  { id: 'R6', condition: 'concern/goal contains: duty / dharma / confused / renounce', action: 'Recommend Svadharma — one\'s own duty (Verse 3.35)',  cf: 0.88, specificity: 2, concepts: ['Svadharma'] },
+  { id: 'R8', condition: 'stage = advanced AND concern/goal contains: liberation / moksha', action: 'Trace A* path to Moksha (Verse 6.47)',           cf: 0.88, specificity: 2, concepts: ['Moksha'] },
+  { id: 'R9', condition: 'concern/goal contains: grief / sorrow / sadness / loss',  action: 'Recommend Ātma Jñāna — self-knowledge (Verse 2.20)',    cf: 0.87, specificity: 2, concepts: ['AtmaJnana'] },
+  { id: 'R1', condition: 'concern contains: anxiety / worry / result / outcome',    action: 'Recommend Nishkāma Karma — act without attachment',      cf: 0.92, specificity: 1, concepts: ['NishkamaKarma'] },
+  { id: 'R2', condition: 'concern/goal contains: peace / calm / equanimity / stillness', action: 'Recommend Sthitaprajña — steady wisdom',            cf: 0.85, specificity: 1, concepts: ['Sthitaprajna'] },
+  { id: 'R10', condition: 'concern/goal contains: happiness / wellbeing / improve / quality of life', action: 'Recommend Sthitaprajña (Verse 2.55)', cf: 0.80, specificity: 1, concepts: ['Sthitaprajna'] },
 ]
 
 function RuleBasePanel() {

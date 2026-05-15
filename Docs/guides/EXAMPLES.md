@@ -8,6 +8,8 @@ POST /api/solve
 
 For deterministic reviewer checks, the examples below set `"include_semantic": false`. When semantic search is enabled, the same response also merges dense retrieval evidence from `Data/embeddings/`.
 
+Runtime note: backend/frontend checks, audio cache status, and Ollama status are documented in [RUNTIME.md](RUNTIME.md).
+
 ## Example 1 — Anxiety About Results
 
 Input:

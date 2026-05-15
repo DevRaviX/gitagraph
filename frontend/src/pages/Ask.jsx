@@ -3,7 +3,8 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   MessageCircle, Send, Database, ChevronDown, ChevronUp,
-  Sparkles, BookOpen, Zap, Brain, Trash2, Wifi, WifiOff, RefreshCw, Feather
+  Sparkles, BookOpen, Zap, Brain, Trash2, Wifi, WifiOff, RefreshCw, Feather,
+  Search, HelpCircle
 } from 'lucide-react'
 import { api } from '../api'
 import { Card, Badge, CFBar, Button } from '../components/ui'
@@ -424,23 +425,37 @@ function ChatPanel() {
       <div className="parchment-card p-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div>
-            <label className="block mb-1" style={{ fontSize: '0.6rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(122,96,64,0.85)' }}>Stage</label>
-            <select value={stage} onChange={e => setStage(e.target.value)}>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
+            <label className="flex items-center gap-1 mb-1"
+              title="Your familiarity with the Bhagavad Gītā — affects which teachings are recommended"
+              style={{ fontSize: '0.6rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(122,96,64,0.85)', cursor: 'help' }}>
+              Stage <HelpCircle size={9} style={{ opacity: 0.5 }} />
+            </label>
+            <select value={stage} onChange={e => setStage(e.target.value)}
+              title="Beginner: new to the Gītā · Intermediate: some study · Advanced: deep philosophical inquiry">
+              <option value="beginner">Beginner — new to the Gītā</option>
+              <option value="intermediate">Intermediate — some study</option>
+              <option value="advanced">Advanced — deep inquiry</option>
             </select>
           </div>
           <div>
-            <label className="block mb-1" style={{ fontSize: '0.6rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(122,96,64,0.85)' }}>Nature</label>
-            <select value={nature} onChange={e => setNature(e.target.value)}>
-              <option value="active">Active</option>
-              <option value="contemplative">Contemplative</option>
-              <option value="devotional">Devotional</option>
+            <label className="flex items-center gap-1 mb-1"
+              title="Your temperament — Active seeks action guidance, Contemplative seeks philosophy, Devotional seeks bhakti"
+              style={{ fontSize: '0.6rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(122,96,64,0.85)', cursor: 'help' }}>
+              Nature <HelpCircle size={9} style={{ opacity: 0.5 }} />
+            </label>
+            <select value={nature} onChange={e => setNature(e.target.value)}
+              title="Active: work & action focused · Contemplative: philosophical reflection · Devotional: bhakti / devotion path">
+              <option value="active">Active — work &amp; action</option>
+              <option value="contemplative">Contemplative — reflection</option>
+              <option value="devotional">Devotional — bhakti path</option>
             </select>
           </div>
           <div className="md:col-span-2">
-            <label className="block mb-1" style={{ fontSize: '0.6rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(122,96,64,0.85)' }}>Goal (optional)</label>
+            <label className="flex items-center gap-1 mb-1"
+              title="Optionally describe what you want to achieve — this helps the system find more relevant teachings"
+              style={{ fontSize: '0.6rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'rgba(122,96,64,0.85)', cursor: 'help' }}>
+              What are you hoping to find? <HelpCircle size={9} style={{ opacity: 0.5 }} /> <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, color: 'rgba(122,96,64,0.55)' }}>(optional)</span>
+            </label>
             <input placeholder={lc.goalPlaceholder} value={goal} onChange={e => setGoal(e.target.value)} />
           </div>
         </div>
@@ -508,7 +523,7 @@ function ChatPanel() {
           <span className="flex items-center gap-2 font-cinzel"
             style={{ fontSize: '0.65rem', color: 'rgba(138,110,42,0.8)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
             <MessageCircle size={11} />
-            {messages.filter(m => m.role !== 'system' || m.data).length} exchange{messages.filter(m => m.role !== 'system' || m.data).length !== 1 ? 's' : ''}
+            {messages.filter(m => m.role === 'user').length} exchange{messages.filter(m => m.role === 'user').length !== 1 ? 's' : ''}
           </span>
           <button onClick={clearChat} className="flex items-center gap-1 transition-colors"
             style={{ fontSize: '0.65rem', color: 'rgba(122,96,64,0.6)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
@@ -550,101 +565,152 @@ function ChatPanel() {
 
                 {/* Expert system result */}
                 {msg.role === 'system' && msg.data && (
-                  <div className="w-full max-w-xl parchment-card p-4 space-y-3">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {msg.data.recommend_concept && (
-                        <span className="font-cinzel text-[10px] tracking-[0.15em] uppercase px-2.5 py-1 rounded-full"
-                          style={{ background: 'rgba(201,168,76,0.10)', border: '1px solid rgba(201,168,76,0.28)', color: '#f0d8a0' }}>
-                          📌 {msg.data.recommend_concept.replace(/_inst$/, '').replace(/_/g, ' ')}
-                        </span>
-                      )}
-                      {msg.data.start_verse && (
-                        <span className="font-mono text-[10px] px-2.5 py-1 rounded-full"
-                          style={{ background: 'rgba(74,158,122,0.10)', border: '1px solid rgba(74,158,122,0.28)', color: '#4A9E7A' }}>
-                          📖 {msg.data.start_verse.chapter}.{msg.data.start_verse.verse_number}
-                        </span>
-                      )}
-                      <span className="ml-auto font-cinzel" style={{ fontSize: '0.6rem', color: 'rgba(122,96,64,0.6)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
-                        Expert System
-                      </span>
-                    </div>
-
-                    <CFBar value={msg.data.confidence ?? 0} label="Confidence" />
-
-                    {/* Start verse */}
-                    {msg.data.start_verse && (
-                      <div>
-                        <p className="mb-1.5 font-cinzel"
-                          style={{ fontSize: '0.6rem', color: 'rgba(122,96,64,0.75)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
-                          Recommended starting verse:
-                        </p>
-                        <AskVerseCard v={msg.data.start_verse} concern={msg.concern} model={model}
-                          lang={lang} showCommentaryBtn={!autoCommentary} />
+                  <div className="w-full max-w-xl space-y-3">
+                    {msg.data.match_status === 'fallback' ? (
+                      /* ── Semantic fallback: no rules matched ── */
+                      <div className="parchment-card p-4 space-y-3">
+                        <div className="flex items-start gap-2.5 p-3 rounded-xl"
+                          style={{ background: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.18)' }}>
+                          <Search size={13} style={{ color: 'rgba(201,168,76,0.65)', flexShrink: 0, marginTop: 2 }} />
+                          <div className="flex-1 min-w-0">
+                            <p style={{ fontSize: '0.78rem', color: 'rgba(196,169,122,0.9)', fontFamily: '"IM Fell English", Spectral, serif', lineHeight: 1.6 }}>
+                              No specific rule matched your query. Here are the most related teachings from the Gītā:
+                            </p>
+                            <p className="mt-1" style={{ fontSize: '0.68rem', color: 'rgba(122,96,64,0.6)', fontStyle: 'italic' }}>
+                              Try describing a specific emotion — e.g. "I feel anxious about results" or "I am grieving a loss"
+                            </p>
+                          </div>
+                          <span className="font-cinzel shrink-0" style={{ fontSize: '0.55rem', color: 'rgba(122,96,64,0.5)', letterSpacing: '0.18em', textTransform: 'uppercase', marginTop: 2 }}>
+                            Semantic
+                          </span>
+                        </div>
+                        {msg.data.fallback_verses?.length > 0
+                          ? msg.data.fallback_verses.map((v, j) => (
+                              <AskVerseCard key={v.key ?? j} v={v} score={v.score} concern={msg.concern}
+                                model={model} lang={lang} showCommentaryBtn />
+                            ))
+                          : (
+                            <p style={{ fontSize: '0.82rem', color: 'rgba(122,96,64,0.6)', fontStyle: 'italic', textAlign: 'center', padding: '1rem 0' }}>
+                              Semantic search unavailable — run <code style={{ fontSize: '0.72rem' }}>generate_embeddings.py</code> to enable it.
+                            </p>
+                          )
+                        }
                       </div>
-                    )}
-
-                    {/* Related verses */}
-                    {msg.data.recommended_verses?.length > 0 && (
-                      <div>
-                        <button onClick={() => setExpandedVerses(expandedVerses === i ? null : i)}
-                          className="flex items-center gap-1.5 transition-colors"
-                          style={{ fontSize: '0.72rem', color: 'rgba(122,96,64,0.75)', letterSpacing: '0.08em' }}>
-                          <BookOpen size={11} />
-                          {expandedVerses === i ? 'Hide' : 'Show'}{' '}
-                          {msg.data.recommended_verses.length} related verse{msg.data.recommended_verses.length > 1 ? 's' : ''}
-                          <motion.span animate={{ rotate: expandedVerses === i ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                            <ChevronDown size={11} />
-                          </motion.span>
-                        </button>
-                        <AnimatePresence>
-                          {expandedVerses === i && (
-                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-                              <div className="mt-2 space-y-2">
-                                {msg.data.recommended_verses.map((v, j) => (
-                                  <AskVerseCard key={v.key ?? j} v={v} concern={msg.concern}
-                                    model={model} lang={lang} showCommentaryBtn />
-                                ))}
-                              </div>
-                            </motion.div>
+                    ) : (
+                      /* ── Expert rules matched ── */
+                      <div className="parchment-card p-4 space-y-3">
+                        {/* Header */}
+                        <div className="flex items-center gap-2 flex-wrap">
+                          {msg.data.recommend_concept && (
+                            <span className="font-cinzel text-[10px] tracking-[0.15em] uppercase px-2.5 py-1 rounded-full"
+                              style={{ background: 'rgba(201,168,76,0.10)', border: '1px solid rgba(201,168,76,0.28)', color: '#f0d8a0' }}>
+                              📌 {msg.data.recommend_concept.replace(/_inst$/, '').replace(/_/g, ' ')}
+                            </span>
                           )}
-                        </AnimatePresence>
-                      </div>
-                    )}
-
-                    {/* Fired rules */}
-                    {msg.data.fired_rules?.length > 0 && (
-                      <div>
-                        <button onClick={() => setExpandedRules(expandedRules === i ? null : i)}
-                          className="flex items-center gap-1.5 transition-colors"
-                          style={{ fontSize: '0.72rem', color: 'rgba(122,96,64,0.7)' }}>
-                          <Zap size={11} />
-                          {expandedRules === i ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
-                          {msg.data.fired_rules.length} rule{msg.data.fired_rules.length > 1 ? 's' : ''} fired
-                        </button>
-                        <AnimatePresence>
-                          {expandedRules === i && (
-                            <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
-                              <div className="mt-2 space-y-1.5">
-                                {msg.data.fired_rules.map((r, j) => {
-                                  const name = Array.isArray(r) ? r[0] : r
-                                  const cf   = Array.isArray(r) ? parseFloat(r[1]) : null
-                                  const desc = Array.isArray(r) ? r[2] : ''
-                                  return (
-                                    <div key={j} className="flex items-start gap-1.5" style={{ fontSize: '0.78rem', color: '#c4a97a' }}>
-                                      <span className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5" style={{ background: '#C9A84C' }} />
-                                      <span>
-                                        <span className="font-mono" style={{ color: '#C9A84C', fontSize: '0.68rem' }}>{name}</span>
-                                        {cf != null && <span style={{ color: 'rgba(122,96,64,0.8)', marginLeft: 4 }}>(CF: {cf.toFixed(2)})</span>}
-                                        {desc && <span style={{ color: 'rgba(122,96,64,0.75)', marginLeft: 4 }}>— {desc}</span>}
-                                      </span>
-                                    </div>
-                                  )
-                                })}
-                              </div>
-                            </motion.div>
+                          {msg.data.start_verse && (
+                            <span className="font-mono text-[10px] px-2.5 py-1 rounded-full"
+                              style={{ background: 'rgba(74,158,122,0.10)', border: '1px solid rgba(74,158,122,0.28)', color: '#4A9E7A' }}>
+                              📖 {msg.data.start_verse.chapter}.{msg.data.start_verse.verse_number}
+                            </span>
                           )}
-                        </AnimatePresence>
+                          <span className="ml-auto font-cinzel" style={{ fontSize: '0.58rem', color: 'rgba(122,96,64,0.55)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                            Expert System
+                          </span>
+                        </div>
+
+                        {/* Match quality bar — friendly labels */}
+                        <CFBar value={msg.data.confidence ?? 0} label="Match" friendly />
+
+                        {/* Why this verse — inline rule explanation */}
+                        {(() => {
+                          const primary = msg.data.fired_rules?.[0]
+                          const desc = Array.isArray(primary) ? primary[2] : ''
+                          return desc ? (
+                            <div className="flex items-start gap-2 px-3 py-2 rounded-lg"
+                              style={{ background: 'rgba(74,158,122,0.06)', border: '1px solid rgba(74,158,122,0.15)' }}>
+                              <Zap size={11} style={{ color: '#4A9E7A', marginTop: 2, flexShrink: 0 }} />
+                              <span style={{ fontSize: '0.76rem', color: 'rgba(196,169,122,0.85)', fontFamily: '"IM Fell English", Spectral, serif', lineHeight: 1.5 }}>
+                                {desc}
+                              </span>
+                            </div>
+                          ) : null
+                        })()}
+
+                        {/* Start verse */}
+                        {msg.data.start_verse && (
+                          <div>
+                            <p className="mb-1.5 font-cinzel"
+                              style={{ fontSize: '0.58rem', color: 'rgba(122,96,64,0.7)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                              Recommended starting verse
+                            </p>
+                            <AskVerseCard v={msg.data.start_verse} concern={msg.concern} model={model}
+                              lang={lang} showCommentaryBtn={!autoCommentary} />
+                          </div>
+                        )}
+
+                        {/* Related verses */}
+                        {msg.data.recommended_verses?.length > 0 && (
+                          <div>
+                            <button onClick={() => setExpandedVerses(expandedVerses === i ? null : i)}
+                              className="flex items-center gap-1.5 transition-colors"
+                              style={{ fontSize: '0.72rem', color: 'rgba(122,96,64,0.75)', letterSpacing: '0.08em' }}>
+                              <BookOpen size={11} />
+                              {expandedVerses === i ? 'Hide' : 'Show'}{' '}
+                              {msg.data.recommended_verses.length} related verse{msg.data.recommended_verses.length > 1 ? 's' : ''}
+                              <motion.span animate={{ rotate: expandedVerses === i ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                                <ChevronDown size={11} />
+                              </motion.span>
+                            </button>
+                            <AnimatePresence>
+                              {expandedVerses === i && (
+                                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                                  <div className="mt-2 space-y-2">
+                                    {msg.data.recommended_verses.map((v, j) => (
+                                      <AskVerseCard key={v.key ?? j} v={v} concern={msg.concern}
+                                        model={model} lang={lang} showCommentaryBtn />
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        )}
+
+                        {/* Fired rules — secondary collapsible */}
+                        {msg.data.fired_rules?.length > 0 && (
+                          <div>
+                            <button onClick={() => setExpandedRules(expandedRules === i ? null : i)}
+                              className="flex items-center gap-1.5 transition-colors"
+                              style={{ fontSize: '0.68rem', color: 'rgba(122,96,64,0.5)' }}>
+                              {expandedRules === i ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
+                              {msg.data.fired_rules.length} rule{msg.data.fired_rules.length > 1 ? 's' : ''} fired
+                            </button>
+                            <AnimatePresence>
+                              {expandedRules === i && (
+                                <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="overflow-hidden">
+                                  <div className="mt-2 space-y-1.5">
+                                    {msg.data.fired_rules.map((r, j) => {
+                                      const name = Array.isArray(r) ? r[0] : r
+                                      const cf   = Array.isArray(r) ? parseFloat(r[1]) : null
+                                      const desc = Array.isArray(r) ? r[2] : ''
+                                      return (
+                                        <div key={j} className="flex items-start gap-1.5" style={{ fontSize: '0.76rem', color: '#c4a97a' }}>
+                                          <span className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5" style={{ background: '#C9A84C' }} />
+                                          <span>
+                                            <span className="font-mono" style={{ color: '#C9A84C', fontSize: '0.66rem' }}>{name}</span>
+                                            {cf != null && <span style={{ color: 'rgba(122,96,64,0.7)', marginLeft: 4 }}>CF {cf.toFixed(2)}</span>}
+                                            {desc && <span style={{ color: 'rgba(122,96,64,0.7)', marginLeft: 4 }}>— {desc}</span>}
+                                          </span>
+                                        </div>
+                                      )
+                                    })}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>

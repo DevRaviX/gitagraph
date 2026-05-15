@@ -8,8 +8,12 @@ Outputs:
     Data/embeddings/verse_embeddings.npy  — float32 array, shape (N, 384), L2-normalised
     Data/embeddings/verse_index.json      — list of verse metadata dicts
 
-The embeddings use all-MiniLM-L6-v2 (90 MB, downloads automatically on first run).
+Model: paraphrase-multilingual-MiniLM-L12-v2 (~420 MB, downloads automatically on first run).
+Supports 50+ languages including Hindi — improves retrieval for Hindi/Hinglish queries.
 Because embeddings are L2-normalised, cosine similarity = dot product at query time.
+
+Previous model (English-only): all-MiniLM-L6-v2 (~90 MB).
+Backup of old embeddings saved as verse_embeddings_en_backup.npy if present.
 """
 
 import os, json, csv, re
@@ -21,8 +25,17 @@ CSV_PATH = os.path.join(PROJECT_ROOT, "Data", "corpus", "Bhagwad_Gita.csv")
 OUT_DIR  = os.path.join(PROJECT_ROOT, "Data", "embeddings")
 os.makedirs(OUT_DIR, exist_ok=True)
 
-MODEL_NAME = "all-MiniLM-L6-v2"
-print(f"Loading model: {MODEL_NAME}  (downloads ~90 MB on first run)")
+MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
+print(f"Loading model: {MODEL_NAME}  (downloads ~420 MB on first run, multilingual)")
+
+# Back up existing English-only embeddings before overwriting
+import shutil
+npy_existing = os.path.join(OUT_DIR, "verse_embeddings.npy")
+npy_backup   = os.path.join(OUT_DIR, "verse_embeddings_en_backup.npy")
+if os.path.exists(npy_existing) and not os.path.exists(npy_backup):
+    shutil.copy2(npy_existing, npy_backup)
+    print(f"  Backed up old embeddings → {npy_backup}")
+
 model = SentenceTransformer(MODEL_NAME)
 
 def strip_prefix(text):
@@ -58,7 +71,10 @@ for r in rows:
         "transliteration": r.get("Transliteration", ""),
         "word_meanings":  r.get("WordMeaning", ""),
     })
-    texts.append(eng)
+    # Concatenate English + Hindi so multilingual model handles both script queries
+    hi = strip_prefix(r.get("HinMeaning", ""))
+    combined = (eng + " " + hi).strip() if hi else eng
+    texts.append(combined)
 
 print(f"Encoding {len(texts)} verses with {MODEL_NAME}…")
 embeddings = model.encode(

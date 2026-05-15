@@ -1,0 +1,5294 @@
+{
+  "k": 5,
+  "num_queries": 50,
+  "variants": {
+    "bm25_baseline": {
+      "Q01": {
+        "retrieved": [
+          "Verse_3_25",
+          "Verse_3_5",
+          "Verse_13_32",
+          "Verse_3_19",
+          "Verse_18_73"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_50",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.0625
+      },
+      "Q02": {
+        "retrieved": [
+          "Verse_8_21",
+          "Verse_4_16",
+          "Verse_14_21",
+          "Verse_3_42",
+          "Verse_16_8"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_9",
+          "Verse_3_19",
+          "Verse_2_50"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q03": {
+        "retrieved": [
+          "Verse_2_8",
+          "Verse_1_31",
+          "Verse_4_11",
+          "Verse_3_24",
+          "Verse_2_6"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q04": {
+        "retrieved": [
+          "Verse_5_14",
+          "Verse_8_5",
+          "Verse_10_7",
+          "Verse_2_51",
+          "Verse_2_16"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q05": {
+        "retrieved": [
+          "Verse_12_9",
+          "Verse_14_21",
+          "Verse_16_7",
+          "Verse_4_4",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_50",
+          "Verse_3_3",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q06": {
+        "retrieved": [
+          "Verse_4_6",
+          "Verse_10_36",
+          "Verse_10_28",
+          "Verse_10_25",
+          "Verse_10_2"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q07": {
+        "retrieved": [
+          "Verse_1_37",
+          "Verse_2_66",
+          "Verse_11_25",
+          "Verse_18_72",
+          "Verse_2_21"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_64",
+          "Verse_2_71",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q08": {
+        "retrieved": [
+          "Verse_6_26",
+          "Verse_2_24",
+          "Verse_18_52",
+          "Verse_12_15",
+          "Verse_1_30"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_23"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q09": {
+        "retrieved": [
+          "Verse_2_3",
+          "Verse_14_21",
+          "Verse_3_18",
+          "Verse_16_24",
+          "Verse_13_4"
+        ],
+        "relevant": [
+          "Verse_2_48",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q10": {
+        "retrieved": [
+          "Verse_7_9",
+          "Verse_6_30",
+          "Verse_1_33",
+          "Verse_10_9",
+          "Verse_10_8"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q11": {
+        "retrieved": [
+          "Verse_1_31",
+          "Verse_6_34",
+          "Verse_4_11",
+          "Verse_10_19",
+          "Verse_7_18"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q12": {
+        "retrieved": [
+          "Verse_14_21",
+          "Verse_2_54",
+          "Verse_8_21",
+          "Verse_7_11",
+          "Verse_8_2"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_3_37",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q13": {
+        "retrieved": [
+          "Verse_1_42",
+          "Verse_1_40",
+          "Verse_2_63",
+          "Verse_7_11",
+          "Verse_9_2"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63"
+        ],
+        "ap_at_k": 0.16666666666666666
+      },
+      "Q14": {
+        "retrieved": [
+          "Verse_3_33",
+          "Verse_10_18",
+          "Verse_11_17",
+          "Verse_3_24",
+          "Verse_3_22"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q15": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_14_6",
+          "Verse_14_21",
+          "Verse_8_2",
+          "Verse_4_20"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_37"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q16": {
+        "retrieved": [
+          "Verse_2_66",
+          "Verse_1_37",
+          "Verse_18_73",
+          "Verse_18_29",
+          "Verse_12_12"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q17": {
+        "retrieved": [
+          "Verse_2_61",
+          "Verse_18_5",
+          "Verse_18_3",
+          "Verse_2_6",
+          "Verse_3_22"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q18": {
+        "retrieved": [
+          "Verse_6_34",
+          "Verse_2_54",
+          "Verse_1_30",
+          "Verse_7_18",
+          "Verse_12_14"
+        ],
+        "relevant": [
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_10"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q19": {
+        "retrieved": [
+          "Verse_8_21",
+          "Verse_14_21",
+          "Verse_13_4",
+          "Verse_13_1",
+          "Verse_18_30"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q20": {
+        "retrieved": [
+          "Verse_12_12",
+          "Verse_1_9",
+          "Verse_2_44",
+          "Verse_18_52",
+          "Verse_10_10"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q21": {
+        "retrieved": [
+          "Verse_2_7",
+          "Verse_7_9",
+          "Verse_4_6",
+          "Verse_11_45",
+          "Verse_1_30"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q22": {
+        "retrieved": [
+          "Verse_12_10",
+          "Verse_2_8",
+          "Verse_18_56",
+          "Verse_10_8",
+          "Verse_3_23"
+        ],
+        "relevant": [
+          "Verse_3_3",
+          "Verse_3_4",
+          "Verse_3_5",
+          "Verse_3_8",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q23": {
+        "retrieved": [
+          "Verse_16_7",
+          "Verse_4_11",
+          "Verse_1_31",
+          "Verse_3_32",
+          "Verse_2_7"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_3",
+          "Verse_3_8"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q24": {
+        "retrieved": [
+          "Verse_9_2",
+          "Verse_18_29",
+          "Verse_18_41",
+          "Verse_16_24",
+          "Verse_4_13"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q25": {
+        "retrieved": [
+          "Verse_12_20",
+          "Verse_3_35",
+          "Verse_18_47",
+          "Verse_3_33",
+          "Verse_4_6"
+        ],
+        "relevant": [
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q26": {
+        "retrieved": [
+          "Verse_4_6",
+          "Verse_9_16",
+          "Verse_10_22",
+          "Verse_16_14",
+          "Verse_1_30"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q27": {
+        "retrieved": [
+          "Verse_18_12",
+          "Verse_8_21",
+          "Verse_14_21",
+          "Verse_9_19",
+          "Verse_13_1"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q28": {
+        "retrieved": [
+          "Verse_10_32",
+          "Verse_10_36",
+          "Verse_15_15",
+          "Verse_7_11",
+          "Verse_10_23"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q29": {
+        "retrieved": [
+          "Verse_4_6",
+          "Verse_1_30",
+          "Verse_11_51",
+          "Verse_9_16",
+          "Verse_10_22"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q30": {
+        "retrieved": [
+          "Verse_14_21",
+          "Verse_2_54",
+          "Verse_13_4",
+          "Verse_3_18",
+          "Verse_8_2"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q31": {
+        "retrieved": [
+          "Verse_5_22",
+          "Verse_6_37",
+          "Verse_3_33",
+          "Verse_17_1",
+          "Verse_4_19"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q32": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_2_55",
+          "Verse_3_39",
+          "Verse_6_8",
+          "Verse_6_11"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q33": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_2_66",
+          "Verse_14_21",
+          "Verse_8_2",
+          "Verse_6_8"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42",
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q34": {
+        "retrieved": [
+          "Verse_6_5",
+          "Verse_15_18",
+          "Verse_5_27",
+          "Verse_13_35",
+          "Verse_9_2"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_27",
+          "Verse_3_42",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q35": {
+        "retrieved": [
+          "Verse_13_12",
+          "Verse_9_33",
+          "Verse_2_66",
+          "Verse_15_10",
+          "Verse_2_38"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q36": {
+        "retrieved": [
+          "Verse_9_33",
+          "Verse_2_54",
+          "Verse_8_2",
+          "Verse_4_4",
+          "Verse_5_24"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q37": {
+        "retrieved": [
+          "Verse_18_30",
+          "Verse_8_21",
+          "Verse_3_3",
+          "Verse_9_2",
+          "Verse_13_35"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.16666666666666666
+      },
+      "Q38": {
+        "retrieved": [
+          "Verse_9_1",
+          "Verse_5_3",
+          "Verse_11_55",
+          "Verse_3_30",
+          "Verse_4_22"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q39": {
+        "retrieved": [
+          "Verse_9_1",
+          "Verse_6_19",
+          "Verse_3_42",
+          "Verse_8_21",
+          "Verse_6_45"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q40": {
+        "retrieved": [
+          "Verse_18_55",
+          "Verse_2_3",
+          "Verse_14_21",
+          "Verse_18_42",
+          "Verse_13_4"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q41": {
+        "retrieved": [
+          "Verse_18_31",
+          "Verse_7_26",
+          "Verse_10_19",
+          "Verse_9_22",
+          "Verse_2_29"
+        ],
+        "relevant": [
+          "Verse_6_5",
+          "Verse_6_10",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q42": {
+        "retrieved": [
+          "Verse_7_6",
+          "Verse_4_4",
+          "Verse_7_11",
+          "Verse_4_13",
+          "Verse_7_10"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q43": {
+        "retrieved": [
+          "Verse_16_14",
+          "Verse_1_31",
+          "Verse_9_16",
+          "Verse_10_22",
+          "Verse_10_38"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_62"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q44": {
+        "retrieved": [
+          "Verse_3_33",
+          "Verse_3_22",
+          "Verse_3_23",
+          "Verse_3_18",
+          "Verse_2_7"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q45": {
+        "retrieved": [
+          "Verse_16_24",
+          "Verse_2_7",
+          "Verse_3_33",
+          "Verse_13_4",
+          "Verse_11_45"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q46": {
+        "retrieved": [
+          "Verse_18_72",
+          "Verse_2_8",
+          "Verse_2_54",
+          "Verse_8_2",
+          "Verse_2_65"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_6_10",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_6_34",
+          "Verse_4_11",
+          "Verse_2_60",
+          "Verse_1_31",
+          "Verse_9_4"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_1_32",
+          "Verse_17_19",
+          "Verse_13_4",
+          "Verse_16_24",
+          "Verse_14_21"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_8_2",
+          "Verse_2_54",
+          "Verse_18_8",
+          "Verse_3_35",
+          "Verse_11_36"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_1_1",
+          "Verse_2_52",
+          "Verse_16_7",
+          "Verse_16_11",
+          "Verse_13_4"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_5",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      }
+    },
+    "semantic_only": {
+      "Q01": {
+        "retrieved": [
+          "Verse_3_19",
+          "Verse_4_14",
+          "Verse_4_22",
+          "Verse_3_4",
+          "Verse_18_11"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_50",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q02": {
+        "retrieved": [
+          "Verse_13_30",
+          "Verse_18_23",
+          "Verse_6_3",
+          "Verse_4_16",
+          "Verse_5_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_9",
+          "Verse_3_19",
+          "Verse_2_50"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q03": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_18_47",
+          "Verse_1_31",
+          "Verse_4_14",
+          "Verse_1_46"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q04": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_7_23",
+          "Verse_2_5",
+          "Verse_4_14",
+          "Verse_4_20"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q05": {
+        "retrieved": [
+          "Verse_6_23",
+          "Verse_3_7",
+          "Verse_2_50",
+          "Verse_18_75",
+          "Verse_6_36"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_50",
+          "Verse_3_3",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q06": {
+        "retrieved": [
+          "Verse_17_15",
+          "Verse_3_32",
+          "Verse_1_29",
+          "Verse_1_47",
+          "Verse_11_45"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q07": {
+        "retrieved": [
+          "Verse_2_66",
+          "Verse_18_52",
+          "Verse_6_15",
+          "Verse_2_65",
+          "Verse_4_39"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_64",
+          "Verse_2_71",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q08": {
+        "retrieved": [
+          "Verse_6_26",
+          "Verse_6_34",
+          "Verse_6_35",
+          "Verse_2_67",
+          "Verse_6_33"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_23"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q09": {
+        "retrieved": [
+          "Verse_13_27",
+          "Verse_17_26",
+          "Verse_1_8",
+          "Verse_18_29",
+          "Verse_2_45"
+        ],
+        "relevant": [
+          "Verse_2_48",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q10": {
+        "retrieved": [
+          "Verse_18_52",
+          "Verse_2_66",
+          "Verse_1_30",
+          "Verse_2_8",
+          "Verse_6_20"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q11": {
+        "retrieved": [
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_3_30",
+          "Verse_6_34",
+          "Verse_6_35"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.125
+      },
+      "Q12": {
+        "retrieved": [
+          "Verse_18_24",
+          "Verse_13_7",
+          "Verse_2_43",
+          "Verse_3_37",
+          "Verse_6_24"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_3_37",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q13": {
+        "retrieved": [
+          "Verse_13_7",
+          "Verse_16_12",
+          "Verse_18_24",
+          "Verse_17_25",
+          "Verse_6_24"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q14": {
+        "retrieved": [
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_1_30",
+          "Verse_1_47",
+          "Verse_2_8"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.16666666666666666
+      },
+      "Q15": {
+        "retrieved": [
+          "Verse_15_5",
+          "Verse_13_7",
+          "Verse_16_11",
+          "Verse_18_24",
+          "Verse_16_12"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_37"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q16": {
+        "retrieved": [
+          "Verse_6_33",
+          "Verse_8_8",
+          "Verse_18_75",
+          "Verse_3_7",
+          "Verse_2_48"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q17": {
+        "retrieved": [
+          "Verse_6_12",
+          "Verse_18_52",
+          "Verse_2_7",
+          "Verse_8_9",
+          "Verse_14_18"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q18": {
+        "retrieved": [
+          "Verse_6_34",
+          "Verse_8_8",
+          "Verse_6_26",
+          "Verse_6_33",
+          "Verse_6_35"
+        ],
+        "relevant": [
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_10"
+        ],
+        "ap_at_k": 0.06666666666666667
+      },
+      "Q19": {
+        "retrieved": [
+          "Verse_8_12",
+          "Verse_6_12",
+          "Verse_2_48",
+          "Verse_14_11",
+          "Verse_14_9"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q20": {
+        "retrieved": [
+          "Verse_8_8",
+          "Verse_6_33",
+          "Verse_18_75",
+          "Verse_5_6",
+          "Verse_2_48"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q21": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_18_47",
+          "Verse_3_8",
+          "Verse_18_44",
+          "Verse_10_38"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.41666666666666663
+      },
+      "Q22": {
+        "retrieved": [
+          "Verse_3_30",
+          "Verse_18_66",
+          "Verse_2_5",
+          "Verse_15_13",
+          "Verse_9_10"
+        ],
+        "relevant": [
+          "Verse_3_3",
+          "Verse_3_4",
+          "Verse_3_5",
+          "Verse_3_8",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q23": {
+        "retrieved": [
+          "Verse_1_30",
+          "Verse_1_29",
+          "Verse_18_57",
+          "Verse_2_7",
+          "Verse_3_22"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_3",
+          "Verse_3_8"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q24": {
+        "retrieved": [
+          "Verse_17_1",
+          "Verse_1_8",
+          "Verse_18_32",
+          "Verse_1_15",
+          "Verse_11_9"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q25": {
+        "retrieved": [
+          "Verse_12_20",
+          "Verse_3_7",
+          "Verse_18_31",
+          "Verse_8_8",
+          "Verse_5_6"
+        ],
+        "relevant": [
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q26": {
+        "retrieved": [
+          "Verse_2_8",
+          "Verse_2_28",
+          "Verse_1_47",
+          "Verse_1_27",
+          "Verse_8_5"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q27": {
+        "retrieved": [
+          "Verse_14_20",
+          "Verse_2_20",
+          "Verse_14_14",
+          "Verse_8_10",
+          "Verse_7_30"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q28": {
+        "retrieved": [
+          "Verse_1_47",
+          "Verse_2_1",
+          "Verse_1_30",
+          "Verse_18_36",
+          "Verse_2_28"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q29": {
+        "retrieved": [
+          "Verse_2_1",
+          "Verse_2_28",
+          "Verse_1_47",
+          "Verse_2_34",
+          "Verse_2_27"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q30": {
+        "retrieved": [
+          "Verse_4_42",
+          "Verse_14_9",
+          "Verse_3_39",
+          "Verse_7_29",
+          "Verse_2_39"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q31": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_17_1",
+          "Verse_3_39",
+          "Verse_11_41",
+          "Verse_7_17"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q32": {
+        "retrieved": [
+          "Verse_6_8",
+          "Verse_18_2",
+          "Verse_5_18",
+          "Verse_4_1",
+          "Verse_2_56"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.1
+      },
+      "Q33": {
+        "retrieved": [
+          "Verse_5_28",
+          "Verse_2_51",
+          "Verse_12_12",
+          "Verse_13_35",
+          "Verse_4_23"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42",
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q34": {
+        "retrieved": [
+          "Verse_3_42",
+          "Verse_7_5",
+          "Verse_13_7",
+          "Verse_6_8",
+          "Verse_6_6"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_27",
+          "Verse_3_42",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q35": {
+        "retrieved": [
+          "Verse_4_34",
+          "Verse_18_63",
+          "Verse_13_12",
+          "Verse_4_39",
+          "Verse_14_1"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q36": {
+        "retrieved": [
+          "Verse_6_15",
+          "Verse_1_32",
+          "Verse_7_29",
+          "Verse_9_3",
+          "Verse_16_22"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q37": {
+        "retrieved": [
+          "Verse_17_25",
+          "Verse_16_22",
+          "Verse_5_28",
+          "Verse_8_21",
+          "Verse_7_29"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q38": {
+        "retrieved": [
+          "Verse_18_66",
+          "Verse_7_29",
+          "Verse_4_10",
+          "Verse_9_3",
+          "Verse_8_15"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q39": {
+        "retrieved": [
+          "Verse_6_32",
+          "Verse_11_9",
+          "Verse_11_50",
+          "Verse_11_41",
+          "Verse_1_24"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q40": {
+        "retrieved": [
+          "Verse_17_25",
+          "Verse_4_28",
+          "Verse_17_13",
+          "Verse_16_5",
+          "Verse_4_23"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q41": {
+        "retrieved": [
+          "Verse_2_66",
+          "Verse_18_52",
+          "Verse_4_10",
+          "Verse_9_4",
+          "Verse_13_11"
+        ],
+        "relevant": [
+          "Verse_6_5",
+          "Verse_6_10",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q42": {
+        "retrieved": [
+          "Verse_1_30",
+          "Verse_11_24",
+          "Verse_2_8",
+          "Verse_4_30",
+          "Verse_2_27"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q43": {
+        "retrieved": [
+          "Verse_4_22",
+          "Verse_18_24",
+          "Verse_15_5",
+          "Verse_16_11",
+          "Verse_16_18"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_62"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q44": {
+        "retrieved": [
+          "Verse_1_34",
+          "Verse_1_40",
+          "Verse_1_43",
+          "Verse_9_17",
+          "Verse_1_30"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q45": {
+        "retrieved": [
+          "Verse_9_18",
+          "Verse_15_7",
+          "Verse_9_4",
+          "Verse_10_41",
+          "Verse_13_21"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q46": {
+        "retrieved": [
+          "Verse_2_66",
+          "Verse_6_15",
+          "Verse_18_52",
+          "Verse_17_16",
+          "Verse_3_2"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_6_10",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_3_30",
+          "Verse_18_8",
+          "Verse_11_42"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.16666666666666666
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_13_21",
+          "Verse_15_7",
+          "Verse_5_14",
+          "Verse_13_22",
+          "Verse_4_17"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_9_3",
+          "Verse_7_29",
+          "Verse_11_24",
+          "Verse_11_45",
+          "Verse_2_27"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_18_52",
+          "Verse_2_66",
+          "Verse_13_11",
+          "Verse_1_30",
+          "Verse_2_8"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_5",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      }
+    },
+    "full_system": {
+      "Q01": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_50",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q02": {
+        "retrieved": [
+          "Verse_13_30",
+          "Verse_18_23",
+          "Verse_6_3",
+          "Verse_4_16",
+          "Verse_5_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_9",
+          "Verse_3_19",
+          "Verse_2_50"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q03": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q04": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.6666666666666666
+      },
+      "Q05": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_50",
+          "Verse_3_3",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q06": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.6666666666666666
+      },
+      "Q07": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_64",
+          "Verse_2_71",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q08": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_23"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q09": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68",
+          "Verse_2_70"
+        ],
+        "relevant": [
+          "Verse_2_48",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.29166666666666663
+      },
+      "Q10": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q11": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q12": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_3_37",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q13": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q14": {
+        "retrieved": [
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_1_30",
+          "Verse_1_47",
+          "Verse_2_8"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.16666666666666666
+      },
+      "Q15": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_37"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q16": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q17": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q18": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_10"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q19": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q20": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.2
+      },
+      "Q21": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.41666666666666663
+      },
+      "Q22": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_3",
+          "Verse_3_4",
+          "Verse_3_5",
+          "Verse_3_8",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q23": {
+        "retrieved": [
+          "Verse_1_30",
+          "Verse_1_29",
+          "Verse_18_57",
+          "Verse_2_7",
+          "Verse_3_22"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_3",
+          "Verse_3_8"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q24": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q25": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35"
+        ],
+        "ap_at_k": 1.0
+      },
+      "Q26": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q27": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 1.0
+      },
+      "Q28": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q29": {
+        "retrieved": [
+          "Verse_2_1",
+          "Verse_2_28",
+          "Verse_1_47",
+          "Verse_2_34",
+          "Verse_2_27"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q30": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q31": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_17_1",
+          "Verse_3_39",
+          "Verse_11_41",
+          "Verse_7_17"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q32": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68",
+          "Verse_2_70"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.5833333333333333
+      },
+      "Q33": {
+        "retrieved": [
+          "Verse_5_28",
+          "Verse_2_51",
+          "Verse_12_12",
+          "Verse_13_35",
+          "Verse_4_23"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42",
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q34": {
+        "retrieved": [
+          "Verse_3_42",
+          "Verse_7_5",
+          "Verse_13_7",
+          "Verse_6_8",
+          "Verse_6_6"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_27",
+          "Verse_3_42",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q35": {
+        "retrieved": [
+          "Verse_4_34",
+          "Verse_18_63",
+          "Verse_13_12",
+          "Verse_4_39",
+          "Verse_14_1"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q36": {
+        "retrieved": [
+          "Verse_6_15",
+          "Verse_1_32",
+          "Verse_7_29",
+          "Verse_9_3",
+          "Verse_16_22"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q37": {
+        "retrieved": [
+          "Verse_17_25",
+          "Verse_16_22",
+          "Verse_5_28",
+          "Verse_8_21",
+          "Verse_7_29"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q38": {
+        "retrieved": [
+          "Verse_18_66",
+          "Verse_7_29",
+          "Verse_4_10",
+          "Verse_9_3",
+          "Verse_8_15"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q39": {
+        "retrieved": [
+          "Verse_6_32",
+          "Verse_11_9",
+          "Verse_11_50",
+          "Verse_11_41",
+          "Verse_1_24"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q40": {
+        "retrieved": [
+          "Verse_17_25",
+          "Verse_4_28",
+          "Verse_17_13",
+          "Verse_16_5",
+          "Verse_4_23"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q41": {
+        "retrieved": [
+          "Verse_6_5",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_5",
+          "Verse_6_10",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q42": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q43": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_62"
+        ],
+        "ap_at_k": 0.6666666666666666
+      },
+      "Q44": {
+        "retrieved": [
+          "Verse_1_34",
+          "Verse_1_40",
+          "Verse_1_43",
+          "Verse_9_17",
+          "Verse_1_30"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q45": {
+        "retrieved": [
+          "Verse_2_55",
+          "Verse_2_54",
+          "Verse_2_56",
+          "Verse_2_68",
+          "Verse_2_70"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q46": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_6_10",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_5",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      }
+    },
+    "no_expert_rules": {
+      "Q01": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_50",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q02": {
+        "retrieved": [
+          "Verse_13_30",
+          "Verse_18_23",
+          "Verse_6_3",
+          "Verse_4_16",
+          "Verse_5_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_9",
+          "Verse_3_19",
+          "Verse_2_50"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q03": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q04": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q05": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_50",
+          "Verse_3_3",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q06": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.6666666666666666
+      },
+      "Q07": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_64",
+          "Verse_2_71",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q08": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_23"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q09": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68",
+          "Verse_2_70"
+        ],
+        "relevant": [
+          "Verse_2_48",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.29166666666666663
+      },
+      "Q10": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q11": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q12": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_3_37",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q13": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q14": {
+        "retrieved": [
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_1_30",
+          "Verse_1_47",
+          "Verse_2_8"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.16666666666666666
+      },
+      "Q15": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_37"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q16": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q17": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q18": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_10"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q19": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q20": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.2
+      },
+      "Q21": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.41666666666666663
+      },
+      "Q22": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_3",
+          "Verse_3_4",
+          "Verse_3_5",
+          "Verse_3_8",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q23": {
+        "retrieved": [
+          "Verse_1_30",
+          "Verse_1_29",
+          "Verse_18_57",
+          "Verse_2_7",
+          "Verse_3_22"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_3",
+          "Verse_3_8"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q24": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q25": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35"
+        ],
+        "ap_at_k": 1.0
+      },
+      "Q26": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q27": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 1.0
+      },
+      "Q28": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q29": {
+        "retrieved": [
+          "Verse_2_1",
+          "Verse_2_28",
+          "Verse_1_47",
+          "Verse_2_34",
+          "Verse_2_27"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q30": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q31": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_17_1",
+          "Verse_3_39",
+          "Verse_11_41",
+          "Verse_7_17"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q32": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68",
+          "Verse_2_70"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.5833333333333333
+      },
+      "Q33": {
+        "retrieved": [
+          "Verse_5_28",
+          "Verse_2_51",
+          "Verse_12_12",
+          "Verse_13_35",
+          "Verse_4_23"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42",
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q34": {
+        "retrieved": [
+          "Verse_3_42",
+          "Verse_7_5",
+          "Verse_13_7",
+          "Verse_6_8",
+          "Verse_6_6"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_27",
+          "Verse_3_42",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q35": {
+        "retrieved": [
+          "Verse_4_34",
+          "Verse_18_63",
+          "Verse_13_12",
+          "Verse_4_39",
+          "Verse_14_1"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q36": {
+        "retrieved": [
+          "Verse_6_15",
+          "Verse_1_32",
+          "Verse_7_29",
+          "Verse_9_3",
+          "Verse_16_22"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q37": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q38": {
+        "retrieved": [
+          "Verse_18_66",
+          "Verse_7_29",
+          "Verse_4_10",
+          "Verse_9_3",
+          "Verse_8_15"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q39": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q40": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q41": {
+        "retrieved": [
+          "Verse_6_5",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_5",
+          "Verse_6_10",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q42": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q43": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_62"
+        ],
+        "ap_at_k": 0.6666666666666666
+      },
+      "Q44": {
+        "retrieved": [
+          "Verse_1_34",
+          "Verse_1_40",
+          "Verse_1_43",
+          "Verse_9_17",
+          "Verse_1_30"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q45": {
+        "retrieved": [
+          "Verse_2_55",
+          "Verse_2_54",
+          "Verse_2_56",
+          "Verse_2_68",
+          "Verse_2_70"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q46": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_6_10",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_5",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      }
+    },
+    "no_semantic": {
+      "Q01": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_50",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q02": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_9",
+          "Verse_3_19",
+          "Verse_2_50"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q03": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q04": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.6666666666666666
+      },
+      "Q05": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_50",
+          "Verse_3_3",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q06": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.6666666666666666
+      },
+      "Q07": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_64",
+          "Verse_2_71",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q08": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_23"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q09": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68",
+          "Verse_2_70"
+        ],
+        "relevant": [
+          "Verse_2_48",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.29166666666666663
+      },
+      "Q10": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q11": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q12": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_3_37",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q13": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q14": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q15": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_37"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q16": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q17": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q18": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_10"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q19": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q20": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.2
+      },
+      "Q21": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.41666666666666663
+      },
+      "Q22": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_3",
+          "Verse_3_4",
+          "Verse_3_5",
+          "Verse_3_8",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q23": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_3",
+          "Verse_3_8"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q24": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q25": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35"
+        ],
+        "ap_at_k": 1.0
+      },
+      "Q26": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q27": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 1.0
+      },
+      "Q28": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q29": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q30": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q31": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q32": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68",
+          "Verse_2_70"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.5833333333333333
+      },
+      "Q33": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42",
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q34": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_27",
+          "Verse_3_42",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q35": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q36": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q37": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q38": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q39": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q40": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q41": {
+        "retrieved": [
+          "Verse_6_5",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_6_5",
+          "Verse_6_10",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q42": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q43": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_57",
+          "Verse_2_71",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_62"
+        ],
+        "ap_at_k": 0.6666666666666666
+      },
+      "Q44": {
+        "retrieved": [],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q45": {
+        "retrieved": [
+          "Verse_2_55",
+          "Verse_2_54",
+          "Verse_2_56",
+          "Verse_2_68",
+          "Verse_2_70"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q46": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_6_10",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_5",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      }
+    },
+    "no_graph": {
+      "Q01": {
+        "retrieved": [
+          "Verse_3_19",
+          "Verse_4_14",
+          "Verse_4_22",
+          "Verse_3_4",
+          "Verse_18_11"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_50",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q02": {
+        "retrieved": [
+          "Verse_13_30",
+          "Verse_18_23",
+          "Verse_6_3",
+          "Verse_4_16",
+          "Verse_5_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_9",
+          "Verse_3_19",
+          "Verse_2_50"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q03": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_18_47",
+          "Verse_1_31",
+          "Verse_4_14",
+          "Verse_1_46"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q04": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_7_23",
+          "Verse_2_5",
+          "Verse_4_14",
+          "Verse_4_20"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q05": {
+        "retrieved": [
+          "Verse_6_23",
+          "Verse_3_7",
+          "Verse_2_50",
+          "Verse_18_75",
+          "Verse_6_36"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_50",
+          "Verse_3_3",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q06": {
+        "retrieved": [
+          "Verse_17_15",
+          "Verse_3_32",
+          "Verse_1_29",
+          "Verse_1_47",
+          "Verse_11_45"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q07": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_66",
+          "Verse_18_52",
+          "Verse_6_15",
+          "Verse_2_65"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_64",
+          "Verse_2_71",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q08": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_6_26",
+          "Verse_6_34",
+          "Verse_6_35",
+          "Verse_2_67"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_23"
+        ],
+        "ap_at_k": 0.375
+      },
+      "Q09": {
+        "retrieved": [
+          "Verse_13_27",
+          "Verse_17_26",
+          "Verse_1_8",
+          "Verse_18_29",
+          "Verse_2_45"
+        ],
+        "relevant": [
+          "Verse_2_48",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q10": {
+        "retrieved": [
+          "Verse_18_52",
+          "Verse_2_66",
+          "Verse_1_30",
+          "Verse_2_8",
+          "Verse_6_20"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q11": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_3_30",
+          "Verse_6_34"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.41666666666666663
+      },
+      "Q12": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_18_24",
+          "Verse_13_7",
+          "Verse_2_43",
+          "Verse_3_37"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_3_37",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.4666666666666666
+      },
+      "Q13": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_13_7",
+          "Verse_16_12",
+          "Verse_18_24",
+          "Verse_17_25"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q14": {
+        "retrieved": [
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_1_30",
+          "Verse_1_47",
+          "Verse_2_8"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.16666666666666666
+      },
+      "Q15": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_15_5",
+          "Verse_13_7",
+          "Verse_16_11",
+          "Verse_18_24"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_37"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q16": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_6_33",
+          "Verse_8_8",
+          "Verse_18_75",
+          "Verse_3_7"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q17": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_6_12",
+          "Verse_18_52",
+          "Verse_2_7",
+          "Verse_8_9"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q18": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_6_34",
+          "Verse_8_8",
+          "Verse_6_26",
+          "Verse_6_33"
+        ],
+        "relevant": [
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_10"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q19": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_8_12",
+          "Verse_6_12",
+          "Verse_2_48",
+          "Verse_14_11"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q20": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_8_8",
+          "Verse_6_33",
+          "Verse_18_75",
+          "Verse_5_6"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.2
+      },
+      "Q21": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_18_47",
+          "Verse_3_8",
+          "Verse_18_44",
+          "Verse_10_38"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.41666666666666663
+      },
+      "Q22": {
+        "retrieved": [
+          "Verse_3_30",
+          "Verse_18_66",
+          "Verse_2_5",
+          "Verse_15_13",
+          "Verse_9_10"
+        ],
+        "relevant": [
+          "Verse_3_3",
+          "Verse_3_4",
+          "Verse_3_5",
+          "Verse_3_8",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q23": {
+        "retrieved": [
+          "Verse_1_30",
+          "Verse_1_29",
+          "Verse_18_57",
+          "Verse_2_7",
+          "Verse_3_22"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_3",
+          "Verse_3_8"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q24": {
+        "retrieved": [
+          "Verse_17_1",
+          "Verse_1_8",
+          "Verse_18_32",
+          "Verse_1_15",
+          "Verse_11_9"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q25": {
+        "retrieved": [
+          "Verse_12_20",
+          "Verse_3_7",
+          "Verse_18_31",
+          "Verse_8_8",
+          "Verse_5_6"
+        ],
+        "relevant": [
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q26": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_2_8",
+          "Verse_2_28",
+          "Verse_1_47",
+          "Verse_1_27"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q27": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_14_20",
+          "Verse_14_14",
+          "Verse_8_10",
+          "Verse_7_30"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 1.0
+      },
+      "Q28": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_47",
+          "Verse_2_1",
+          "Verse_1_30",
+          "Verse_18_36"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q29": {
+        "retrieved": [
+          "Verse_2_1",
+          "Verse_2_28",
+          "Verse_1_47",
+          "Verse_2_34",
+          "Verse_2_27"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q30": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_4_42",
+          "Verse_14_9",
+          "Verse_3_39",
+          "Verse_7_29"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q31": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_17_1",
+          "Verse_3_39",
+          "Verse_11_41",
+          "Verse_7_17"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q32": {
+        "retrieved": [
+          "Verse_6_8",
+          "Verse_18_2",
+          "Verse_5_18",
+          "Verse_4_1",
+          "Verse_2_56"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.1
+      },
+      "Q33": {
+        "retrieved": [
+          "Verse_5_28",
+          "Verse_2_51",
+          "Verse_12_12",
+          "Verse_13_35",
+          "Verse_4_23"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42",
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q34": {
+        "retrieved": [
+          "Verse_3_42",
+          "Verse_7_5",
+          "Verse_13_7",
+          "Verse_6_8",
+          "Verse_6_6"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_27",
+          "Verse_3_42",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q35": {
+        "retrieved": [
+          "Verse_4_34",
+          "Verse_18_63",
+          "Verse_13_12",
+          "Verse_4_39",
+          "Verse_14_1"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q36": {
+        "retrieved": [
+          "Verse_6_15",
+          "Verse_1_32",
+          "Verse_7_29",
+          "Verse_9_3",
+          "Verse_16_22"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q37": {
+        "retrieved": [
+          "Verse_17_25",
+          "Verse_16_22",
+          "Verse_5_28",
+          "Verse_8_21",
+          "Verse_7_29"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q38": {
+        "retrieved": [
+          "Verse_18_66",
+          "Verse_7_29",
+          "Verse_4_10",
+          "Verse_9_3",
+          "Verse_8_15"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q39": {
+        "retrieved": [
+          "Verse_6_32",
+          "Verse_11_9",
+          "Verse_11_50",
+          "Verse_11_41",
+          "Verse_1_24"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q40": {
+        "retrieved": [
+          "Verse_17_25",
+          "Verse_4_28",
+          "Verse_17_13",
+          "Verse_16_5",
+          "Verse_4_23"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q41": {
+        "retrieved": [
+          "Verse_6_5",
+          "Verse_2_66",
+          "Verse_18_52",
+          "Verse_4_10",
+          "Verse_9_4"
+        ],
+        "relevant": [
+          "Verse_6_5",
+          "Verse_6_10",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q42": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_30",
+          "Verse_11_24",
+          "Verse_2_8",
+          "Verse_4_30"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q43": {
+        "retrieved": [
+          "Verse_4_22",
+          "Verse_18_24",
+          "Verse_15_5",
+          "Verse_16_11",
+          "Verse_16_18"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_62"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q44": {
+        "retrieved": [
+          "Verse_1_34",
+          "Verse_1_40",
+          "Verse_1_43",
+          "Verse_9_17",
+          "Verse_1_30"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q45": {
+        "retrieved": [
+          "Verse_9_18",
+          "Verse_15_7",
+          "Verse_9_4",
+          "Verse_10_41",
+          "Verse_13_21"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q46": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_66",
+          "Verse_6_15",
+          "Verse_18_52",
+          "Verse_17_16"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_6_10",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_3_30",
+          "Verse_18_8"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.5555555555555555
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_13_21",
+          "Verse_15_7",
+          "Verse_5_14",
+          "Verse_13_22",
+          "Verse_4_17"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_9_3",
+          "Verse_7_29",
+          "Verse_11_24",
+          "Verse_11_45"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_18_52",
+          "Verse_2_66",
+          "Verse_13_11",
+          "Verse_1_30"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_5",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      }
+    },
+    "no_ontology": {
+      "Q01": {
+        "retrieved": [
+          "Verse_3_19",
+          "Verse_4_14",
+          "Verse_4_22",
+          "Verse_3_4",
+          "Verse_18_11"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_50",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q02": {
+        "retrieved": [
+          "Verse_13_30",
+          "Verse_18_23",
+          "Verse_6_3",
+          "Verse_4_16",
+          "Verse_5_7"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_9",
+          "Verse_3_19",
+          "Verse_2_50"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q03": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_18_47",
+          "Verse_1_31",
+          "Verse_4_14",
+          "Verse_1_46"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_19"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q04": {
+        "retrieved": [
+          "Verse_2_47",
+          "Verse_7_23",
+          "Verse_2_5",
+          "Verse_4_14",
+          "Verse_4_20"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.3333333333333333
+      },
+      "Q05": {
+        "retrieved": [
+          "Verse_6_23",
+          "Verse_3_7",
+          "Verse_2_50",
+          "Verse_18_75",
+          "Verse_6_36"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_50",
+          "Verse_3_3",
+          "Verse_3_9"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q06": {
+        "retrieved": [
+          "Verse_17_15",
+          "Verse_3_32",
+          "Verse_1_29",
+          "Verse_1_47",
+          "Verse_11_45"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q07": {
+        "retrieved": [
+          "Verse_2_66",
+          "Verse_18_52",
+          "Verse_6_15",
+          "Verse_2_65",
+          "Verse_4_39"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_64",
+          "Verse_2_71",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q08": {
+        "retrieved": [
+          "Verse_6_26",
+          "Verse_6_34",
+          "Verse_6_35",
+          "Verse_2_67",
+          "Verse_6_33"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_23"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q09": {
+        "retrieved": [
+          "Verse_13_27",
+          "Verse_17_26",
+          "Verse_1_8",
+          "Verse_18_29",
+          "Verse_2_45"
+        ],
+        "relevant": [
+          "Verse_2_48",
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q10": {
+        "retrieved": [
+          "Verse_18_52",
+          "Verse_2_66",
+          "Verse_1_30",
+          "Verse_2_8",
+          "Verse_6_20"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q11": {
+        "retrieved": [
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_3_30",
+          "Verse_6_34",
+          "Verse_6_35"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.125
+      },
+      "Q12": {
+        "retrieved": [
+          "Verse_18_24",
+          "Verse_13_7",
+          "Verse_2_43",
+          "Verse_3_37",
+          "Verse_6_24"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_3_37",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.08333333333333333
+      },
+      "Q13": {
+        "retrieved": [
+          "Verse_13_7",
+          "Verse_16_12",
+          "Verse_18_24",
+          "Verse_17_25",
+          "Verse_6_24"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q14": {
+        "retrieved": [
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_1_30",
+          "Verse_1_47",
+          "Verse_2_8"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.16666666666666666
+      },
+      "Q15": {
+        "retrieved": [
+          "Verse_15_5",
+          "Verse_13_7",
+          "Verse_16_11",
+          "Verse_18_24",
+          "Verse_16_12"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_37"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q16": {
+        "retrieved": [
+          "Verse_6_33",
+          "Verse_8_8",
+          "Verse_18_75",
+          "Verse_3_7",
+          "Verse_2_48"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q17": {
+        "retrieved": [
+          "Verse_6_12",
+          "Verse_18_52",
+          "Verse_2_7",
+          "Verse_8_9",
+          "Verse_14_18"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q18": {
+        "retrieved": [
+          "Verse_6_34",
+          "Verse_8_8",
+          "Verse_6_26",
+          "Verse_6_33",
+          "Verse_6_35"
+        ],
+        "relevant": [
+          "Verse_6_35",
+          "Verse_6_25",
+          "Verse_6_10"
+        ],
+        "ap_at_k": 0.06666666666666667
+      },
+      "Q19": {
+        "retrieved": [
+          "Verse_8_12",
+          "Verse_6_12",
+          "Verse_2_48",
+          "Verse_14_11",
+          "Verse_14_9"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q20": {
+        "retrieved": [
+          "Verse_8_8",
+          "Verse_6_33",
+          "Verse_18_75",
+          "Verse_5_6",
+          "Verse_2_48"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_13",
+          "Verse_6_17",
+          "Verse_6_18",
+          "Verse_6_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q21": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_18_47",
+          "Verse_3_8",
+          "Verse_18_44",
+          "Verse_10_38"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_8",
+          "Verse_3_5",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.41666666666666663
+      },
+      "Q22": {
+        "retrieved": [
+          "Verse_3_30",
+          "Verse_18_66",
+          "Verse_2_5",
+          "Verse_15_13",
+          "Verse_9_10"
+        ],
+        "relevant": [
+          "Verse_3_3",
+          "Verse_3_4",
+          "Verse_3_5",
+          "Verse_3_8",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q23": {
+        "retrieved": [
+          "Verse_1_30",
+          "Verse_1_29",
+          "Verse_18_57",
+          "Verse_2_7",
+          "Verse_3_22"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_3_3",
+          "Verse_3_8"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q24": {
+        "retrieved": [
+          "Verse_17_1",
+          "Verse_1_8",
+          "Verse_18_32",
+          "Verse_1_15",
+          "Verse_11_9"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q25": {
+        "retrieved": [
+          "Verse_12_20",
+          "Verse_3_7",
+          "Verse_18_31",
+          "Verse_8_8",
+          "Verse_5_6"
+        ],
+        "relevant": [
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q26": {
+        "retrieved": [
+          "Verse_2_8",
+          "Verse_2_28",
+          "Verse_1_47",
+          "Verse_1_27",
+          "Verse_8_5"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q27": {
+        "retrieved": [
+          "Verse_14_20",
+          "Verse_2_20",
+          "Verse_14_14",
+          "Verse_8_10",
+          "Verse_7_30"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.5
+      },
+      "Q28": {
+        "retrieved": [
+          "Verse_1_47",
+          "Verse_2_1",
+          "Verse_1_30",
+          "Verse_18_36",
+          "Verse_2_28"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q29": {
+        "retrieved": [
+          "Verse_2_1",
+          "Verse_2_28",
+          "Verse_1_47",
+          "Verse_2_34",
+          "Verse_2_27"
+        ],
+        "relevant": [
+          "Verse_2_20"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q30": {
+        "retrieved": [
+          "Verse_4_42",
+          "Verse_14_9",
+          "Verse_3_39",
+          "Verse_7_29",
+          "Verse_2_39"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q31": {
+        "retrieved": [
+          "Verse_2_54",
+          "Verse_17_1",
+          "Verse_3_39",
+          "Verse_11_41",
+          "Verse_7_17"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56",
+          "Verse_2_68"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q32": {
+        "retrieved": [
+          "Verse_6_8",
+          "Verse_18_2",
+          "Verse_5_18",
+          "Verse_4_1",
+          "Verse_2_56"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_2_56"
+        ],
+        "ap_at_k": 0.1
+      },
+      "Q33": {
+        "retrieved": [
+          "Verse_5_28",
+          "Verse_2_51",
+          "Verse_12_12",
+          "Verse_13_35",
+          "Verse_4_23"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42",
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q34": {
+        "retrieved": [
+          "Verse_3_42",
+          "Verse_7_5",
+          "Verse_13_7",
+          "Verse_6_8",
+          "Verse_6_6"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_27",
+          "Verse_3_42",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.25
+      },
+      "Q35": {
+        "retrieved": [
+          "Verse_4_34",
+          "Verse_18_63",
+          "Verse_13_12",
+          "Verse_4_39",
+          "Verse_14_1"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_3_42"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q36": {
+        "retrieved": [
+          "Verse_6_15",
+          "Verse_1_32",
+          "Verse_7_29",
+          "Verse_9_3",
+          "Verse_16_22"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55",
+          "Verse_3_35"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q37": {
+        "retrieved": [
+          "Verse_17_25",
+          "Verse_16_22",
+          "Verse_5_28",
+          "Verse_8_21",
+          "Verse_7_29"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_3_3"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q38": {
+        "retrieved": [
+          "Verse_18_66",
+          "Verse_7_29",
+          "Verse_4_10",
+          "Verse_9_3",
+          "Verse_8_15"
+        ],
+        "relevant": [
+          "Verse_6_47",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q39": {
+        "retrieved": [
+          "Verse_6_32",
+          "Verse_11_9",
+          "Verse_11_50",
+          "Verse_11_41",
+          "Verse_1_24"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q40": {
+        "retrieved": [
+          "Verse_17_25",
+          "Verse_4_28",
+          "Verse_17_13",
+          "Verse_16_5",
+          "Verse_4_23"
+        ],
+        "relevant": [
+          "Verse_6_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q41": {
+        "retrieved": [
+          "Verse_2_66",
+          "Verse_18_52",
+          "Verse_4_10",
+          "Verse_9_4",
+          "Verse_13_11"
+        ],
+        "relevant": [
+          "Verse_6_5",
+          "Verse_6_10",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q42": {
+        "retrieved": [
+          "Verse_1_30",
+          "Verse_11_24",
+          "Verse_2_8",
+          "Verse_4_30",
+          "Verse_2_27"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q43": {
+        "retrieved": [
+          "Verse_4_22",
+          "Verse_18_24",
+          "Verse_15_5",
+          "Verse_16_11",
+          "Verse_16_18"
+        ],
+        "relevant": [
+          "Verse_2_47",
+          "Verse_2_48",
+          "Verse_2_62"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q44": {
+        "retrieved": [
+          "Verse_1_34",
+          "Verse_1_40",
+          "Verse_1_43",
+          "Verse_9_17",
+          "Verse_1_30"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_2_47",
+          "Verse_6_5"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q45": {
+        "retrieved": [
+          "Verse_9_18",
+          "Verse_15_7",
+          "Verse_9_4",
+          "Verse_10_41",
+          "Verse_13_21"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q46": {
+        "retrieved": [
+          "Verse_2_66",
+          "Verse_6_15",
+          "Verse_18_52",
+          "Verse_17_16",
+          "Verse_3_2"
+        ],
+        "relevant": [
+          "Verse_2_55",
+          "Verse_6_10",
+          "Verse_2_64"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_16_18",
+          "Verse_2_63",
+          "Verse_3_30",
+          "Verse_18_8",
+          "Verse_11_42"
+        ],
+        "relevant": [
+          "Verse_2_62",
+          "Verse_2_63",
+          "Verse_3_43"
+        ],
+        "ap_at_k": 0.16666666666666666
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_13_21",
+          "Verse_15_7",
+          "Verse_5_14",
+          "Verse_13_22",
+          "Verse_4_17"
+        ],
+        "relevant": [
+          "Verse_3_35",
+          "Verse_6_47",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_9_3",
+          "Verse_7_29",
+          "Verse_11_24",
+          "Verse_11_45",
+          "Verse_2_27"
+        ],
+        "relevant": [
+          "Verse_2_20",
+          "Verse_2_47"
+        ],
+        "ap_at_k": 0.0
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_18_52",
+          "Verse_2_66",
+          "Verse_13_11",
+          "Verse_1_30",
+          "Verse_2_8"
+        ],
+        "relevant": [
+          "Verse_6_10",
+          "Verse_6_5",
+          "Verse_2_55"
+        ],
+        "ap_at_k": 0.0
+      }
+    }
+  },
+  "hindi_variants": {
+    "bm25_baseline": {
+      "Q46": {
+        "retrieved": [
+          "Verse_18_78",
+          "Verse_5_26",
+          "Verse_6_5",
+          "Verse_6_4",
+          "Verse_6_3"
+        ]
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_18_78",
+          "Verse_5_26",
+          "Verse_6_5",
+          "Verse_6_4",
+          "Verse_6_3"
+        ]
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_18_78",
+          "Verse_5_26",
+          "Verse_6_5",
+          "Verse_6_4",
+          "Verse_6_3"
+        ]
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_18_78",
+          "Verse_5_26",
+          "Verse_6_5",
+          "Verse_6_4",
+          "Verse_6_3"
+        ]
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_18_78",
+          "Verse_5_26",
+          "Verse_6_5",
+          "Verse_6_4",
+          "Verse_6_3"
+        ]
+      }
+    },
+    "semantic_only": {
+      "Q46": {
+        "retrieved": [
+          "Verse_2_65",
+          "Verse_2_66",
+          "Verse_5_26",
+          "Verse_4_39",
+          "Verse_2_7"
+        ]
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_2_63",
+          "Verse_16_18",
+          "Verse_11_42",
+          "Verse_3_37",
+          "Verse_3_30"
+        ]
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_15_7",
+          "Verse_13_21",
+          "Verse_5_14",
+          "Verse_3_14",
+          "Verse_2_50"
+        ]
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_2_27",
+          "Verse_11_24",
+          "Verse_9_3",
+          "Verse_11_45",
+          "Verse_13_26"
+        ]
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_18_52",
+          "Verse_2_66",
+          "Verse_6_5",
+          "Verse_13_11",
+          "Verse_13_10"
+        ]
+      }
+    },
+    "full_system": {
+      "Q46": {
+        "retrieved": [
+          "Verse_6_10",
+          "Verse_2_44",
+          "Verse_2_66",
+          "Verse_4_18",
+          "Verse_4_25"
+        ]
+      },
+      "Q47": {
+        "retrieved": [
+          "Verse_2_62",
+          "Verse_1_23",
+          "Verse_1_32",
+          "Verse_1_33",
+          "Verse_1_38"
+        ]
+      },
+      "Q48": {
+        "retrieved": [
+          "Verse_3_35",
+          "Verse_2_33",
+          "Verse_3_8",
+          "Verse_18_46",
+          "Verse_18_47"
+        ]
+      },
+      "Q49": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ]
+      },
+      "Q50": {
+        "retrieved": [
+          "Verse_2_20",
+          "Verse_1_8",
+          "Verse_2_13",
+          "Verse_2_17",
+          "Verse_2_18"
+        ]
+      }
+    }
+  }
+}

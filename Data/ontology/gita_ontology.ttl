@@ -213,7 +213,7 @@ gita:heuristicDist  a owl:DatatypeProperty ;
 # ═══════════════════════════════════════════════════════════════════════════════
 
 # ───────────────────────────────────────────────────────────────────────────────
-# CHAPTERS (3)
+# CHAPTERS (9)
 # ───────────────────────────────────────────────────────────────────────────────
 
 gita:Chapter_2  a gita:Chapter ;
@@ -224,9 +224,33 @@ gita:Chapter_3  a gita:Chapter ;
     rdfs:label "Chapter 3 — Karma Yoga"^^xsd:string ;
     gita:chapterNumber 3 .
 
+gita:Chapter_4  a gita:Chapter ;
+    rdfs:label "Chapter 4 — Jnana Karma Sannyasa Yoga"^^xsd:string ;
+    gita:chapterNumber 4 .
+
+gita:Chapter_5  a gita:Chapter ;
+    rdfs:label "Chapter 5 — Karma Sannyasa Yoga"^^xsd:string ;
+    gita:chapterNumber 5 .
+
 gita:Chapter_6  a gita:Chapter ;
     rdfs:label "Chapter 6 — Dhyana Yoga"^^xsd:string ;
     gita:chapterNumber 6 .
+
+gita:Chapter_7  a gita:Chapter ;
+    rdfs:label "Chapter 7 — Jnana Vijnana Yoga"^^xsd:string ;
+    gita:chapterNumber 7 .
+
+gita:Chapter_12 a gita:Chapter ;
+    rdfs:label "Chapter 12 — Bhakti Yoga"^^xsd:string ;
+    gita:chapterNumber 12 .
+
+gita:Chapter_14 a gita:Chapter ;
+    rdfs:label "Chapter 14 — Gunatraya Vibhaga Yoga"^^xsd:string ;
+    gita:chapterNumber 14 .
+
+gita:Chapter_18 a gita:Chapter ;
+    rdfs:label "Chapter 18 — Moksha Sannyasa Yoga"^^xsd:string ;
+    gita:chapterNumber 18 .
 
 # ───────────────────────────────────────────────────────────────────────────────
 # SPEAKERS (2)
@@ -872,3 +896,3520 @@ gita:Verse_6_47  a gita:Verse ;
 # Key axioms: leadsTo (Transitive), contrastsWith (Symmetric),
 #             spirituallyProgressesTo (PropertyChain: teaches∘leadsTo)
 # ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Rule-based expansion: 669 verses ──────────────
+gita:Verse_1_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Chapter_1  a gita:Chapter ;
+    rdfs:label "Arjuna Vishada Yoga"^^xsd:string ;
+    gita:chapterNumber 1 .
+
+gita:Verse_1_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_3  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_1_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_8  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_1_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_9  gita:teaches  gita:Vairagya .
+
+gita:Verse_1_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_20  gita:teaches  gita:Sannyasa_inst .
+
+gita:Verse_1_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_23  gita:teaches  gita:Kama .
+
+gita:Verse_1_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_32  gita:teaches  gita:Kama .
+
+gita:Verse_1_33  a gita:Verse ;
+    gita:verseNumber 33 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_33  gita:teaches  gita:Vairagya .
+gita:Verse_1_33  gita:teaches  gita:Kama .
+
+gita:Verse_1_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_35  a gita:Verse ;
+    gita:verseNumber 35 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_36  a gita:Verse ;
+    gita:verseNumber 36 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_37  a gita:Verse ;
+    gita:verseNumber 37 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_38  a gita:Verse ;
+    gita:verseNumber 38 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_38  gita:teaches  gita:Kama .
+
+gita:Verse_1_39  a gita:Verse ;
+    gita:verseNumber 39 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_40  a gita:Verse ;
+    gita:verseNumber 40 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_41  a gita:Verse ;
+    gita:verseNumber 41 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_42  a gita:Verse ;
+    gita:verseNumber 42 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_42  gita:teaches  gita:Moha .
+
+gita:Verse_1_43  a gita:Verse ;
+    gita:verseNumber 43 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_43  gita:teaches  gita:Moha .
+
+gita:Verse_1_44  a gita:Verse ;
+    gita:verseNumber 44 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_44  gita:teaches  gita:Abhyasa .
+
+gita:Verse_1_45  a gita:Verse ;
+    gita:verseNumber 45 ;
+    gita:belongsToChapter gita:Chapter_1 .
+gita:Verse_1_45  gita:teaches  gita:Kama .
+
+gita:Verse_1_46  a gita:Verse ;
+    gita:verseNumber 46 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_1_47  a gita:Verse ;
+    gita:verseNumber 47 ;
+    gita:belongsToChapter gita:Chapter_1 .
+
+gita:Verse_2_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_4  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_2_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_5  gita:teaches  gita:Kama .
+
+gita:Verse_2_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_11  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_2_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_13  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_14  gita:teaches  gita:Samata .
+
+gita:Verse_2_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_15  gita:teaches  gita:Samata .
+
+gita:Verse_2_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_16  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_2_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_17  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_18  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_19  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_22  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_24  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_25  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_29  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_2_29  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_32  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_33  a gita:Verse ;
+    gita:verseNumber 33 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_33  gita:teaches  gita:Vairagya .
+gita:Verse_2_33  gita:teaches  gita:Svadharma .
+
+gita:Verse_2_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_35  a gita:Verse ;
+    gita:verseNumber 35 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_35  gita:teaches  gita:Sattva .
+
+gita:Verse_2_36  a gita:Verse ;
+    gita:verseNumber 36 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_37  a gita:Verse ;
+    gita:verseNumber 37 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_38  a gita:Verse ;
+    gita:verseNumber 38 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_38  gita:teaches  gita:Samata .
+
+gita:Verse_2_39  a gita:Verse ;
+    gita:verseNumber 39 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_39  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_2_40  a gita:Verse ;
+    gita:verseNumber 40 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_40  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_2_40  gita:teaches  gita:Abhyasa .
+
+gita:Verse_2_41  a gita:Verse ;
+    gita:verseNumber 41 ;
+    gita:belongsToChapter gita:Chapter_2 .
+
+gita:Verse_2_42  a gita:Verse ;
+    gita:verseNumber 42 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_42  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_2_43  a gita:Verse ;
+    gita:verseNumber 43 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_43  gita:teaches  gita:Kama .
+
+gita:Verse_2_44  a gita:Verse ;
+    gita:verseNumber 44 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_44  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_2_44  gita:teaches  gita:Samata .
+gita:Verse_2_44  gita:teaches  gita:Samadhi .
+
+gita:Verse_2_45  a gita:Verse ;
+    gita:verseNumber 45 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_45  gita:teaches  gita:AtmaJnana .
+gita:Verse_2_45  gita:teaches  gita:Sattva .
+
+gita:Verse_2_46  a gita:Verse ;
+    gita:verseNumber 46 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_46  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_49  a gita:Verse ;
+    gita:verseNumber 49 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_49  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_2_51  a gita:Verse ;
+    gita:verseNumber 51 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_51  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_2_51  gita:teaches  gita:Vairagya .
+
+gita:Verse_2_52  a gita:Verse ;
+    gita:verseNumber 52 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_52  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_2_52  gita:teaches  gita:Buddhi .
+gita:Verse_2_52  gita:teaches  gita:Moha .
+gita:Verse_2_52  gita:teaches  gita:Tamas .
+
+gita:Verse_2_53  a gita:Verse ;
+    gita:verseNumber 53 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_53  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_2_53  gita:teaches  gita:Buddhi .
+gita:Verse_2_53  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_54  a gita:Verse ;
+    gita:verseNumber 54 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_54  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_2_54  gita:teaches  gita:Sthitaprajna .
+gita:Verse_2_54  gita:teaches  gita:Samadhi .
+
+gita:Verse_2_57  a gita:Verse ;
+    gita:verseNumber 57 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_57  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_2_57  gita:teaches  gita:NishkamaKarma .
+
+gita:Verse_2_58  a gita:Verse ;
+    gita:verseNumber 58 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_58  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_2_59  a gita:Verse ;
+    gita:verseNumber 59 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_59  gita:teaches  gita:Kama .
+
+gita:Verse_2_60  a gita:Verse ;
+    gita:verseNumber 60 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_60  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_2_61  a gita:Verse ;
+    gita:verseNumber 61 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_61  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_2_65  a gita:Verse ;
+    gita:verseNumber 65 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_65  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_2_65  gita:teaches  gita:Buddhi .
+
+gita:Verse_2_66  a gita:Verse ;
+    gita:verseNumber 66 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_66  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_2_66  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_2_66  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_67  a gita:Verse ;
+    gita:verseNumber 67 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_67  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_2_69  a gita:Verse ;
+    gita:verseNumber 69 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_69  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_2_70  a gita:Verse ;
+    gita:verseNumber 70 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_70  gita:teaches  gita:Sthitaprajna .
+gita:Verse_2_70  gita:teaches  gita:Kama .
+
+gita:Verse_2_72  a gita:Verse ;
+    gita:verseNumber 72 ;
+    gita:belongsToChapter gita:Chapter_2 .
+gita:Verse_2_72  gita:teaches  gita:Moha .
+
+gita:Verse_3_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_2  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_3_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_6  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_3_6  gita:teaches  gita:Moha .
+
+gita:Verse_3_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_7  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_3_7  gita:teaches  gita:NishkamaKarma .
+gita:Verse_3_7  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_3_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_10  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_3_10  gita:teaches  gita:Kama .
+
+gita:Verse_3_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_3 .
+
+gita:Verse_3_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_12  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_3_12  gita:teaches  gita:Kama .
+
+gita:Verse_3_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_13  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_3_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_14  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_3_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_15  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_3_15  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_3_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_3 .
+
+gita:Verse_3_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_17  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_3_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_3 .
+
+gita:Verse_3_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_3 .
+
+gita:Verse_3_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_3 .
+
+gita:Verse_3_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_22  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_3_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_23  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_3_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_24  gita:teaches  gita:Moha .
+
+gita:Verse_3_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_25  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_3_25  gita:teaches  gita:NishkamaKarma .
+
+gita:Verse_3_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_26  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_3_26  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_3_26  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_3_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_3 .
+
+gita:Verse_3_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_29  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_3_29  gita:teaches  gita:Moha .
+
+gita:Verse_3_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_30  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_3_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_31  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_3_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_32  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_3_32  gita:teaches  gita:Moha .
+
+gita:Verse_3_33  a gita:Verse ;
+    gita:verseNumber 33 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_33  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_3_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_3 .
+
+gita:Verse_3_36  a gita:Verse ;
+    gita:verseNumber 36 ;
+    gita:belongsToChapter gita:Chapter_3 .
+
+gita:Verse_3_37  a gita:Verse ;
+    gita:verseNumber 37 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_37  gita:teaches  gita:Kama .
+gita:Verse_3_37  gita:teaches  gita:Krodha .
+gita:Verse_3_37  gita:teaches  gita:Rajas .
+
+gita:Verse_3_38  a gita:Verse ;
+    gita:verseNumber 38 ;
+    gita:belongsToChapter gita:Chapter_3 .
+
+gita:Verse_3_39  a gita:Verse ;
+    gita:verseNumber 39 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_39  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_3_39  gita:teaches  gita:Kama .
+
+gita:Verse_3_40  a gita:Verse ;
+    gita:verseNumber 40 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_40  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_3_40  gita:teaches  gita:Buddhi .
+
+gita:Verse_3_41  a gita:Verse ;
+    gita:verseNumber 41 ;
+    gita:belongsToChapter gita:Chapter_3 .
+gita:Verse_3_41  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_4_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_1  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_4_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_4 .
+
+gita:Verse_4_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_3  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_4_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_4  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_4_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_4 .
+
+gita:Verse_4_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_6  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_4_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_7  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_4_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_4 .
+
+gita:Verse_4_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_9  gita:teaches  gita:Vairagya .
+gita:Verse_4_9  gita:teaches  gita:Sattva .
+
+gita:Verse_4_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_10  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_4_10  gita:teaches  gita:ChittaShuddhi .
+gita:Verse_4_10  gita:teaches  gita:Krodha .
+
+gita:Verse_4_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_4 .
+
+gita:Verse_4_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_12  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_4_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_4 .
+
+gita:Verse_4_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_14  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_4_14  gita:teaches  gita:Kama .
+
+gita:Verse_4_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_15  gita:teaches  gita:Moksha .
+
+gita:Verse_4_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_16  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_4_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_17  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_4_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_18  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_4_18  gita:teaches  gita:DhyanaYoga_inst .
+
+gita:Verse_4_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_19  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_4_19  gita:teaches  gita:AtmaJnana .
+gita:Verse_4_19  gita:teaches  gita:Kama .
+
+gita:Verse_4_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_20  gita:teaches  gita:Vairagya .
+gita:Verse_4_20  gita:teaches  gita:Rajas .
+
+gita:Verse_4_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_21  gita:teaches  gita:Vairagya .
+gita:Verse_4_21  gita:teaches  gita:AtmaJnana .
+gita:Verse_4_21  gita:teaches  gita:Kama .
+
+gita:Verse_4_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_22  gita:teaches  gita:Samata .
+
+gita:Verse_4_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_23  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_4_23  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_4_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_4 .
+
+gita:Verse_4_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_25  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_4_25  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_4_25  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_4_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_26  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_4_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_27  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_4_27  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_4_27  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_4_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_28  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_4_28  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_4_28  gita:teaches  gita:AtmaJnana .
+gita:Verse_4_28  gita:teaches  gita:Sannyasa_inst .
+
+gita:Verse_4_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_29  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_4_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_30  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_4_30  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_4_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_31  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_4_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_32  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_4_33  a gita:Verse ;
+    gita:verseNumber 33 ;
+    gita:belongsToChapter gita:Chapter_4 .
+
+gita:Verse_4_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_34  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_4_35  a gita:Verse ;
+    gita:verseNumber 35 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_35  gita:teaches  gita:AtmaJnana .
+gita:Verse_4_35  gita:teaches  gita:Moha .
+
+gita:Verse_4_36  a gita:Verse ;
+    gita:verseNumber 36 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_36  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_4_37  a gita:Verse ;
+    gita:verseNumber 37 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_37  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_4_38  a gita:Verse ;
+    gita:verseNumber 38 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_38  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_4_38  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_4_39  a gita:Verse ;
+    gita:verseNumber 39 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_39  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_4_39  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_4_40  a gita:Verse ;
+    gita:verseNumber 40 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_40  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_4_40  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_4_41  a gita:Verse ;
+    gita:verseNumber 41 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_41  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_4_41  gita:teaches  gita:Vairagya .
+gita:Verse_4_41  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_4_42  a gita:Verse ;
+    gita:verseNumber 42 ;
+    gita:belongsToChapter gita:Chapter_4 .
+gita:Verse_4_42  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_4_42  gita:teaches  gita:AtmaJnana .
+gita:Verse_4_42  gita:teaches  gita:Tamas .
+
+gita:Verse_5_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_1  gita:teaches  gita:Vairagya .
+
+gita:Verse_5_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_2  gita:teaches  gita:Vairagya .
+
+gita:Verse_5_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_3  gita:teaches  gita:Kama .
+gita:Verse_5_3  gita:teaches  gita:Sannyasa_inst .
+
+gita:Verse_5_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_4  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_5_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_5  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_5_5  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_5_5  gita:teaches  gita:DhyanaYoga_inst .
+
+gita:Verse_5_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_6  gita:teaches  gita:Vairagya .
+
+gita:Verse_5_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_7  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_5_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_8  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_5_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_5 .
+
+gita:Verse_5_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_10  gita:teaches  gita:Vairagya .
+
+gita:Verse_5_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_11  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_5_11  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_5_11  gita:teaches  gita:Vairagya .
+gita:Verse_5_11  gita:teaches  gita:Buddhi .
+gita:Verse_5_11  gita:teaches  gita:ChittaShuddhi .
+gita:Verse_5_11  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_5_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_12  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_5_12  gita:teaches  gita:Vairagya .
+gita:Verse_5_12  gita:teaches  gita:Samata .
+gita:Verse_5_12  gita:teaches  gita:Kama .
+
+gita:Verse_5_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_13  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_5_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_14  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_5_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_15  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_5_15  gita:teaches  gita:Moha .
+gita:Verse_5_15  gita:teaches  gita:Tamas .
+
+gita:Verse_5_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_16  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_5_16  gita:teaches  gita:AtmaJnana .
+gita:Verse_5_16  gita:teaches  gita:Tamas .
+
+gita:Verse_5_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_17  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_5_17  gita:teaches  gita:Buddhi .
+gita:Verse_5_17  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_5_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_5 .
+
+gita:Verse_5_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_5 .
+
+gita:Verse_5_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_20  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_5_20  gita:teaches  gita:Buddhi .
+gita:Verse_5_20  gita:teaches  gita:Moha .
+
+gita:Verse_5_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_21  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_5_21  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_5_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_22  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_5_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_23  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_5_23  gita:teaches  gita:Moksha .
+gita:Verse_5_23  gita:teaches  gita:Kama .
+gita:Verse_5_23  gita:teaches  gita:Krodha .
+
+gita:Verse_5_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_24  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_5_24  gita:teaches  gita:AtmaJnana .
+gita:Verse_5_24  gita:teaches  gita:Moksha .
+
+gita:Verse_5_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_25  gita:teaches  gita:AtmaJnana .
+gita:Verse_5_25  gita:teaches  gita:Moksha .
+
+gita:Verse_5_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_26  gita:teaches  gita:AtmaJnana .
+gita:Verse_5_26  gita:teaches  gita:Moksha .
+gita:Verse_5_26  gita:teaches  gita:Kama .
+gita:Verse_5_26  gita:teaches  gita:Krodha .
+gita:Verse_5_26  gita:teaches  gita:Sannyasa_inst .
+
+gita:Verse_5_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_5 .
+
+gita:Verse_5_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_28  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_5_28  gita:teaches  gita:Buddhi .
+gita:Verse_5_28  gita:teaches  gita:Moksha .
+gita:Verse_5_28  gita:teaches  gita:Kama .
+gita:Verse_5_28  gita:teaches  gita:Krodha .
+
+gita:Verse_5_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_5 .
+gita:Verse_5_29  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_6_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_1  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_1  gita:teaches  gita:Sannyasa_inst .
+
+gita:Verse_6_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_2  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_2  gita:teaches  gita:Vairagya .
+
+gita:Verse_6_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_4  gita:teaches  gita:Vairagya .
+
+gita:Verse_6_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_6  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_6_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_7  gita:teaches  gita:Samata .
+gita:Verse_6_7  gita:teaches  gita:AtmaJnana .
+gita:Verse_6_7  gita:teaches  gita:Sattva .
+
+gita:Verse_6_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_8  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_6_8  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_8  gita:teaches  gita:Samata .
+gita:Verse_6_8  gita:teaches  gita:Samadhi .
+gita:Verse_6_8  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_6_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_12  gita:teaches  gita:ChittaShuddhi .
+gita:Verse_6_12  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_6_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_14  gita:teaches  gita:Samata .
+
+gita:Verse_6_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_15  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_15  gita:teaches  gita:Samata .
+gita:Verse_6_15  gita:teaches  gita:Moksha .
+
+gita:Verse_6_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_19  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_19  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_6_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_21  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_6_21  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_21  gita:teaches  gita:Buddhi .
+
+gita:Verse_6_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_24  gita:teaches  gita:Vairagya .
+gita:Verse_6_24  gita:teaches  gita:Kama .
+
+gita:Verse_6_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_26  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_26  gita:teaches  gita:AtmaJnana .
+gita:Verse_6_26  gita:teaches  gita:Rajas .
+
+gita:Verse_6_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_27  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_27  gita:teaches  gita:Sattva .
+gita:Verse_6_27  gita:teaches  gita:Rajas .
+
+gita:Verse_6_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_28  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_28  gita:teaches  gita:Abhyasa .
+
+gita:Verse_6_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_29  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_6_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_31  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_31  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_6_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_32  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_32  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_6_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_34  gita:teaches  gita:Rajas .
+
+gita:Verse_6_36  a gita:Verse ;
+    gita:verseNumber 36 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_36  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_6_37  a gita:Verse ;
+    gita:verseNumber 37 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_37  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_6_37  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_6_38  a gita:Verse ;
+    gita:verseNumber 38 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_39  a gita:Verse ;
+    gita:verseNumber 39 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_40  a gita:Verse ;
+    gita:verseNumber 40 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_41  a gita:Verse ;
+    gita:verseNumber 41 ;
+    gita:belongsToChapter gita:Chapter_6 .
+
+gita:Verse_6_42  a gita:Verse ;
+    gita:verseNumber 42 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_42  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_6_42  gita:teaches  gita:DhyanaYoga_inst .
+
+gita:Verse_6_43  a gita:Verse ;
+    gita:verseNumber 43 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_43  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_6_44  a gita:Verse ;
+    gita:verseNumber 44 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_44  gita:teaches  gita:Abhyasa .
+gita:Verse_6_44  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_6_45  a gita:Verse ;
+    gita:verseNumber 45 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_45  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_45  gita:teaches  gita:ChittaShuddhi .
+
+gita:Verse_6_46  a gita:Verse ;
+    gita:verseNumber 46 ;
+    gita:belongsToChapter gita:Chapter_6 .
+gita:Verse_6_46  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_6_46  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_6_46  gita:teaches  gita:Sannyasa_inst .
+
+gita:Verse_7_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_7 .
+
+gita:Verse_7_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_2  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_7_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_7 .
+
+gita:Verse_7_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_4  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_7_4  gita:teaches  gita:Buddhi .
+
+gita:Verse_7_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_7 .
+
+gita:Verse_7_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_7 .
+
+gita:Verse_7_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_7  gita:teaches  gita:Kama .
+
+gita:Verse_7_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_8  gita:teaches  gita:Sattva .
+
+gita:Verse_7_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_9  gita:teaches  gita:Sannyasa_inst .
+
+gita:Verse_7_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_7 .
+
+gita:Verse_7_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_11  gita:teaches  gita:Kama .
+
+gita:Verse_7_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_7 .
+
+gita:Verse_7_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_13  gita:teaches  gita:Moha .
+
+gita:Verse_7_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_14  gita:teaches  gita:Moha .
+
+gita:Verse_7_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_15  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_7_15  gita:teaches  gita:Moha .
+
+gita:Verse_7_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_16  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_7_16  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_7_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_17  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_7_17  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_7_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_18  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_7_18  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_7_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_19  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_7_19  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_7_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_20  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_7_20  gita:teaches  gita:Kama .
+
+gita:Verse_7_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_21  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_7_21  gita:teaches  gita:Kama .
+
+gita:Verse_7_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_22  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_7_22  gita:teaches  gita:Kama .
+
+gita:Verse_7_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_23  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_7_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_7 .
+
+gita:Verse_7_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_25  gita:teaches  gita:AtmaJnana .
+gita:Verse_7_25  gita:teaches  gita:Moha .
+
+gita:Verse_7_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_7 .
+
+gita:Verse_7_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_27  gita:teaches  gita:Kama .
+gita:Verse_7_27  gita:teaches  gita:Moha .
+gita:Verse_7_27  gita:teaches  gita:Tamas .
+
+gita:Verse_7_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_28  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_7_28  gita:teaches  gita:Moha .
+gita:Verse_7_28  gita:teaches  gita:Tamas .
+
+gita:Verse_7_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_29  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_7_29  gita:teaches  gita:AtmaJnana .
+gita:Verse_7_29  gita:teaches  gita:Moksha .
+
+gita:Verse_7_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_7 .
+gita:Verse_7_30  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_8_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Chapter_8  a gita:Chapter ;
+    rdfs:label "Aksara Brahma Yoga"^^xsd:string ;
+    gita:chapterNumber 8 .
+
+gita:Verse_8_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_2  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_8_2  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_8_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_3  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_8_3  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_8_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_4  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_8_4  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_8_4  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_8_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_8 .
+
+gita:Verse_8_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_8 .
+
+gita:Verse_8_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_7  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_8_7  gita:teaches  gita:Buddhi .
+
+gita:Verse_8_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_8  gita:teaches  gita:DhyanaYoga_inst .
+
+gita:Verse_8_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_9  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_8_9  gita:teaches  gita:Tamas .
+
+gita:Verse_8_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_8 .
+
+gita:Verse_8_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_11  gita:teaches  gita:AtmaJnana .
+gita:Verse_8_11  gita:teaches  gita:Rajas .
+gita:Verse_8_11  gita:teaches  gita:Sannyasa_inst .
+
+gita:Verse_8_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_12  gita:teaches  gita:Abhyasa .
+
+gita:Verse_8_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_8 .
+
+gita:Verse_8_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_14  gita:teaches  gita:DhyanaYoga_inst .
+
+gita:Verse_8_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_15  gita:teaches  gita:AtmaJnana .
+gita:Verse_8_15  gita:teaches  gita:Moksha .
+
+gita:Verse_8_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_8 .
+
+gita:Verse_8_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_8 .
+
+gita:Verse_8_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_8 .
+
+gita:Verse_8_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_19  gita:teaches  gita:Abhyasa .
+
+gita:Verse_8_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_8 .
+
+gita:Verse_8_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_21  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_8_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_22  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_8_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_23  gita:teaches  gita:DhyanaYoga_inst .
+
+gita:Verse_8_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_24  gita:teaches  gita:Sattva .
+
+gita:Verse_8_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_25  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_8_25  gita:teaches  gita:Sattva .
+
+gita:Verse_8_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_8 .
+
+gita:Verse_8_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_27  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_8_27  gita:teaches  gita:Moha .
+
+gita:Verse_8_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_8 .
+gita:Verse_8_28  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_8_28  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_8_28  gita:teaches  gita:Abhyasa .
+
+gita:Verse_9_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_1  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_9_1  gita:teaches  gita:AtmaJnana .
+gita:Chapter_9  a gita:Chapter ;
+    rdfs:label "Raja Vidya Raja Guhya Yoga"^^xsd:string ;
+    gita:chapterNumber 9 .
+
+gita:Verse_9_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_2  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_9_2  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_9_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_3  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_9_3  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_9_3  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_9_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_9 .
+
+gita:Verse_9_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_5  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_9_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_9 .
+
+gita:Verse_9_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_9 .
+
+gita:Verse_9_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_8  gita:teaches  gita:Abhyasa .
+
+gita:Verse_9_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_9 .
+
+gita:Verse_9_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_9 .
+
+gita:Verse_9_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_9 .
+
+gita:Verse_9_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_12  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_9_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_13  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_9_13  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_9_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_14  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_15  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_9_15  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_9_15  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_16  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_9_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_17  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_9_17  gita:teaches  gita:Samata .
+
+gita:Verse_9_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_18  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_9_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_9 .
+
+gita:Verse_9_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_20  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_9_20  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_9_20  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_9_20  gita:teaches  gita:ChittaShuddhi .
+
+gita:Verse_9_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_21  gita:teaches  gita:Kama .
+
+gita:Verse_9_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_22  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_23  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_24  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_9_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_25  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_26  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_27  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_9_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_28  gita:teaches  gita:Vairagya .
+
+gita:Verse_9_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_29  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_30  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_31  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_9 .
+
+gita:Verse_9_33  a gita:Verse ;
+    gita:verseNumber 33 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_33  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_9_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_9 .
+gita:Verse_9_34  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_9_34  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_10_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_1  gita:teaches  gita:BhaktiYoga_inst .
+gita:Chapter_10  a gita:Chapter ;
+    rdfs:label "Vibhuti Yoga"^^xsd:string ;
+    gita:chapterNumber 10 .
+
+gita:Verse_10_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_3  gita:teaches  gita:Moha .
+
+gita:Verse_10_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_4  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_10_4  gita:teaches  gita:Buddhi .
+gita:Verse_10_4  gita:teaches  gita:AtmaJnana .
+gita:Verse_10_4  gita:teaches  gita:Moha .
+gita:Verse_10_4  gita:teaches  gita:Tamas .
+
+gita:Verse_10_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_8  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_10_8  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_10_8  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_10_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_9  gita:teaches  gita:Sattva .
+
+gita:Verse_10_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_10  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_10_10  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_10_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_11  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_10_11  gita:teaches  gita:AtmaJnana .
+gita:Verse_10_11  gita:teaches  gita:Rajas .
+gita:Verse_10_11  gita:teaches  gita:Tamas .
+
+gita:Verse_10_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_12  gita:teaches  gita:Moksha .
+gita:Verse_10_12  gita:teaches  gita:Sattva .
+
+gita:Verse_10_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_13  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_10_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_17  gita:teaches  gita:DhyanaYoga_inst .
+
+gita:Verse_10_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_18  gita:teaches  gita:DhyanaYoga_inst .
+
+gita:Verse_10_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_20  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_10_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_22  gita:teaches  gita:Samata .
+
+gita:Verse_10_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_25  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_10_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_28  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_10_28  gita:teaches  gita:Kama .
+
+gita:Verse_10_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_32  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_10_33  a gita:Verse ;
+    gita:verseNumber 33 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_33  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_10_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_35  a gita:Verse ;
+    gita:verseNumber 35 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_35  gita:teaches  gita:Samata .
+
+gita:Verse_10_36  a gita:Verse ;
+    gita:verseNumber 36 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_36  gita:teaches  gita:Sattva .
+
+gita:Verse_10_37  a gita:Verse ;
+    gita:verseNumber 37 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_38  a gita:Verse ;
+    gita:verseNumber 38 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_38  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_10_39  a gita:Verse ;
+    gita:verseNumber 39 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_40  a gita:Verse ;
+    gita:verseNumber 40 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_41  a gita:Verse ;
+    gita:verseNumber 41 ;
+    gita:belongsToChapter gita:Chapter_10 .
+
+gita:Verse_10_42  a gita:Verse ;
+    gita:verseNumber 42 ;
+    gita:belongsToChapter gita:Chapter_10 .
+gita:Verse_10_42  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_10_42  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_1  gita:teaches  gita:AtmaJnana .
+gita:Verse_11_1  gita:teaches  gita:Moha .
+gita:Verse_11_1  gita:teaches  gita:Tamas .
+gita:Chapter_11  a gita:Chapter ;
+    rdfs:label "Vishwarupa Darshana Yoga"^^xsd:string ;
+    gita:chapterNumber 11 .
+
+gita:Verse_11_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_3  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_4  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_11_4  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_7  gita:teaches  gita:Kama .
+
+gita:Verse_11_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_12  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_18  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_20  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_24  gita:teaches  gita:Krodha .
+
+gita:Verse_11_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_31  gita:teaches  gita:Kama .
+
+gita:Verse_11_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_33  a gita:Verse ;
+    gita:verseNumber 33 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_35  a gita:Verse ;
+    gita:verseNumber 35 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_35  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_36  a gita:Verse ;
+    gita:verseNumber 36 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_36  gita:teaches  gita:Sattva .
+
+gita:Verse_11_37  a gita:Verse ;
+    gita:verseNumber 37 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_37  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_38  a gita:Verse ;
+    gita:verseNumber 38 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_38  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_11_38  gita:teaches  gita:Moksha .
+
+gita:Verse_11_39  a gita:Verse ;
+    gita:verseNumber 39 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_40  a gita:Verse ;
+    gita:verseNumber 40 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_41  a gita:Verse ;
+    gita:verseNumber 41 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_41  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_11_42  a gita:Verse ;
+    gita:verseNumber 42 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_43  a gita:Verse ;
+    gita:verseNumber 43 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_44  a gita:Verse ;
+    gita:verseNumber 44 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_44  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_11_45  a gita:Verse ;
+    gita:verseNumber 45 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_45  gita:teaches  gita:Sattva .
+
+gita:Verse_11_46  a gita:Verse ;
+    gita:verseNumber 46 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_46  gita:teaches  gita:Kama .
+
+gita:Verse_11_47  a gita:Verse ;
+    gita:verseNumber 47 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_47  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_11_47  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_48  a gita:Verse ;
+    gita:verseNumber 48 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_48  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_11_48  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_49  a gita:Verse ;
+    gita:verseNumber 49 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_50  a gita:Verse ;
+    gita:verseNumber 50 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_50  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_11_51  a gita:Verse ;
+    gita:verseNumber 51 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_11_52  a gita:Verse ;
+    gita:verseNumber 52 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_52  gita:teaches  gita:Kama .
+
+gita:Verse_11_53  a gita:Verse ;
+    gita:verseNumber 53 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_53  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_11_54  a gita:Verse ;
+    gita:verseNumber 54 ;
+    gita:belongsToChapter gita:Chapter_11 .
+gita:Verse_11_54  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_11_55  a gita:Verse ;
+    gita:verseNumber 55 ;
+    gita:belongsToChapter gita:Chapter_11 .
+
+gita:Verse_12_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_1  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_12_1  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_12_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_2  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_12_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_12 .
+
+gita:Verse_12_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_12 .
+
+gita:Verse_12_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_12 .
+
+gita:Verse_12_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_6  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_12_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_12 .
+
+gita:Verse_12_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_8  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_12_8  gita:teaches  gita:Buddhi .
+
+gita:Verse_12_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_9  gita:teaches  gita:Abhyasa .
+
+gita:Verse_12_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_10  gita:teaches  gita:Abhyasa .
+
+gita:Verse_12_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_11  gita:teaches  gita:NishkamaKarma .
+gita:Verse_12_11  gita:teaches  gita:Vairagya .
+gita:Verse_12_11  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_12_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_12  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_12_12  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_12_12  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_12_12  gita:teaches  gita:Vairagya .
+gita:Verse_12_12  gita:teaches  gita:Abhyasa .
+
+gita:Verse_12_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_13  gita:teaches  gita:Samata .
+gita:Verse_12_13  gita:teaches  gita:Rajas .
+
+gita:Verse_12_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_14  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_12_14  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_12_14  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_12_14  gita:teaches  gita:Buddhi .
+gita:Verse_12_14  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_12_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_15  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_12_15  gita:teaches  gita:Krodha .
+
+gita:Verse_12_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_16  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_12_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_17  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_12_17  gita:teaches  gita:Kama .
+
+gita:Verse_12_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_12 .
+
+gita:Verse_12_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_19  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_12_19  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_12_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_12 .
+gita:Verse_12_20  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_13_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_1  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_13_1  gita:teaches  gita:AtmaJnana .
+gita:Chapter_13  a gita:Chapter ;
+    rdfs:label "Kshetra Kshetrajna Vibhaga Yoga"^^xsd:string ;
+    gita:chapterNumber 13 .
+
+gita:Verse_13_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_2  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_13_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_3  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_13_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_6  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_13_6  gita:teaches  gita:Buddhi .
+
+gita:Verse_13_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_7  gita:teaches  gita:Kama .
+
+gita:Verse_13_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_8  gita:teaches  gita:AtmaJnana .
+gita:Verse_13_8  gita:teaches  gita:Sattva .
+
+gita:Verse_13_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_10  gita:teaches  gita:Vairagya .
+gita:Verse_13_10  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_11  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_13_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_12  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_13_12  gita:teaches  gita:AtmaJnana .
+gita:Verse_13_12  gita:teaches  gita:Tamas .
+
+gita:Verse_13_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_18  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_13_18  gita:teaches  gita:Sattva .
+gita:Verse_13_18  gita:teaches  gita:Tamas .
+
+gita:Verse_13_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_19  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_13_19  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_13_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_21  gita:teaches  gita:Samata .
+gita:Verse_13_21  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_22  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_23  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_25  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_13_25  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_13_25  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_26  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_13_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_27  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_13_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_29  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_30  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_13 .
+
+gita:Verse_13_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_32  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_33  a gita:Verse ;
+    gita:verseNumber 33 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_33  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_34  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_13_35  a gita:Verse ;
+    gita:verseNumber 35 ;
+    gita:belongsToChapter gita:Chapter_13 .
+gita:Verse_13_35  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_13_35  gita:teaches  gita:Moksha .
+
+gita:Verse_14_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_1  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_14_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_2  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_14_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_14 .
+
+gita:Verse_14_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_14 .
+
+gita:Verse_14_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_5  gita:teaches  gita:Sattva .
+gita:Verse_14_5  gita:teaches  gita:Rajas .
+gita:Verse_14_5  gita:teaches  gita:Tamas .
+
+gita:Verse_14_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_6  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_14_6  gita:teaches  gita:Sattva .
+
+gita:Verse_14_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_7  gita:teaches  gita:Rajas .
+
+gita:Verse_14_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_8  gita:teaches  gita:Tamas .
+
+gita:Verse_14_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_9  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_14_9  gita:teaches  gita:Sattva .
+gita:Verse_14_9  gita:teaches  gita:Rajas .
+gita:Verse_14_9  gita:teaches  gita:Tamas .
+
+gita:Verse_14_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_10  gita:teaches  gita:Sattva .
+gita:Verse_14_10  gita:teaches  gita:Rajas .
+gita:Verse_14_10  gita:teaches  gita:Tamas .
+
+gita:Verse_14_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_11  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_14_11  gita:teaches  gita:Sattva .
+
+gita:Verse_14_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_12  gita:teaches  gita:Kama .
+gita:Verse_14_12  gita:teaches  gita:Rajas .
+
+gita:Verse_14_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_13  gita:teaches  gita:Moha .
+gita:Verse_14_13  gita:teaches  gita:Tamas .
+
+gita:Verse_14_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_14  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_14_14  gita:teaches  gita:Sattva .
+
+gita:Verse_14_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_15  gita:teaches  gita:Rajas .
+gita:Verse_14_15  gita:teaches  gita:Tamas .
+
+gita:Verse_14_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_16  gita:teaches  gita:Sattva .
+gita:Verse_14_16  gita:teaches  gita:Rajas .
+gita:Verse_14_16  gita:teaches  gita:Tamas .
+
+gita:Verse_14_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_17  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_14_17  gita:teaches  gita:Kama .
+gita:Verse_14_17  gita:teaches  gita:Moha .
+gita:Verse_14_17  gita:teaches  gita:Sattva .
+gita:Verse_14_17  gita:teaches  gita:Rajas .
+gita:Verse_14_17  gita:teaches  gita:Tamas .
+
+gita:Verse_14_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_18  gita:teaches  gita:Sattva .
+gita:Verse_14_18  gita:teaches  gita:Rajas .
+gita:Verse_14_18  gita:teaches  gita:Tamas .
+
+gita:Verse_14_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_14 .
+
+gita:Verse_14_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_14 .
+
+gita:Verse_14_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_14 .
+
+gita:Verse_14_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_22  gita:teaches  gita:Moha .
+gita:Verse_14_22  gita:teaches  gita:Sattva .
+gita:Verse_14_22  gita:teaches  gita:Rajas .
+gita:Verse_14_22  gita:teaches  gita:Tamas .
+
+gita:Verse_14_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_23  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_14_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_24  gita:teaches  gita:Samata .
+gita:Verse_14_24  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_14_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_25  gita:teaches  gita:Vairagya .
+
+gita:Verse_14_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_14 .
+gita:Verse_14_26  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_14_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_14 .
+
+gita:Verse_15_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_1  gita:teaches  gita:JnanaYoga_inst .
+gita:Chapter_15  a gita:Chapter ;
+    rdfs:label "Purushottama Yoga"^^xsd:string ;
+    gita:chapterNumber 15 .
+
+gita:Verse_15_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_15 .
+
+gita:Verse_15_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_3  gita:teaches  gita:Vairagya .
+
+gita:Verse_15_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_4  gita:teaches  gita:Rajas .
+
+gita:Verse_15_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_5  gita:teaches  gita:Samata .
+gita:Verse_15_5  gita:teaches  gita:AtmaJnana .
+gita:Verse_15_5  gita:teaches  gita:Kama .
+gita:Verse_15_5  gita:teaches  gita:Moha .
+gita:Verse_15_5  gita:teaches  gita:Tamas .
+
+gita:Verse_15_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_6  gita:teaches  gita:Moksha .
+
+gita:Verse_15_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_7  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_15_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_8  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_15_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_15 .
+
+gita:Verse_15_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_10  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_15_10  gita:teaches  gita:Moha .
+
+gita:Verse_15_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_11  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_15_11  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_15_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_12  gita:teaches  gita:Sattva .
+
+gita:Verse_15_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_15 .
+
+gita:Verse_15_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_15 .
+
+gita:Verse_15_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_15  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_15_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_16  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_15_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_17  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_15_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_18  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_15_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_19  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_15_19  gita:teaches  gita:Moha .
+
+gita:Verse_15_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_15 .
+gita:Verse_15_20  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_16_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_1  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_16_1  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_16_1  gita:teaches  gita:Sattva .
+gita:Chapter_16  a gita:Chapter ;
+    rdfs:label "Daivasura Sampad Vibhaga Yoga"^^xsd:string ;
+    gita:chapterNumber 16 .
+
+gita:Verse_16_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_2  gita:teaches  gita:Vairagya .
+gita:Verse_16_2  gita:teaches  gita:Kama .
+gita:Verse_16_2  gita:teaches  gita:Krodha .
+gita:Verse_16_2  gita:teaches  gita:Sattva .
+gita:Verse_16_2  gita:teaches  gita:Rajas .
+
+gita:Verse_16_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_3  gita:teaches  gita:Sattva .
+
+gita:Verse_16_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_4  gita:teaches  gita:AtmaJnana .
+gita:Verse_16_4  gita:teaches  gita:Krodha .
+gita:Verse_16_4  gita:teaches  gita:Tamas .
+
+gita:Verse_16_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_5  gita:teaches  gita:Moksha .
+
+gita:Verse_16_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_16 .
+
+gita:Verse_16_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_7  gita:teaches  gita:Sattva .
+
+gita:Verse_16_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_8  gita:teaches  gita:Kama .
+
+gita:Verse_16_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_9  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_16_9  gita:teaches  gita:Buddhi .
+gita:Verse_16_9  gita:teaches  gita:AtmaJnana .
+gita:Verse_16_9  gita:teaches  gita:BuddhiNasha .
+
+gita:Verse_16_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_10  gita:teaches  gita:Kama .
+gita:Verse_16_10  gita:teaches  gita:Moha .
+gita:Verse_16_10  gita:teaches  gita:Tamas .
+
+gita:Verse_16_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_11  gita:teaches  gita:Kama .
+
+gita:Verse_16_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_12  gita:teaches  gita:Kama .
+gita:Verse_16_12  gita:teaches  gita:Krodha .
+
+gita:Verse_16_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_13  gita:teaches  gita:Kama .
+
+gita:Verse_16_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_16 .
+
+gita:Verse_16_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_15  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_16_15  gita:teaches  gita:Samata .
+gita:Verse_16_15  gita:teaches  gita:Moha .
+gita:Verse_16_15  gita:teaches  gita:Tamas .
+
+gita:Verse_16_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_16  gita:teaches  gita:Kama .
+gita:Verse_16_16  gita:teaches  gita:Moha .
+gita:Verse_16_16  gita:teaches  gita:Tamas .
+
+gita:Verse_16_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_17  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_16_17  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_16_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_18  gita:teaches  gita:Kama .
+gita:Verse_16_18  gita:teaches  gita:Krodha .
+
+gita:Verse_16_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_16 .
+
+gita:Verse_16_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_20  gita:teaches  gita:Moha .
+
+gita:Verse_16_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_21  gita:teaches  gita:Vairagya .
+gita:Verse_16_21  gita:teaches  gita:AtmaJnana .
+gita:Verse_16_21  gita:teaches  gita:Kama .
+gita:Verse_16_21  gita:teaches  gita:Krodha .
+
+gita:Verse_16_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_22  gita:teaches  gita:Tamas .
+
+gita:Verse_16_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_16 .
+gita:Verse_16_23  gita:teaches  gita:Kama .
+
+gita:Verse_16_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_16 .
+
+gita:Verse_17_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_1  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_17_1  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_17_1  gita:teaches  gita:Sattva .
+gita:Verse_17_1  gita:teaches  gita:Rajas .
+gita:Verse_17_1  gita:teaches  gita:Tamas .
+gita:Chapter_17  a gita:Chapter ;
+    rdfs:label "Shraddhatraya Vibhaga Yoga"^^xsd:string ;
+    gita:chapterNumber 17 .
+
+gita:Verse_17_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_2  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_17_2  gita:teaches  gita:Sattva .
+gita:Verse_17_2  gita:teaches  gita:Rajas .
+gita:Verse_17_2  gita:teaches  gita:Tamas .
+
+gita:Verse_17_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_3  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_17_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_4  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_17_4  gita:teaches  gita:Moha .
+gita:Verse_17_4  gita:teaches  gita:Sattva .
+gita:Verse_17_4  gita:teaches  gita:Rajas .
+gita:Verse_17_4  gita:teaches  gita:Tamas .
+
+gita:Verse_17_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_5  gita:teaches  gita:Kama .
+
+gita:Verse_17_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_17 .
+
+gita:Verse_17_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_7  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_17_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_8  gita:teaches  gita:Sattva .
+
+gita:Verse_17_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_9  gita:teaches  gita:Rajas .
+
+gita:Verse_17_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_10  gita:teaches  gita:Tamas .
+
+gita:Verse_17_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_11  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_17_11  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_17_11  gita:teaches  gita:Kama .
+gita:Verse_17_11  gita:teaches  gita:Sattva .
+
+gita:Verse_17_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_12  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_17_12  gita:teaches  gita:Rajas .
+
+gita:Verse_17_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_13  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_17_13  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_17_13  gita:teaches  gita:Tamas .
+
+gita:Verse_17_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_14  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_17_14  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_17_14  gita:teaches  gita:Sattva .
+
+gita:Verse_17_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_15  gita:teaches  gita:Abhyasa .
+
+gita:Verse_17_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_16  gita:teaches  gita:AtmaJnana .
+gita:Verse_17_16  gita:teaches  gita:Sattva .
+
+gita:Verse_17_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_17  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_17_17  gita:teaches  gita:Sattva .
+
+gita:Verse_17_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_18  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_17_18  gita:teaches  gita:Rajas .
+
+gita:Verse_17_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_19  gita:teaches  gita:AtmaJnana .
+gita:Verse_17_19  gita:teaches  gita:Tamas .
+
+gita:Verse_17_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_20  gita:teaches  gita:Sattva .
+
+gita:Verse_17_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_21  gita:teaches  gita:Rajas .
+
+gita:Verse_17_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_22  gita:teaches  gita:Tamas .
+
+gita:Verse_17_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_23  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_17_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_24  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_17_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_25  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_17_25  gita:teaches  gita:Moksha .
+
+gita:Verse_17_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_26  gita:teaches  gita:Sattva .
+
+gita:Verse_17_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_27  gita:teaches  gita:KarmaYoga_inst .
+
+gita:Verse_17_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_17 .
+gita:Verse_17_28  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_17_28  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_18_1  a gita:Verse ;
+    gita:verseNumber 1 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_1  gita:teaches  gita:Vairagya .
+gita:Verse_18_1  gita:teaches  gita:Kama .
+
+gita:Verse_18_2  a gita:Verse ;
+    gita:verseNumber 2 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_2  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_2  gita:teaches  gita:Vairagya .
+gita:Verse_18_2  gita:teaches  gita:Kama .
+gita:Verse_18_2  gita:teaches  gita:Sannyasa_inst .
+
+gita:Verse_18_3  a gita:Verse ;
+    gita:verseNumber 3 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_3  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_18_3  gita:teaches  gita:Vairagya .
+
+gita:Verse_18_4  a gita:Verse ;
+    gita:verseNumber 4 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_4  gita:teaches  gita:Vairagya .
+
+gita:Verse_18_5  a gita:Verse ;
+    gita:verseNumber 5 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_5  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_18_5  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_5  gita:teaches  gita:Vairagya .
+
+gita:Verse_18_6  a gita:Verse ;
+    gita:verseNumber 6 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_6  gita:teaches  gita:Kama .
+
+gita:Verse_18_7  a gita:Verse ;
+    gita:verseNumber 7 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_7  gita:teaches  gita:Vairagya .
+gita:Verse_18_7  gita:teaches  gita:Moha .
+gita:Verse_18_7  gita:teaches  gita:Tamas .
+
+gita:Verse_18_8  a gita:Verse ;
+    gita:verseNumber 8 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_8  gita:teaches  gita:Vairagya .
+gita:Verse_18_8  gita:teaches  gita:Rajas .
+
+gita:Verse_18_9  a gita:Verse ;
+    gita:verseNumber 9 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_9  gita:teaches  gita:Vairagya .
+gita:Verse_18_9  gita:teaches  gita:Kama .
+gita:Verse_18_9  gita:teaches  gita:Sattva .
+
+gita:Verse_18_10  a gita:Verse ;
+    gita:verseNumber 10 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_10  gita:teaches  gita:Vairagya .
+gita:Verse_18_10  gita:teaches  gita:Sattva .
+
+gita:Verse_18_11  a gita:Verse ;
+    gita:verseNumber 11 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_11  gita:teaches  gita:Vairagya .
+
+gita:Verse_18_12  a gita:Verse ;
+    gita:verseNumber 12 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_12  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_18_12  gita:teaches  gita:Vairagya .
+
+gita:Verse_18_13  a gita:Verse ;
+    gita:verseNumber 13 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_14  a gita:Verse ;
+    gita:verseNumber 14 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_15  a gita:Verse ;
+    gita:verseNumber 15 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_16  a gita:Verse ;
+    gita:verseNumber 16 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_16  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_16  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_18_17  a gita:Verse ;
+    gita:verseNumber 17 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_18  a gita:Verse ;
+    gita:verseNumber 18 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_18  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_18_19  a gita:Verse ;
+    gita:verseNumber 19 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_19  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_18_20  a gita:Verse ;
+    gita:verseNumber 20 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_20  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_20  gita:teaches  gita:Sattva .
+
+gita:Verse_18_21  a gita:Verse ;
+    gita:verseNumber 21 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_21  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_21  gita:teaches  gita:Rajas .
+
+gita:Verse_18_22  a gita:Verse ;
+    gita:verseNumber 22 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_22  gita:teaches  gita:Tamas .
+
+gita:Verse_18_23  a gita:Verse ;
+    gita:verseNumber 23 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_23  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_18_23  gita:teaches  gita:Sattva .
+
+gita:Verse_18_24  a gita:Verse ;
+    gita:verseNumber 24 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_24  gita:teaches  gita:Kama .
+gita:Verse_18_24  gita:teaches  gita:Rajas .
+
+gita:Verse_18_25  a gita:Verse ;
+    gita:verseNumber 25 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_25  gita:teaches  gita:Moha .
+gita:Verse_18_25  gita:teaches  gita:Tamas .
+
+gita:Verse_18_26  a gita:Verse ;
+    gita:verseNumber 26 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_26  gita:teaches  gita:Sattva .
+
+gita:Verse_18_27  a gita:Verse ;
+    gita:verseNumber 27 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_27  gita:teaches  gita:Kama .
+gita:Verse_18_27  gita:teaches  gita:Rajas .
+
+gita:Verse_18_28  a gita:Verse ;
+    gita:verseNumber 28 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_28  gita:teaches  gita:Tamas .
+
+gita:Verse_18_29  a gita:Verse ;
+    gita:verseNumber 29 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_29  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_29  gita:teaches  gita:Buddhi .
+
+gita:Verse_18_30  a gita:Verse ;
+    gita:verseNumber 30 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_30  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_30  gita:teaches  gita:Vairagya .
+gita:Verse_18_30  gita:teaches  gita:Buddhi .
+gita:Verse_18_30  gita:teaches  gita:Moksha .
+gita:Verse_18_30  gita:teaches  gita:Sattva .
+
+gita:Verse_18_31  a gita:Verse ;
+    gita:verseNumber 31 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_31  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_31  gita:teaches  gita:Buddhi .
+gita:Verse_18_31  gita:teaches  gita:Rajas .
+
+gita:Verse_18_32  a gita:Verse ;
+    gita:verseNumber 32 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_32  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_32  gita:teaches  gita:Buddhi .
+gita:Verse_18_32  gita:teaches  gita:Tamas .
+
+gita:Verse_18_33  a gita:Verse ;
+    gita:verseNumber 33 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_33  gita:teaches  gita:Sattva .
+
+gita:Verse_18_34  a gita:Verse ;
+    gita:verseNumber 34 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_34  gita:teaches  gita:Kama .
+gita:Verse_18_34  gita:teaches  gita:Rajas .
+
+gita:Verse_18_35  a gita:Verse ;
+    gita:verseNumber 35 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_35  gita:teaches  gita:Vairagya .
+gita:Verse_18_35  gita:teaches  gita:Tamas .
+
+gita:Verse_18_36  a gita:Verse ;
+    gita:verseNumber 36 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_36  gita:teaches  gita:Abhyasa .
+
+gita:Verse_18_37  a gita:Verse ;
+    gita:verseNumber 37 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_37  gita:teaches  gita:AtmaJnana .
+gita:Verse_18_37  gita:teaches  gita:Sattva .
+
+gita:Verse_18_38  a gita:Verse ;
+    gita:verseNumber 38 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_38  gita:teaches  gita:Rajas .
+
+gita:Verse_18_39  a gita:Verse ;
+    gita:verseNumber 39 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_39  gita:teaches  gita:AtmaJnana .
+gita:Verse_18_39  gita:teaches  gita:Tamas .
+
+gita:Verse_18_40  a gita:Verse ;
+    gita:verseNumber 40 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_41  a gita:Verse ;
+    gita:verseNumber 41 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_42  a gita:Verse ;
+    gita:verseNumber 42 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_42  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_42  gita:teaches  gita:AtmaJnana .
+gita:Verse_18_42  gita:teaches  gita:Sattva .
+
+gita:Verse_18_43  a gita:Verse ;
+    gita:verseNumber 43 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_44  a gita:Verse ;
+    gita:verseNumber 44 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_45  a gita:Verse ;
+    gita:verseNumber 45 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_45  gita:teaches  gita:Vairagya .
+
+gita:Verse_18_46  a gita:Verse ;
+    gita:verseNumber 46 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_46  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_18_46  gita:teaches  gita:Svadharma .
+
+gita:Verse_18_47  a gita:Verse ;
+    gita:verseNumber 47 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_47  gita:teaches  gita:Svadharma .
+
+gita:Verse_18_48  a gita:Verse ;
+    gita:verseNumber 48 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_48  gita:teaches  gita:Vairagya .
+
+gita:Verse_18_49  a gita:Verse ;
+    gita:verseNumber 49 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_49  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_49  gita:teaches  gita:Vairagya .
+gita:Verse_18_49  gita:teaches  gita:Buddhi .
+gita:Verse_18_49  gita:teaches  gita:AtmaJnana .
+gita:Verse_18_49  gita:teaches  gita:Moksha .
+gita:Verse_18_49  gita:teaches  gita:Kama .
+
+gita:Verse_18_50  a gita:Verse ;
+    gita:verseNumber 50 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_50  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_18_51  a gita:Verse ;
+    gita:verseNumber 51 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_51  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_51  gita:teaches  gita:Vairagya .
+gita:Verse_18_51  gita:teaches  gita:Buddhi .
+gita:Verse_18_51  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_18_52  a gita:Verse ;
+    gita:verseNumber 52 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_52  gita:teaches  gita:DhyanaYoga_inst .
+gita:Verse_18_52  gita:teaches  gita:Vairagya .
+gita:Verse_18_52  gita:teaches  gita:Rajas .
+
+gita:Verse_18_53  a gita:Verse ;
+    gita:verseNumber 53 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_53  gita:teaches  gita:Vairagya .
+gita:Verse_18_53  gita:teaches  gita:Kama .
+gita:Verse_18_53  gita:teaches  gita:Krodha .
+gita:Verse_18_53  gita:teaches  gita:Sattva .
+
+gita:Verse_18_54  a gita:Verse ;
+    gita:verseNumber 54 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_54  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_18_54  gita:teaches  gita:AtmaJnana .
+gita:Verse_18_54  gita:teaches  gita:Kama .
+
+gita:Verse_18_55  a gita:Verse ;
+    gita:verseNumber 55 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_55  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_18_56  a gita:Verse ;
+    gita:verseNumber 56 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_57  a gita:Verse ;
+    gita:verseNumber 57 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_57  gita:teaches  gita:JnanaYoga_inst .
+
+gita:Verse_18_58  a gita:Verse ;
+    gita:verseNumber 58 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_59  a gita:Verse ;
+    gita:verseNumber 59 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_60  a gita:Verse ;
+    gita:verseNumber 60 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_60  gita:teaches  gita:Moha .
+gita:Verse_18_60  gita:teaches  gita:Tamas .
+
+gita:Verse_18_61  a gita:Verse ;
+    gita:verseNumber 61 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_62  a gita:Verse ;
+    gita:verseNumber 62 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_63  a gita:Verse ;
+    gita:verseNumber 63 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_63  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_63  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_18_64  a gita:Verse ;
+    gita:verseNumber 64 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_64  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_18_65  a gita:Verse ;
+    gita:verseNumber 65 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_65  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_18_65  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_18_66  a gita:Verse ;
+    gita:verseNumber 66 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_66  gita:teaches  gita:Vairagya .
+
+gita:Verse_18_67  a gita:Verse ;
+    gita:verseNumber 67 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_67  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_18_67  gita:teaches  gita:Kama .
+
+gita:Verse_18_68  a gita:Verse ;
+    gita:verseNumber 68 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_68  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_18_69  a gita:Verse ;
+    gita:verseNumber 69 ;
+    gita:belongsToChapter gita:Chapter_18 .
+
+gita:Verse_18_70  a gita:Verse ;
+    gita:verseNumber 70 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_70  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_18_70  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_70  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_18_71  a gita:Verse ;
+    gita:verseNumber 71 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_71  gita:teaches  gita:BhaktiYoga_inst .
+
+gita:Verse_18_72  a gita:Verse ;
+    gita:verseNumber 72 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_72  gita:teaches  gita:Moha .
+gita:Verse_18_72  gita:teaches  gita:Tamas .
+
+gita:Verse_18_73  a gita:Verse ;
+    gita:verseNumber 73 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_73  gita:teaches  gita:JnanaYoga_inst .
+gita:Verse_18_73  gita:teaches  gita:Moha .
+gita:Verse_18_73  gita:teaches  gita:Tamas .
+
+gita:Verse_18_74  a gita:Verse ;
+    gita:verseNumber 74 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_74  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_18_75  a gita:Verse ;
+    gita:verseNumber 75 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_75  gita:teaches  gita:AtmaJnana .
+
+gita:Verse_18_76  a gita:Verse ;
+    gita:verseNumber 76 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_76  gita:teaches  gita:Abhyasa .
+
+gita:Verse_18_77  a gita:Verse ;
+    gita:verseNumber 77 ;
+    gita:belongsToChapter gita:Chapter_18 .
+gita:Verse_18_77  gita:teaches  gita:Abhyasa .
+
+gita:Verse_18_78  a gita:Verse ;
+    gita:verseNumber 78 ;
+    gita:belongsToChapter gita:Chapter_18 .

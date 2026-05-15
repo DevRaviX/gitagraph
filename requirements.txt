@@ -29,3 +29,6 @@ sentence-transformers>=3.0.0
 requests>=2.31.0
 tqdm>=4.66.0
 huggingface_hub>=0.24.0
+
+# Evaluation / BM25 baseline
+rank-bm25>=0.2.2

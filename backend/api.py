@@ -61,6 +61,7 @@ _audio_ds = None
 _embeddings = None
 _emb_index  = None
 _st_model   = None
+_es = None
 
 def get_embeddings():
     global _embeddings, _emb_index
@@ -95,6 +96,13 @@ def get_kg():
         _kg = GitaKnowledgeGraph()
     return _kg
 
+def get_es():
+    global _es
+    if _es is None:
+        from modules.expert_system import ExpertSystem
+        _es = ExpertSystem(get_kg())
+    return _es
+
 def get_gita_data():
     global _gita_data
     if _gita_data is None:
@@ -115,7 +123,7 @@ def run_semantic_search(q, k=10):
     embeddings, index = get_embeddings()
     if _st_model is None:
         from sentence_transformers import SentenceTransformer
-        _st_model = SentenceTransformer("all-MiniLM-L6-v2", local_files_only=True)
+        _st_model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
     q_vec = _st_model.encode([q], normalize_embeddings=True)[0]
     scores = embeddings @ q_vec
     top_k_idx = scores.argsort()[::-1][:k]
@@ -411,10 +419,9 @@ def sparql_cq(cq_id):
 # ── EXPERT SYSTEM INFER ───────────────────────────────────────────────────────
 @app.route("/api/infer", methods=["POST"])
 def infer():
-    from modules.expert_system import ExpertSystem, PRODUCTION_RULES
-    kg = get_kg()
+    from modules.expert_system import PRODUCTION_RULES
     body = request.json or {}
-    es = ExpertSystem(kg)
+    es = get_es()
     result = es.infer(concern=body.get("concern",""), goal=body.get("goal",""),
                       stage=body.get("stage","beginner"), nature=body.get("nature","active"))
 
@@ -453,13 +460,33 @@ def infer():
     # Enrich recommended_verses
     enriched_verses = _enrich_concept_verses(result["recommended_verses"][:5], csv_map)
 
+    # Determine match quality and run semantic fallback when no rules fired
+    confidence = result["confidence"]
+    if confidence >= 0.8:
+        match_status = "exact"
+    elif confidence > 0:
+        match_status = "partial"
+    else:
+        match_status = "fallback"
+
+    fallback_verses = []
+    if match_status == "fallback":
+        concern = body.get("concern", "")
+        if concern:
+            try:
+                fallback_verses = run_semantic_search(concern, k=5)
+            except Exception:
+                pass
+
     return jsonify({
         "fired_rules": fired_rules_out,
         "rules_info": rules_info,
         "recommend_concept": result["recommend_concept"],
         "start_verse": start_verse,
-        "confidence": result["confidence"],
+        "confidence": confidence,
         "recommended_verses": enriched_verses,
+        "fallback_verses": fallback_verses,
+        "match_status": match_status,
     })
 
 # ── UNIFIED QUERY PIPELINE ───────────────────────────────────────────────────

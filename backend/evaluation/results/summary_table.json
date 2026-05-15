@@ -1,0 +1,115 @@
+{
+  "k": 5,
+  "elapsed_seconds": 5.43,
+  "variants": [
+    {
+      "id": "bm25_baseline",
+      "label": "BM25 Baseline (English keyword)",
+      "metrics": {
+        "MAP@5": 0.0279,
+        "MRR": 0.0583,
+        "P@1": 0.02,
+        "P@3": 0.0333,
+        "P@5": 0.024
+      }
+    },
+    {
+      "id": "semantic_only",
+      "label": "Semantic RAG only (no expert, no graph, no ontology filter)",
+      "metrics": {
+        "MAP@5": 0.0525,
+        "MRR": 0.1463,
+        "P@1": 0.08,
+        "P@3": 0.0733,
+        "P@5": 0.056
+      }
+    },
+    {
+      "id": "full_system",
+      "label": "Full System (all modules active)",
+      "metrics": {
+        "MAP@5": 0.2848,
+        "MRR": 0.6367,
+        "P@1": 0.6,
+        "P@3": 0.28,
+        "P@5": 0.168
+      }
+    },
+    {
+      "id": "no_expert_rules",
+      "label": "Ablation: No Expert Rules",
+      "metrics": {
+        "MAP@5": 0.2615,
+        "MRR": 0.5967,
+        "P@1": 0.56,
+        "P@3": 0.2533,
+        "P@5": 0.152
+      }
+    },
+    {
+      "id": "no_semantic",
+      "label": "Ablation: No Semantic RAG",
+      "metrics": {
+        "MAP@5": 0.2765,
+        "MRR": 0.6067,
+        "P@1": 0.58,
+        "P@3": 0.2667,
+        "P@5": 0.16
+      }
+    },
+    {
+      "id": "no_graph",
+      "label": "Ablation: No Graph BFS",
+      "metrics": {
+        "MAP@5": 0.1939,
+        "MRR": 0.4807,
+        "P@1": 0.46,
+        "P@3": 0.1867,
+        "P@5": 0.124
+      }
+    },
+    {
+      "id": "no_ontology",
+      "label": "Ablation: No Ontology (pure embedding rank)",
+      "metrics": {
+        "MAP@5": 0.0525,
+        "MRR": 0.1463,
+        "P@1": 0.08,
+        "P@3": 0.0733,
+        "P@5": 0.056
+      }
+    }
+  ],
+  "hindi_only": [
+    {
+      "id": "bm25_baseline",
+      "metrics": {
+        "MAP@5": 0.0222,
+        "MRR": 0.0667,
+        "P@1": 0.0,
+        "P@3": 0.0667,
+        "P@5": 0.04
+      }
+    },
+    {
+      "id": "semantic_only",
+      "metrics": {
+        "MAP@5": 0.0889,
+        "MRR": 0.2667,
+        "P@1": 0.2,
+        "P@3": 0.1333,
+        "P@5": 0.08
+      }
+    },
+    {
+      "id": "full_system",
+      "metrics": {
+        "MAP@5": 0.3,
+        "MRR": 0.8,
+        "P@1": 0.8,
+        "P@3": 0.2667,
+        "P@5": 0.16
+      }
+    }
+  ]
+}

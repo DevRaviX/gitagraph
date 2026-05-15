@@ -1,4 +1,4 @@
-% IEEE Conference Paper — GitaGraph v2.1
+% IEEE Conference Paper — GitaGraph v2.2
 % GitaGraph: Ontology-Driven Knowledge-Based AI System for Bhagavad Gita Navigation
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
@@ -117,28 +117,29 @@ conceptual dependencies, contradictions between yoga paths, the absence of
 personalized study guidance, and the inability to query the text in natural
 language across multiple languages.
 
-This paper presents \textbf{GitaGraph v2.1}, a modular knowledge-based AI
+This paper presents \textbf{GitaGraph v2.2}, a modular knowledge-based AI
 system that models the Bhagavad G\={i}t\={a} as a semantic knowledge graph
 and extends it with hybrid neural--symbolic reasoning. The system integrates
-seven AI modules: (1) an OWL~2 ontology with 658 RDF triples, 16 classes,
-and 9 object properties—including transitive and symmetric axioms and
-property-chain inference; (2) four graph search algorithms (BFS, DFS, A*,
-IDDFS) on a 61-node, 175-edge concept graph; (3) an 8-rule forward-chaining
-expert system with SPARQL competency queries; (4) a backtracking CSP solver
-with MRV heuristic and forward checking for personalized 5-session study plans;
-(5) a multi-modal uncertainty handler combining MYCIN certainty factors,
-fuzzy yoga-path membership functions, and non-monotonic belief revision; (6) a
-Semantic Retrieval-Augmented Generation (RAG) layer using sentence-transformer
-embeddings and FAISS indexing over all 701 verses for natural language search;
-and (7) an Ollama-powered local large language model (LLM) integration that
-generates contextual Sanskrit verse commentary in English, Hindi, and Hinglish.
+seven AI modules: (1) an OWL~2 ontology with 3,523 RDF triples covering all
+701 verses across 18 chapters, 16 classes, and 9 object properties—including
+transitive and symmetric axioms and property-chain inference; (2) four graph
+search algorithms (BFS, DFS, A*, IDDFS) on a 61-node, 1,657-edge concept graph;
+(3) a 16-rule forward-chaining expert system with 13 SPARQL competency queries;
+(4) a backtracking CSP solver with MRV heuristic and forward checking for
+personalized 5-session study plans; (5) a multi-modal uncertainty handler
+combining MYCIN certainty factors, fuzzy yoga-path membership functions, and
+non-monotonic belief revision; (6) a Multilingual Semantic RAG layer using
+\texttt{paraphrase-multilingual-MiniLM-L12-v2} (50+ languages) over all 701
+verses; and (7) an Ollama-powered local LLM generating commentary in English,
+Hindi, and Hinglish.
 
-The system is deployed as a React single-page application (SPA) with an
-ancient manuscript-inspired UI and a Flask REST API with 16 endpoints. Experimental
-results show A* achieves optimal 3-hop paths to \textit{Mok\d{s}a} with 63\%
-fewer node expansions than uniform-cost search; the CSP planner satisfies all 7
-constraints in under 0.3 seconds; semantic RAG retrieves contextually relevant
-verses with mean average precision 0.81; and MYCIN combination reaches
+We evaluate the retrieval pipeline against a 50-query gold set (10 semantic
+categories, EN/Hindi/Hinglish). The full system achieves MAP@5 = 0.285 and
+MRR = 0.637, outperforming BM25 by 10.2$\times$. Ablation confirms the
+ontology contributes 81.6\% of retrieval quality; graph BFS contributes 31.9\%.
+On Hindi-only queries, MRR = 0.800 vs.\ 0.067 for BM25 (12$\times$).
+A* achieves 3-hop paths to \textit{Mok\d{s}a} with 63\% fewer expansions than
+UCS; CSP satisfies all 7 constraints in under 0.3~s; and MYCIN reaches
 $CF = 0.9991$ for multi-tradition confirmed verse-concept pairs.
 \end{abstract}
 
@@ -212,39 +213,34 @@ generate personalized contextual commentary through a local language model.
 This project makes the following contributions:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{OWL~2 Ontology:} A formally verified Bhagavad G\={i}t\={a}
-        ontology with 16 classes, 9 object properties (including
-        \texttt{owl:TransitiveProperty}, \texttt{owl:SymmetricProperty},
-        and property chain axioms), encoding 658 RDF triples.
+  \item \textbf{OWL~2 Ontology:} 16 classes, 9 properties (\texttt{owl:TransitiveProperty},
+        \texttt{owl:SymmetricProperty}, property chain), 3,523 RDF triples covering
+        all 701 verses and 18 chapters; 13 SPARQL Competency Questions.
 
-  \item \textbf{Multi-Algorithm Graph Search:} BFS, DFS, A*, and IDDFS
-        operating on a 61-node, 175-edge philosophical knowledge graph,
-        with an admissible A* heuristic and full UI pathway visualization.
+  \item \textbf{Multi-Algorithm Graph Search:} BFS, DFS, A*, IDDFS on a
+        61-node, 1,657-edge concept graph; admissible A* heuristic;
+        full UI pathway visualization.
 
-  \item \textbf{Production-Rule Expert System:} An 8-rule forward-chaining
-        system with Hindi/Hinglish keyword support, specificity-based conflict
-        resolution, and 8 SPARQL Competency Questions (CQs).
+  \item \textbf{Production-Rule Expert System:} 16-rule forward-chaining
+        (R1--R16) with Hindi/Hinglish/Unicode keyword support, specificity-based
+        conflict resolution; R11--R16 extend to loneliness, fear-of-death,
+        purpose, jealousy, family conflict, failure.
 
-  \item \textbf{CSP Study Planner:} Backtracking with MRV heuristic and
-        forward checking satisfying 7 hard constraints for personalized verse
-        scheduling.
+  \item \textbf{CSP Study Planner:} Backtracking with MRV + forward checking,
+        7 hard constraints, personalized verse scheduling.
 
   \item \textbf{Multi-Modal Uncertainty Handler:} MYCIN certainty factors,
-        fuzzy yoga-path membership, and non-monotonic belief revision.
+        fuzzy yoga-path membership, non-monotonic belief revision.
 
-  \item \textbf{Semantic RAG Layer:} Sentence-transformer embeddings (all-MiniLM-L6-v2)
-        and FAISS indexing over all 701 verses, enabling natural language
-        semantic similarity search beyond keyword matching.
+  \item \textbf{Multilingual Semantic RAG:} \texttt{paraphrase-multilingual-MiniLM-L12-v2}
+        (50+ languages) cosine search over all 701 verses; evaluated against
+        a 50-query gold set: MAP@5 = 0.285, MRR = 0.637 (10.2$\times$ BM25).
 
-  \item \textbf{Ollama LLM Integration:} Local LLM commentary generation
-        (Llama~3 via Ollama) producing contextual Sanskrit verse explanations
-        in English, Hindi, and Hinglish, with per-message language toggling.
+  \item \textbf{Ollama LLM Integration:} Local Llama~3 commentary in English,
+        Hindi, and Hinglish; no API key or cloud dependency.
 
-  \item \textbf{React SPA with Ancient Manuscript UI:} An interactive
-        single-page application built with React~18, Vite, Tailwind~CSS,
-        and Framer Motion, featuring a monarch-period parchment aesthetic
-        with illuminated verse cards and a Flask REST API backend with
-        16 endpoints.
+  \item \textbf{React SPA + REST API:} 7 page components, ancient manuscript UI
+        (React~18, Tailwind, Framer Motion), Flask REST API with 27 endpoints.
 \end{itemize}
 
 %=======================================================================
@@ -354,16 +350,16 @@ semantic retrieval and local LLM commentary in a multilingual interface.
 
 \subsection{Overall Architecture}
 
-GitaGraph v2.1 follows a three-tier layered architecture:
+GitaGraph v2.2 follows a three-tier layered architecture:
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\columnwidth]{../figures/arch.png}
-\caption{GitaGraph v2.1 system architecture. All modules share a single
+\caption{GitaGraph v2.2 system architecture. All modules share a single
 \texttt{GitaKnowledgeGraph} instance. The React SPA communicates with the
 Flask REST API over HTTP; the API dispatches to symbolic modules (OWL/SPARQL,
 graph algorithms, expert system, CSP, uncertainty) and to the hybrid layer
-(FAISS semantic search, Ollama LLM).}
+(NumPy cosine search semantic search, Ollama LLM).}
 \label{fig:architecture}
 \end{figure}
 
@@ -374,7 +370,7 @@ layer provides Sanskrit, English, Hindi, transliteration, and word-meaning
 fields for every verse via $O(1)$ lookup after a one-time build.
 
 \textbf{Layer 2 — Flask REST API:} \texttt{backend/api.py} instantiates the knowledge
-graph once at startup and exposes 16 endpoints. Each module receives enriched
+graph once at startup and exposes 17 endpoints. Each module receives enriched
 verse data (all language fields populated) from the shared CSV map.
 
 \textbf{Layer 3 — React SPA:} Built with React~18, Vite~5, Tailwind~CSS~3,
@@ -399,8 +395,7 @@ Hindi translation, word meanings, speaker attribution (Krishna / Arjuna).
         with philosophical concepts.
   \item Graph ingestion: Annotated verses loaded as OWL individuals.
   \item Embedding generation: All 701 verse English translations encoded with
-        sentence-transformer \texttt{all-MiniLM-L6-v2} and stored in a FAISS
-        \texttt{IndexFlatIP} index (\texttt{Data/embeddings/verse\_embeddings.npy}).
+        sentence-transformer \texttt{paraphrase-multilingual-MiniLM-L12-v2} and stored as a normalized NumPy matrix (\texttt{Data/embeddings/verse\_embeddings.npy}).
 \end{enumerate}
 
 \begin{table}[!t]
@@ -413,18 +408,17 @@ Hindi translation, word meanings, speaker attribution (Krishna / Arjuna).
 \textbf{Component} & \textbf{Count} & \textbf{Notes} \\
 \midrule
 Total verses (corpus) & 701 & 18 chapters \\
-Annotated verses & 30 & Chapters 2, 3, 6 \\
-\quad Ch.~2 (S\={a}\d{n}khya Yoga) & 10 & Self, Ni\d{s}k\={a}ma Karma \\
-\quad Ch.~3 (Karma Yoga) & 10 & Action, Gu\d{n}as \\
-\quad Ch.~6 (Dhy\={a}na Yoga) & 10 & Meditation, Sam\={a}dhi \\
+Ontology-annotated verses & 701 & All 18 chapters \\
+\quad Core hand-annotated & 31 & Chapters 2, 3, 6 \\
 Philosophical concepts & 24 & 6 categories \\
-RDF triples & 658 & OWL 2 DL profile \\
-Graph nodes & 61 & Verses + concepts \\
-Graph edges & 175 & 9 property types \\
-FAISS-indexed verses & 701 & all-MiniLM-L6-v2 \\
-Embedding dimension & 384 & \texttt{IndexFlatIP} \\
-Production rules & 8 & +Hindi/Hinglish \\
-SPARQL CQs & 8 & Competency questions \\
+RDF triples & 3,523 & OWL 2 DL profile \\
+Concept graph nodes & 61 & Concepts + chapters \\
+Concept graph edges & 1,657 & 9 property types \\
+Semantic-search verses & 701 & paraphrase-multilingual-MiniLM \\
+Embedding dimension & 384 & L2-norm, 50+ languages \\
+Production rules & 16 & R1--R16, EN/Hindi/Hinglish \\
+SPARQL CQs & 13 & CQ1--CQ12 + CQ\_CONSTRUCT \\
+Gold eval queries & 50 & 10 categories, EN/Hi/Hinglish \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -446,7 +440,7 @@ The ontology file \texttt{gita\_ontology.ttl} (Turtle format) encodes:
 \subsection{Technology Stack}
 
 \begin{table*}[!t]
-\caption{Technology Stack — GitaGraph v2.1}
+\caption{Technology Stack — GitaGraph v2.2}
 \label{tab:tech}
 \centering
 \begin{tabular}{@{}l l l  l l l@{}}
@@ -455,13 +449,13 @@ The ontology file \texttt{gita\_ontology.ttl} (Turtle format) encodes:
 \textbf{Layer} & \textbf{Technology} & \textbf{Version} \\
 \midrule
 \multicolumn{3}{l}{\textit{Backend (Python)}} & \multicolumn{3}{l}{\textit{Semantic RAG \& LLM Layer}} \\
-Ontology       & RDF/OWL 2 (Turtle)       & W3C Rec.       & Embeddings        & sentence-transformers     & 2.7 \\
-Semantic eng.  & RDFLib                   & 7.0            & Embedding model   & all-MiniLM-L6-v2          & 384-d \\
-Query lang.    & SPARQL 1.1               & W3C Rec.       & Vector index      & FAISS (IndexFlatIP)       & 1.8 \\
+Ontology       & RDF/OWL 2 (Turtle)       & W3C Rec.       & Embeddings        & sentence-transformers     & 3.0 \\
+Semantic eng.  & RDFLib                   & 7.0            & Embedding model   & paraphrase-multilingual-MiniLM & 384-d \\
+Query lang.    & SPARQL 1.1               & W3C Rec.       & Vector search     & NumPy cosine similarity    & 1.26 \\
 Graph alg.     & NetworkX                 & 3.3            & LLM runtime       & Ollama                    & 0.3+ \\
 Uncertainty    & Pure Python (CF + Fuzzy) & 3.11+          & LLM model         & Llama 3 (8B, 4-bit quant) & Q4\_K\_M \\
 REST API       & Flask                    & 3.0            & Languages         & EN / Hindi / Hinglish     & — \\
-Data layer     & Pandas                   & 2.2            & \multicolumn{3}{l}{\textit{Frontend (JavaScript)}} \\
+Data layer        & Python csv module          & stdlib            & \multicolumn{3}{l}{\textit{Frontend (JavaScript)}} \\
                &                          &                & Framework         & React                     & 18 \\
 \multicolumn{3}{l}{}                                     & Build tool        & Vite                      & 5.4 \\
 \multicolumn{3}{l}{}                                     & Styling           & Tailwind CSS              & 3.4 \\
@@ -551,11 +545,13 @@ The expert system follows a Match--Select--Execute (Rete-inspired) cycle:
 \RETURN recommendations with CFs
 \end{algorithmic}
 
-Rules accept keywords in English, Hindi (e.g., \textit{chinta}, \textit{krodha},
-\textit{dhyan}), and Unicode Hindi (\textit{\hi{चिंता}}, \textit{\hi{गुस्सा}},
-\textit{\hi{ध्यान}}), enabling native script queries. Rule~R9 (added in v2.1)
-maps grief/sorrow keywords (\textit{dukh}, \textit{dard}, \textit{\hi{शोक}}) to
-the AtmaJnana concept and Verse~2.20.
+Rules R1--R16 accept keywords in English, Hindi (e.g., \textit{chinta},
+\textit{krodha}, \textit{dhyan}), and Unicode Hindi (\textit{\hi{चिंता}},
+\textit{\hi{गुस्सा}}, \textit{\hi{ध्यान}}). R11--R16 (v2.2) extend to
+loneliness (\textit{akela}, \textit{\hi{अकेलापन}}) $\to$ Verse~6.5;
+fear of death $\to$ Verse~2.20; purpose-seeking $\to$ Verse~3.35;
+jealousy (\textit{jalan}) $\to$ Verse~2.47; family conflict $\to$ Verse~3.35;
+failure (\textit{haar gaya}, \textit{\hi{निराश}}) $\to$ Verse~2.55.
 
 \textbf{SPARQL Competency Question (CQ3 — Transitive Chain):}
 \begin{figure*}[!t]
@@ -614,14 +610,12 @@ conditions and retracted when conflicting verse evidence is encountered
 The Semantic RAG module extends the expert system with dense retrieval
 over all 701 verses, removing the restriction to 30 annotated verses.
 
-\textbf{Embedding Generation:} At startup (or via \texttt{generate\_embeddings.py}),
+\textbf{Embedding Generation:} At startup (or via \texttt{backend/scripts/generate\_embeddings.py}),
 each verse's English translation is encoded with
-\texttt{sentence-transformers/all-MiniLM-L6-v2} (384-dimensional vectors).
+\texttt{sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2} (384-dimensional vectors).
 The resulting matrix is stored as \texttt{Data/embeddings/verse\_embeddings.npy}.
 
-\textbf{Indexing:} Vectors are loaded into a FAISS \texttt{IndexFlatIP}
-(inner product with normalized vectors = cosine similarity). The index
-operates entirely in memory with $O(1)$ insert and $O(n)$ exact search.
+\textbf{Indexing:} Vectors are loaded as a normalized NumPy matrix. Query ranking uses exact dot product, which is cosine similarity because both verse and query vectors are L2-normalized. Search is in-memory O(n), which is acceptable for 701 verses.
 
 \textbf{Query Processing:} A natural language query is embedded with the
 same model, and the top-$k$ most similar verses are retrieved by inner
@@ -725,19 +719,19 @@ full language fields regardless of query module.
 GET  & \texttt{/api/stats}           & Overview \\
 GET  & \texttt{/api/verses}          & Verse Browser \\
 GET  & \texttt{/api/concepts}        & Graph (nodes) \\
-POST & \texttt{/api/search/bfs}      & M3 — BFS \\
-POST & \texttt{/api/search/dfs}      & M3 — DFS \\
-POST & \texttt{/api/search/astar}    & M3 — A* \\
-POST & \texttt{/api/search/iddfs}    & M3 — IDDFS \\
+POST & \texttt{/api/bfs}      & M3 — BFS \\
+POST & \texttt{/api/dfs}      & M3 — DFS \\
+POST & \texttt{/api/astar}    & M3 — A* \\
+POST & \texttt{/api/iddfs}    & M3 — IDDFS \\
 POST & \texttt{/api/infer}           & M4 — Expert System \\
 GET  & \texttt{/api/sparql/<cq>}     & M4 — SPARQL CQs \\
 GET  & \texttt{/api/profiles}        & M4 — Reader Profiles \\
 POST & \texttt{/api/plan}            & M5 — CSP Planner \\
-POST & \texttt{/api/uncertainty/cf}  & M6 — MYCIN \\
+POST & \texttt{/api/cf}  & M6 — MYCIN \\
 POST & \texttt{/api/semantic\_search}& M7 — RAG \\
 POST & \texttt{/api/contextualize}   & M7 — Ollama \\
 GET  & \texttt{/api/ollama\_status}  & M7 — LLM Status \\
-GET  & \texttt{/api/graph/stats}     & M2 — Ontology \\
+GET  & \texttt{/api/graph}     & M2 — Ontology \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -782,17 +776,15 @@ def astar(graph, start, goal):
 \begin{figure*}[!t]
 \begin{lstlisting}[language=Python3, caption={Semantic search: encode, index, retrieve}]
 from sentence_transformers import SentenceTransformer
-import faiss, numpy as np
+import numpy as np
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
 embeddings = np.load('Data/embeddings/verse_embeddings.npy')
-faiss.normalize_L2(embeddings)
-index = faiss.IndexFlatIP(384)
-index.add(embeddings)
 
 def semantic_search(query: str, top_k: int = 12):
     q_vec = model.encode([query], normalize_embeddings=True)
-    scores, ids = index.search(q_vec, top_k)
+    scores = embeddings @ q_vec[0]
+    ids = scores.argsort()[::-1][:top_k]
     return [
         {**enrich_verse_by_idx(i), 'score': float(s)}
         for i, s in zip(ids[0], scores[0])
@@ -837,7 +829,7 @@ def contextualize(verse_ref, english, sanskrit,
 
 Experiments were conducted on a MacBook Pro with Apple M-series processor,
 16~GB RAM, macOS~14. Software: Python~3.11, RDFLib~7.0, NetworkX~3.3,
-sentence-transformers~2.7, FAISS~1.8, Ollama~0.3, React~18. No GPU was
+sentence-transformers~3.0, NumPy~1.26, rank-bm25~0.2.2, Ollama~0.3, React~18. No GPU was
 required for symbolic modules; Ollama used CPU-only quantized inference.
 
 \textbf{Evaluation Metrics:}
@@ -847,7 +839,7 @@ required for symbolic modules; Ollama used CPU-only quantized inference.
         satisfied in generated plans.
   \item \textit{CF aggregation strength:} Final MYCIN CF for verse-concept pairs.
   \item \textit{Semantic RAG MAP:} Mean Average Precision at $k = 5$.
-  \item \textit{Ontology completeness:} Fraction of 8 CQs answerable correctly.
+  \item \textit{Ontology completeness:} Fraction of 13 CQs answerable correctly.
   \item \textit{Query response time:} Wall-clock time per module.
   \item \textit{LLM commentary latency:} Time-to-first-token and completion time.
 \end{itemize}
@@ -898,10 +890,10 @@ Advanced / liberation     & R8                     & Moksha spiritual progressio
 \end{tabular}
 \end{table*}
 
-All 8 CQs returned verified results. CQ3 (transitive desire chain)
-required OWL reasoning over \texttt{leadsTo+}, confirmed via SPARQL
-property path traversal. CQ8 (property chain) inferred
-\texttt{spirituallyProgressesTo} for all 10 KarmaYoga verses.
+All 13 CQs returned verified results. CQ3 (transitive desire chain) required
+OWL reasoning over \texttt{leadsTo+}. CQ8 inferred \texttt{spirituallyProgressesTo}
+for all KarmaYoga verses. CQ10 found the transitive path to Sam\={a}dhi.
+CQ12 confirmed all four YogaPath instances \texttt{leadsTo} Mok\d{s}a.
 
 \subsection{CSP Study Planner Results}
 
@@ -969,33 +961,55 @@ Non-monotonic revision was triggered on reading Verse~3.3: the default
 ``Karma Yoga for all'' was retracted and replaced with the two-path teaching
 (\textit{dve ni\d{s}th\={a}}).
 
-\subsection{Semantic RAG Results}
+\subsection{Retrieval Evaluation — 50-Query Gold Set}
+
+\begin{table*}[!t]
+\caption{Retrieval Performance Across System Variants (50 gold queries, $k$=5)}
+\label{tab:retrieval}
+\centering
+\begin{tabular}{@{}l rrrrr@{}}
+\toprule
+\textbf{Variant} & \textbf{MAP@5} & \textbf{MRR} & \textbf{P@1} & \textbf{P@3} & \textbf{P@5} \\
+\midrule
+BM25 Baseline     & 0.028 & 0.058 & 0.020 & 0.033 & 0.024 \\
+Semantic only     & 0.053 & 0.146 & 0.080 & 0.073 & 0.056 \\
+\textbf{Full System} & \textbf{0.285} & \textbf{0.637} & \textbf{0.600} & \textbf{0.280} & \textbf{0.168} \\
+No Expert Rules   & 0.262 & 0.597 & 0.560 & 0.253 & 0.152 \\
+No Semantic RAG   & 0.277 & 0.607 & 0.580 & 0.267 & 0.160 \\
+No Graph BFS      & 0.194 & 0.481 & 0.460 & 0.187 & 0.124 \\
+No Ontology       & 0.053 & 0.146 & 0.080 & 0.073 & 0.056 \\
+\midrule
+\multicolumn{6}{l}{\textit{Hindi-only subset (Q46--Q50):}} \\
+BM25 (Hindi)      & 0.022 & 0.067 & 0.000 & --- & --- \\
+Semantic (Hindi)  & 0.089 & 0.267 & 0.200 & --- & --- \\
+Full System (Hindi)& 0.300 & \textbf{0.800} & \textbf{0.800} & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Full system outperforms BM25 by \textbf{10.2$\times$} MAP@5 and
+\textbf{10.9$\times$} MRR. Hindi-query MRR = 0.800 vs.\ 0.067 for BM25
+(\textbf{12$\times$} improvement), validating the multilingual model swap.
+``Feeling lost in duty'' correctly retrieves Verse~3.35 even though ``lost''
+does not appear in the translation—true semantic matching.
 
 \begin{table}[htbp]
-\caption{Semantic RAG Retrieval Performance (top-$k$ = 5)}
+\caption{Per-query Cosine Similarity (qualitative, not MAP@5)}
 \label{tab:rag}
 \centering
-\begin{tabular}{llrr}
+\small
+\begin{tabular}{@{}p{3.2cm}lr@{}}
 \toprule
-\textbf{Query} & \textbf{Top-1 Verse} & \textbf{Score} & \textbf{MAP@5} \\
+\textbf{Query} & \textbf{Top-1} & \textbf{Sim.} \\
 \midrule
-``feeling lost in duty''     & 3.35 & 0.87 & 0.84 \\
-``grief over loss''          & 2.20 & 0.85 & 0.82 \\
-``how to control anger''     & 2.63 & 0.83 & 0.79 \\
-``detach from outcomes''     & 2.47 & 0.91 & 0.89 \\
-``restless mind meditation'' & 6.35 & 0.88 & 0.85 \\
-``path to liberation''       & 6.47 & 0.86 & 0.83 \\
-\hline
-\textbf{Average}             &      &      & \textbf{0.837} \\
+``feeling lost in duty''       & 3.35 & 0.87 \\
+``detach from outcomes''       & 2.47 & 0.91 \\
+``restless mind meditation''   & 6.35 & 0.88 \\
+``\hi{मुझे अकेलापन लगता है}'' & 6.5  & 0.79 \\
+``Main bahut confused hoon''   & 3.35 & 0.74 \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-Semantic search retrieves contextually relevant verses even when zero query
-words appear in the target verse's translation—demonstrating true semantic
-rather than lexical matching. Query ``feeling lost in duty'' correctly
-surfaces Verse~3.35 (\textit{svadharme nidhanam\ldots}) even though
-``lost'' does not appear in the English translation.
 
 \subsection{Ollama LLM Commentary Results}
 
@@ -1064,9 +1078,10 @@ convergent evidence. MYCIN correctly yields 0.9991.
 CQ3 returns 2 direct results. With transitivity, the full downfall chain
 (4 results) is inferred—doubling recall on this query type.
 
-\textbf{Semantic vs. Keyword Search:} For the query ``feeling lost in duty'',
-keyword search returns 0 results (no verse contains all three words).
-Semantic RAG returns 12 relevant verses with mean score 0.83.
+\textbf{Retrieval Ablation (see Table~\ref{tab:retrieval}):} Removing the ontology
+drops MAP@5 by 81.6\% (dominant component). Removing graph BFS drops 31.9\%.
+Expert rules contribute 8.2\%; semantic RAG adds 2.8\% marginally but enables
+Hindi queries (MRR 0.800). Component interactions are super-additive.
 
 \subsection{Discussion}
 
@@ -1108,17 +1123,18 @@ mode is particularly effective for young Indian readers who naturally code-switc
 %=======================================================================
 \section{Conclusion and Future Work}
 
-GitaGraph v2.1 demonstrates that a classical knowledge-based AI stack—OWL
+GitaGraph v2.2 demonstrates that a classical knowledge-based AI stack—OWL
 ontology, graph search, expert system, CSP, and uncertainty reasoning—can be
 effectively applied to Sanskrit philosophical text navigation and extended with
 hybrid neural-symbolic modules for semantic retrieval and local LLM commentary.
-The system achieves all stated objectives: A* finds optimal 3-hop paths to
-Mok\d{s}a with 63\% fewer expansions than UCS; the CSP satisfies all 7 constraints
-with 93.6\% fewer backtracks than baseline; semantic RAG achieves MAP@5 = 0.837
-over all 701 verses; and MYCIN combination correctly models convergent
-inter-commentary evidence at $CF = 0.9991$. All seven modules are deployed in
-an interactive React SPA with an ancient manuscript-inspired UI and a
-16-endpoint Flask REST API.
+Evaluated against a 50-query gold set: MAP@5 = 0.285, MRR = 0.637 (10.2$\times$
+over BM25); Hindi-query MRR = 0.800 (12$\times$ over BM25). Ablation confirms
+the ontology is the dominant retrieval component (81.6\% contribution). The
+ontology covers all 701 verses (3,523 RDF triples); the expert system has 16
+rules and 13 validated CQs. A* finds 3-hop paths with 63\% fewer expansions;
+CSP satisfies all 7 constraints with 93.6\% fewer backtracks; MYCIN reaches
+$CF = 0.9991$. All modules are deployed in a React SPA with a 27-endpoint
+Flask REST API.
 
 \textbf{Future Directions:}
 \begin{enumerate}[leftmargin=*]
@@ -1144,7 +1160,7 @@ an interactive React SPA with an ancient manuscript-inspired UI and a
 %=======================================================================
 \section*{Acknowledgments}
 The authors thank the open-source communities behind RDFLib, NetworkX,
-sentence-transformers, FAISS, Ollama, React, and Tailwind CSS. Philosophical
+sentence-transformers, NumPy cosine search, Ollama, React, and Tailwind CSS. Philosophical
 consultation on OWL concept hierarchy design was informed by classical Sanskrit
 commentary sources.
 
@@ -1316,7 +1332,7 @@ Cambridge, MA: MIT Press, 2008.
 \midrule
 Hariom Rajput \newline (524110006)
   & Expert System
-  & Module 4: 8-rule forward-chaining engine; Hindi/Hinglish keyword support (R1--R9); specificity-ordered conflict resolution; 8 SPARQL CQs; SPARQL endpoint integration and \texttt{cq\_id} case-normalisation fix. \\
+  & Module 4: 16-rule forward-chaining engine (R1--R16); Hindi/Hinglish/Unicode keyword support; specificity-ordered conflict resolution; 13 SPARQL CQs (CQ1--CQ12 + CQ\_CONSTRUCT); R11--R16 for loneliness, fear-of-death, purpose, jealousy, family conflict, failure. \\
 \midrule
 Ayushi Choyal \newline (524410017)
   & Uncertainty
@@ -1324,7 +1340,7 @@ Ayushi Choyal \newline (524410017)
 \midrule
 Ravi Kant Gupta \newline (524410027)
   & Team Lead
-  & Module 1 (PEAS framework); Module 2 (OWL~2 ontology, 658 triples, 16 classes, 9 properties); Module 7 (Semantic RAG with FAISS; Ollama LLM commentary; multilingual EN/Hindi/Hinglish toggle); Flask REST API (all 16 endpoints, CSV enrichment pipeline, verse name-parsing); React SPA architecture; ancient manuscript UI design system. \\
+  & Module 1 (PEAS); Module 2 (OWL~2 ontology, 3,523 triples, all 701 verses, 18 chapters, rule-based expansion); Module 7 (Multilingual RAG, \texttt{paraphrase-multilingual-MiniLM-L12-v2}; Ollama LLM; EN/Hindi/Hinglish); Evaluation framework (50-query gold set, MAP@5/MRR, 7-variant ablation); Flask REST API (27 endpoints); React SPA architecture. \\
 \midrule
 Shouryavi Awasthi \newline (524410028)
   & Graph \& CSP

@@ -29,36 +29,46 @@ TTL_PATH = ROOT / "Data" / "ontology" / "gita_ontology.ttl"
 CSV_PATH = ROOT / "Data" / "corpus" / "Bhagwad_Gita.csv"
 
 # ── Known concept instances in the ontology ───────────────────────────────────
+# IMPORTANT: Names must match the TTL exactly.
+# YogaPath instances use _inst; all other concepts do NOT.
 KNOWN_CONCEPTS = [
+    # YogaPath instances (have _inst suffix in TTL)
     "KarmaYoga_inst", "JnanaYoga_inst", "DhyanaYoga_inst", "BhaktiYoga_inst",
-    "NishkamaKarma_inst", "Svadharma_inst", "Yajna_inst", "Tapas_inst",
-    "Vairagya_inst", "Viveka_inst",
-    "Sattva_inst", "Rajas_inst", "Tamas_inst",
-    "Kama_inst", "Krodha_inst", "Lobha_inst", "Ahamkara_inst",
-    "Moksha_inst", "Samadhi_inst", "Sthitaprajna_inst",
-    "Brahman_inst", "Atman_inst", "Dharma_inst",
+    # Practices (NO _inst suffix)
+    "NishkamaKarma", "Svadharma", "Vairagya", "Abhyasa", "Samata", "Buddhi",
+    # Attainments (NO _inst suffix)
+    "ChittaShuddhi", "Sthitaprajna", "Samadhi", "AtmaJnana", "Moksha",
+    # DownfallCauses (NO _inst suffix)
+    "Kama", "Krodha", "Moha", "BuddhiNasha",
+    # Gunas (NO _inst suffix)
+    "Sattva", "Rajas", "Tamas",
+    # EthicalConcepts
+    "Sannyasa_inst",
+    # Speakers
+    "Krishna", "Arjuna",
 ]
 
 # ── Few-shot examples ──────────────────────────────────────────────────────────
+# IMPORTANT: Verse URIs are Verse_<ch>_<v> WITHOUT _inst suffix.
+# Concept URIs follow the KNOWN_CONCEPTS list above.
 FEW_SHOT = """
 Example 1 — Verse 2.47:
 Translation: "You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions."
 Triples:
-gita:Verse_2_47_inst  gita:teaches  gita:NishkamaKarma_inst .
-gita:Verse_2_47_inst  gita:teaches  gita:KarmaYoga_inst .
+gita:Verse_2_47  gita:teaches  gita:NishkamaKarma .
+gita:Verse_2_47  gita:teaches  gita:KarmaYoga_inst .
 
 Example 2 — Verse 3.27:
 Translation: "All activities are carried out by the three modes of material nature. But in ignorance, the soul, deluded by false identification with the body, thinks itself to be the doer."
 Triples:
-gita:Verse_3_27_inst  gita:teaches  gita:Ahamkara_inst .
-gita:Verse_3_27_inst  gita:teaches  gita:Rajas_inst .
-gita:Verse_3_27_inst  gita:teaches  gita:Tamas_inst .
+gita:Verse_3_27  gita:teaches  gita:Rajas .
+gita:Verse_3_27  gita:teaches  gita:Tamas .
 
 Example 3 — Verse 12.8:
 Translation: "Fix your mind on Me alone, let your intellect dwell in Me. Thereafter you will always live in Me. Of this there is no doubt."
 Triples:
-gita:Verse_12_8_inst  gita:teaches  gita:BhaktiYoga_inst .
-gita:Verse_12_8_inst  gita:teaches  gita:Samadhi_inst .
+gita:Verse_12_8  gita:teaches  gita:BhaktiYoga_inst .
+gita:Verse_12_8  gita:teaches  gita:Samadhi .
 """
 
 SYSTEM = (
@@ -67,8 +77,9 @@ SYSTEM = (
     "using the gita: prefix (http://example.org/gita#). "
     "Allowed predicates: gita:teaches, gita:leadsTo, gita:contrastsWith, "
     "gita:subConceptOf, gita:spokenBy. "
-    "Use only known concept instances (listed in each prompt) or introduce new ones "
-    "with a descriptive _inst suffix. "
+    "Use ONLY the known concept URIs listed in the prompt. "
+    "Do NOT introduce new concept URIs. Do NOT add _inst suffix to verse URIs. "
+    "Verse URI format: gita:Verse_<chapter>_<verse> (e.g. gita:Verse_4_7). "
     "Each output line must be one complete triple ending with ' .' "
     "Output ONLY triples — no explanations, no prefix declarations, no blank lines "
     "between triples of the same verse."
@@ -133,7 +144,7 @@ def main():
     seen_keys = set()
     for r in rows:
         ch, v = r.get("Chapter", ""), r.get("Verse", "")
-        key   = f"Verse_{ch}_{v}_inst"
+        key   = f"Verse_{ch}_{v}"
         if key in existing or key in seen_keys:
             continue
         eng = strip_prefix(r.get("EngMeaning", ""))

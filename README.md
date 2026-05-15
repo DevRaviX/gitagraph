@@ -92,7 +92,7 @@ Use `POST /api/solve` for the end-to-end AI answer. The lower-level endpoints ar
 | "How certain is this interpretation?" | `POST /api/cf` | `backend/modules/uncertainty_handler.py` |
 | "Find semantically similar verses." | `GET /api/semantic_search` | `Data/embeddings/` + `backend/api.py` |
 
-See [Docs/guides/ARCHITECTURE.md](Docs/guides/ARCHITECTURE.md) for the full pipeline and [Docs/guides/EXAMPLES.md](Docs/guides/EXAMPLES.md) for three end-to-end qualitative outputs.
+See [Docs/guides/ARCHITECTURE.md](Docs/guides/ARCHITECTURE.md) for the full pipeline, [Docs/guides/EXAMPLES.md](Docs/guides/EXAMPLES.md) for three end-to-end qualitative outputs, and [Docs/guides/RUNTIME.md](Docs/guides/RUNTIME.md) for verified run commands.
 
 ## End-to-End Example
 
@@ -319,6 +319,28 @@ python run.py
 
 `run.py` starts the Flask API and, when `frontend/node_modules` exists, the Vite frontend. Use `python run.py --api-only` for backend-only testing.
 
+### Runtime Status
+
+Verified locally on **April 28, 2026**:
+
+| Component | Check | Status |
+|---|---|---|
+| Backend API | `python run.py --api-only --api-port 8091` + `/api/stats` | Passed |
+| Unified solver | `POST /api/solve` | Passed: `NishkamaKarma -> Verse_2_47` |
+| Frontend build | `cd frontend && npm run build` | Passed |
+| Frontend dev server | Vite on `127.0.0.1:3001` | Passed |
+| Semantic embeddings | `Data/embeddings/` present | Available |
+| Audio recitation | `/api/audio/2/47` | Not active until `Data/audio_cache/` is downloaded |
+| Ollama commentary | `/api/ollama_status` | Offline locally: `{"running": false, "models": []}` |
+
+Audio and Ollama are optional runtime integrations. Enable them with:
+
+```bash
+python backend/scripts/download_audio.py
+ollama pull llama3.2
+ollama serve
+```
+
 ### Option B — Run services manually
 
 #### 1 — Backend
@@ -359,6 +381,7 @@ ollama serve            # http://localhost:11434
 ```bash
 python backend/scripts/download_audio.py
 # Downloads 18 parquet shards from JDhruv14/Bhagavad-Gita_Audio
+# Cache path: Data/audio_cache/
 ```
 
 ---
@@ -412,9 +435,10 @@ GitaGraph/
 │   │   └── Bhagwad_Gita.csv  — 701 verses · Sanskrit/Hindi/English
 │   ├── ontology/
 │   │   └── gita_ontology.ttl — OWL 2 · 658 triples
-│   └── embeddings/
-│       ├── verse_embeddings.npy
-│       └── verse_index.json
+│   ├── embeddings/
+│   │   ├── verse_embeddings.npy
+│   │   └── verse_index.json
+│   └── runtime/              — Local SQLite state, ignored by Git
 │
 ├── frontend/                 — React 18 SPA
 │   ├── src/
@@ -428,6 +452,7 @@ GitaGraph/
 │
 └── Docs/
     ├── guides/               — Architecture, examples, full docs, viva
+    │   └── RUNTIME.md        — Backend/frontend/audio/Ollama run checks
     ├── reports/              — IEEE paper source/PDF
     ├── figures/              — Architecture and ontology diagrams
     ├── team/                 — Individual module notes
