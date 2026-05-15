@@ -592,6 +592,9 @@ def audio(chapter, verse):
     shloka_id = f"{chapter}_{verse}"
     try:
         lookup = get_audio_ds()
+    except FileNotFoundError as e:
+        return jsonify({"error": str(e)}), 503
+    try:
         idx = lookup["_ids"].get(shloka_id)
         if idx is None:
             return jsonify({"error": f"verse {shloka_id} not found"}), 404

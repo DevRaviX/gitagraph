@@ -84,10 +84,28 @@ function saveHistory(term) {
 function AudioButton({ chapter, verse }) {
   const audioRef = useRef(null)
   const [state, setState] = useState('idle')
-  const play  = () => { audioRef.current?.play().catch(() => setState('idle')); setState('playing') }
+
+  const play = () => {
+    setState('playing')
+    audioRef.current?.play().catch(() => setState('error'))
+  }
   const pause = () => { audioRef.current?.pause(); setState('paused') }
-  const stop  = () => { if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0 } setState('idle') }
-  const replay = () => { if (audioRef.current) audioRef.current.currentTime = 0; play() }
+  const stop  = () => {
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current.currentTime = 0 }
+    setState('idle')
+  }
+  const replay = () => {
+    if (audioRef.current) { audioRef.current.currentTime = 0 }
+    play()
+  }
+
+  if (state === 'error') {
+    return (
+      <span className="text-xs text-ink-3/60 italic" title="Audio unavailable — run backend/scripts/download_audio.py">
+        no audio
+      </span>
+    )
+  }
 
   return (
     <div className="flex items-center gap-1.5">
